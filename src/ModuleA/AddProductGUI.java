@@ -1,15 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ModuleA;
 
-/**
- *
- * @author kokho
- */
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Arrays;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.lang.NumberFormatException;
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class AddProductGUI extends javax.swing.JFrame {
+    private List<Product> flowerList = new ArrayList<>();
+    private Product product = new Product();
 
     /**
      * Creates new form AddProductGUI
@@ -38,7 +46,7 @@ public class AddProductGUI extends javax.swing.JFrame {
         jtfProd_desc = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jtfPrice = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbProd_type = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jtfQuantity = new javax.swing.JTextField();
         jbtAdd = new javax.swing.JButton();
@@ -66,7 +74,7 @@ public class AddProductGUI extends javax.swing.JFrame {
 
         jLabel5.setText("PRODUCT PRICE (RM) : ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fresh Flowers", "Bouquets", "Floral Arrangements" }));
+        jcbProd_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fresh Flowers", "Bouquets", "Floral Arrangements" }));
 
         jLabel6.setText("PRODUCT QUANTITY : ");
 
@@ -116,7 +124,7 @@ public class AddProductGUI extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jtfPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jcbProd_type, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jtfProd_name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jtfProd_id, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jtfQuantity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -148,7 +156,7 @@ public class AddProductGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbProd_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -169,11 +177,36 @@ public class AddProductGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
-        // TODO add your handling code here:
+        
+        try{
+            product.setProd_id(Integer.parseInt(jtfProd_id.getText()));
+            product.setProd_name(jtfProd_name.getText());
+            product.setProd_desc(jtfProd_desc.getText());
+            Object ob = jcbProd_type.getSelectedItem();
+            product.setProd_type(ob.toString());
+            product.setPrice(Double.parseDouble(jtfPrice.getText()));
+            product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
+            flowerList.add(product);
+        }
+        catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        try {
+            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
+            ooStream.writeObject(flowerList);
+            ooStream.close();
+            JOptionPane.showMessageDialog(new JFrame(), "Product Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+          } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+          } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot save to file", "ERROR", JOptionPane.ERROR_MESSAGE);
+          }
+        
     }//GEN-LAST:event_jbtAddActionPerformed
 
     private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jbtBackActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
@@ -216,7 +249,6 @@ public class AddProductGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -227,6 +259,7 @@ public class AddProductGUI extends javax.swing.JFrame {
     private javax.swing.JButton jbtAdd;
     private javax.swing.JButton jbtBack;
     private javax.swing.JButton jbtReset;
+    private javax.swing.JComboBox<String> jcbProd_type;
     private javax.swing.JLabel jlbFlowerShop;
     private javax.swing.JTextField jtfPrice;
     private javax.swing.JTextArea jtfProd_desc;

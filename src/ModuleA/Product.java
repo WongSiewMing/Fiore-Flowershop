@@ -40,27 +40,31 @@ public class Product implements Serializable{
         return quantity;
     }
     
-    public void setProd_id(){
+    public void setProd_id(int prod_id){
         this.prod_id = prod_id;
     }
     
-    public void setProd_name(){
+    public void setProd_name(String prod_name){
         this.prod_name = prod_name;
     }
     
-    public void setProd_desc(){
-        this.prod_desc = prod_name;
+    public void setProd_desc(String prod_desc){
+        this.prod_desc = prod_desc;
     }
     
-    public void setProd_type(){
+    public void setProd_type(String prod_type){
         this.prod_type = prod_type;
     }
     
-    public void setPrice(){
+    public void setPrice(double price){
         this.price = price;
     }
     
-    public void setQuantity(){
+    public void setQuantity(int quantity){
         this.quantity = quantity;
     }
+    
+    public String toString() {
+        return String.format("%d %s %s %s %f %d", prod_id, prod_name, prod_desc, prod_type, price, quantity);
+      }
 }
