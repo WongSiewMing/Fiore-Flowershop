@@ -23,45 +23,57 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <Component id="jbtOrder" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jbtCheckOrder" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jbtClose" min="-2" pref="150" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jbtCancel" min="-2" pref="150" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                              <Component id="jbtOrder" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jbtCancel" min="-2" pref="121" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                              <Component id="jlCustName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="taCustName" min="-2" pref="233" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="jlbFlowerShop" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jlbSize" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlbStyle" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlbFlower" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlbAccessories" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlbPriority" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jcbStyle" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jcbSize" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jcbFlower" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jcbAccessories" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jcbPriority" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jlbStyle" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlbFlower" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlbAccessories" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlbPriority" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlbSize" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jcbStyle" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbSize" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbFlower" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbPriority" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbAccessories" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jlbFlowerShop" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
                       <Component id="jlbTitle" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="76" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -72,7 +84,12 @@
               <Component id="jlbFlowerShop" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jlbTitle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace pref="37" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="taCustName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="jlCustName" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jlbStyle" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jcbStyle" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -87,7 +104,7 @@
                   <Component id="jlbFlower" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jcbFlower" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jlbAccessories" min="-2" max="-2" attributes="0"/>
                   <Component id="jcbAccessories" min="-2" max="-2" attributes="0"/>
@@ -98,11 +115,13 @@
                   <Component id="jcbPriority" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jbtCheckOrder" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtOrder" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtCancel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbtOrder" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtClose" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -170,11 +189,15 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="8">
+            <StringItem index="0" value="- Please Select -"/>
+            <StringItem index="1" value="Elliptical"/>
+            <StringItem index="2" value="Vertical"/>
+            <StringItem index="3" value="Horizontal"/>
+            <StringItem index="4" value="Triangular "/>
+            <StringItem index="5" value="&#x2018;S&#x2019; shaped"/>
+            <StringItem index="6" value="Oval shaped"/>
+            <StringItem index="7" value="Cascade "/>
           </StringArray>
         </Property>
       </Properties>
@@ -189,10 +212,10 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+            <StringItem index="0" value="- Please Select -"/>
+            <StringItem index="1" value="Small"/>
+            <StringItem index="2" value="Medium"/>
+            <StringItem index="3" value="Large"/>
           </StringArray>
         </Property>
       </Properties>
@@ -207,10 +230,10 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+            <StringItem index="0" value="- Please Select -"/>
+            <StringItem index="1" value="Rose"/>
+            <StringItem index="2" value="Sakura"/>
+            <StringItem index="3" value=" "/>
           </StringArray>
         </Property>
       </Properties>
@@ -224,11 +247,13 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="6">
+            <StringItem index="0" value="- Please Select -"/>
+            <StringItem index="1" value="Bear"/>
+            <StringItem index="2" value="Tiger"/>
+            <StringItem index="3" value="Diamond"/>
+            <StringItem index="4" value="Jewel"/>
+            <StringItem index="5" value="Money"/>
           </StringArray>
         </Property>
       </Properties>
@@ -242,11 +267,12 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="5">
+            <StringItem index="0" value="- Please Select -"/>
+            <StringItem index="1" value="Express (Within 3 days)"/>
+            <StringItem index="2" value="Normal (Within 7 days)"/>
+            <StringItem index="3" value="Flexi  (Within 10 days)"/>
+            <StringItem index="4" value=" "/>
           </StringArray>
         </Property>
       </Properties>
@@ -261,6 +287,47 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Place Order"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtOrderActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtClose">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Close Order"/>
+        <Property name="actionCommand" type="java.lang.String" value=""/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtCloseActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="taCustName">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlCustName">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Full Name"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtCheckOrder">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Check Order"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtCheckOrderActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtCancel">
       <Properties>
@@ -268,7 +335,11 @@
           <Font name="Tahoma" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancel"/>
+        <Property name="actionCommand" type="java.lang.String" value=""/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtCancelActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
