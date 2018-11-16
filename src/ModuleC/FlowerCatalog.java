@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FioreFlowershop;
+package ModuleC;
 
 /**
  *
@@ -52,12 +52,7 @@ public class FlowerCatalog extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Sylfaen", 3, 24)); // NOI18N
         jLabel1.setText("Flower catalog");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\wtf981008\\Desktop\\F1.jpg")); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\wtf981008\\Desktop\\F2.jpg")); // NOI18N
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\wtf981008\\Desktop\\F3.jpg")); // NOI18N
 
         jLabel5.setText("Name: Cone Flower");
 
@@ -84,10 +79,25 @@ public class FlowerCatalog extends javax.swing.JFrame {
         jLabel16.setText("Genus: Rosa");
 
         jButton1.setText("Place Order");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Place Order");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Place Order");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,6 +194,24 @@ public class FlowerCatalog extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AddNewCatalogItem ad = new AddNewCatalogItem();
+        ad.setLocationRelativeTo(null);
+        ad.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        AddNewCatalogItem ad = new AddNewCatalogItem();
+        ad.setLocationRelativeTo(null);
+        ad.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        AddNewCatalogItem ad = new AddNewCatalogItem();
+        ad.setLocationRelativeTo(null);
+        ad.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
