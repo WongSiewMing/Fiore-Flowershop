@@ -19,7 +19,6 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
      */
     public CatalogMaintenanceGUI() {
         initComponents();
-        initializeList();
         displayTable();
     }
 
@@ -238,6 +237,8 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSearchActionPerformed
 
     private void displayTable(){
+        
+        initializeList();
         DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
             for (int i=0; i<flowerList.size();i++){
                 product = flowerList.get(i);

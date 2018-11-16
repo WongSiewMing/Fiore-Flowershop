@@ -187,25 +187,24 @@ public class AddProductGUI extends javax.swing.JFrame {
             product.setPrice(Double.parseDouble(jtfPrice.getText()));
             product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
             flowerList.add(product);
+            JOptionPane.showMessageDialog(new JFrame(), "Product Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
         catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
+    }//GEN-LAST:event_jbtAddActionPerformed
+
+    private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
             ooStream.writeObject(flowerList);
             ooStream.close();
-            JOptionPane.showMessageDialog(new JFrame(), "Product Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
           } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
           } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Cannot save to file", "ERROR", JOptionPane.ERROR_MESSAGE);
           }
-        
-    }//GEN-LAST:event_jbtAddActionPerformed
-
-    private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
         dispose();
     }//GEN-LAST:event_jbtBackActionPerformed
 
