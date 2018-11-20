@@ -1,24 +1,32 @@
 package ModuleE;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class OrderGUI extends javax.swing.JFrame {
 
-    private Queue<Order> orderqueue = new ArrayBlockingQueue<>(20);
+    Date date = new Date();
+    Date extdate = addDays(date,0);
+    
+    private QueueArray<Order> orderqueue = new QueueArray<>();
     private String custType = "Normal";
     private String timestamp = "Pending";
     private String payStatus = "Pending";
-    
+     
     public OrderGUI() {
         initComponents();
+        readFile();
     }
 
     @SuppressWarnings("unchecked")
@@ -80,7 +88,7 @@ public class OrderGUI extends javax.swing.JFrame {
         jcbAccessories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -", "Bear", "Tiger", "Diamond", "Jewel", "Money" }));
 
         jcbPriority.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcbPriority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -", "Express (Within 3 days)", "Normal (Within 7 days)", "Flexi  (Within 10 days)", " " }));
+        jcbPriority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -", "Express (Within 3 days)", "Normal (Within 7 days)", "Flexi  (Within 10 days)", "" }));
 
         jbtOrder.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jbtOrder.setText("Place Order");
@@ -199,11 +207,12 @@ public class OrderGUI extends javax.swing.JFrame {
                     .addComponent(jlbPriority)
                     .addComponent(jcbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtCheckOrder)
-                    .addComponent(jbtOrder)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtCancel)
-                    .addComponent(jbtClose))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbtCheckOrder)
+                        .addComponent(jbtOrder)
+                        .addComponent(jbtClose)))
                 .addGap(30, 30, 30))
         );
 
@@ -211,42 +220,105 @@ public class OrderGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtOrderActionPerformed
+        
+        if(taCustName.getText().equals("") || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+      
         String name = taCustName.getText();
         String style = jcbStyle.getSelectedItem().toString();
         String size = jcbSize.getSelectedItem().toString();
         String flower = jcbFlower.getSelectedItem().toString();
         String accessories = jcbAccessories.getSelectedItem().toString();
-        String priority = jcbPriority.getSelectedItem().toString();
         
-        orderqueue.offer(new Order(name,custType,style,size,flower,accessories,priority,timestamp,payStatus));
+        if(jcbPriority.getSelectedIndex() == 1)
+        {
+            extdate = addDays(date,3);
+        }
+        else if(jcbPriority.getSelectedIndex() == 2)
+        {
+            extdate = addDays(date,7);
+        }
+        else if(jcbPriority.getSelectedIndex() == 3)
+        {
+            extdate = addDays(date,10);
+        }
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String orderDate = dateFormat.format(extdate);
+        orderqueue.enqueue(new Order(name,custType,style,size,flower,accessories,timestamp,payStatus,orderDate));
+        JOptionPane.showMessageDialog(new JFrame(), "Order Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE); 
+        
+        
     }//GEN-LAST:event_jbtOrderActionPerformed
 
     private void jbtCheckOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckOrderActionPerformed
-        JOptionPane.showMessageDialog(null, formatList());
+        
+        if(taCustName.getText().equals("") || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0){
+         
+        JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
+        
+    }
+        else{
+            
+            JOptionPane.showMessageDialog(null, billList());
+        }
     }//GEN-LAST:event_jbtCheckOrderActionPerformed
 
     private void jbtCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCloseActionPerformed
+    
+    if(taCustName.getText().equals("") || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0){
+         
+        JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
+        
+    }
+    else{
+        writeFile();
+    }
+    }//GEN-LAST:event_jbtCloseActionPerformed
+
+    private void jbtCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbtCancelActionPerformed
+
+    public String billList() {
+    
+        String outputStr = "Your Name : " + taCustName.getText() + "\nStyle : " +jcbStyle.getSelectedItem().toString()+ "\nSize : " +jcbSize.getSelectedItem().toString()+ 
+                "\nFlower Type : " +jcbFlower.getSelectedItem().toString()+ "\nAccessories : " + jcbAccessories.getSelectedItem().toString()+ 
+                "\nPriority : " +jcbPriority.getSelectedItem().toString() + "\n\nYour Bill : ";
+    
+        return outputStr;
+  }
+    
+    private void readFile(){
         try {
-      ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("orders.dat"));
-      out.writeObject(orderqueue);
-     
-      this.dispose();
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("orders.dat"));
+        orderqueue = (QueueArray) in.readObject();
+        in.close();
+        
+        } catch (FileNotFoundException ex) {
+          JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+          JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+          JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void writeFile(){
+        try {
+            
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("orders.dat"));
+            out.writeObject(orderqueue);
+            out.close();
+            this.dispose();
+            
     } catch (FileNotFoundException ex) {
       JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
     } catch (IOException ex) {
       JOptionPane.showMessageDialog(null, "Cannot save to file", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
-    }//GEN-LAST:event_jbtCloseActionPerformed
-
-    private void jbtCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtCancelActionPerformed
-
-    public String formatList() {
-    String outputStr = "";
-    
-    return outputStr;
-  }
+    }
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -275,4 +347,12 @@ public class OrderGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextField taCustName;
     // End of variables declaration//GEN-END:variables
+
+    private Date addDays(Date date, int i) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+	cal.add(Calendar.DATE, i);
+				
+	return cal.getTime();
+    }
 }

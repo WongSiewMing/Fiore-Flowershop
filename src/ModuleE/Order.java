@@ -9,20 +9,33 @@ public class Order implements Serializable {
     private String arrangeSize;
     private String flower;
     private String accessories;
-    private String priority;
     private String timestamp;
     private String paymentStatus;
+    private String date;
 
-    public Order(String custName,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String priority,String timestamp,String paymentStatus){
+
+    public Order(String custName,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date){
         this.custName = custName;
         this.custType = custType;
         this.arrangeStyle = arrangeStyle;
         this.arrangeSize = arrangeSize;
         this.flower = flower;
         this.accessories = accessories;
-        this.priority = priority;
         this.timestamp = timestamp;
         this.paymentStatus = paymentStatus;
+        this.date = date;
+    }
+
+    public Order() {
+
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getCustType() {
@@ -88,14 +101,5 @@ public class Order implements Serializable {
     public void setAccessories(String accessories) {
         this.accessories = accessories;
     }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-    
-    
+        
 }

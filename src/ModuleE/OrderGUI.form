@@ -115,11 +115,13 @@
                   <Component id="jcbPriority" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jbtCheckOrder" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbtOrder" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jbtCancel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbtClose" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jbtCheckOrder" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbtOrder" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbtClose" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -272,7 +274,7 @@
             <StringItem index="1" value="Express (Within 3 days)"/>
             <StringItem index="2" value="Normal (Within 7 days)"/>
             <StringItem index="3" value="Flexi  (Within 10 days)"/>
-            <StringItem index="4" value=" "/>
+            <StringItem index="4" value=""/>
           </StringArray>
         </Property>
       </Properties>

@@ -1,17 +1,18 @@
 package ModuleD;
 
 import ModuleE.Order;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import ModuleE.QueueArray;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import javax.swing.JOptionPane;
 
 public class OrderManagementGUI extends javax.swing.JFrame {
-
-    List<Order> order = new ArrayList<>();
-    Object[][] data = {
-           {"James","Normal","Wait to Pick Up","Pending","Pending"},
-           {"Mary","Normal","Picked Up","10.00 am","COD"}
-       };
+    
+    private QueueArray<Order> orderqueue = new QueueArray<>(20);
+    private ListArray<Order> ordertoday = new ListArray<>();
+    private Order order = new Order();
     
     public OrderManagementGUI() {
         initComponents();
@@ -137,19 +138,41 @@ public class OrderManagementGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtCheckOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckOrderActionPerformed
-        jtbOrderList.setValueAt("James", 0, 0);
-        jtbOrderList.setValueAt("Normal", 0, 1);
-        jtbOrderList.setValueAt("Wait to Pick Up", 0, 2);
-        jtbOrderList.setValueAt("Pending", 0, 3);
-        jtbOrderList.setValueAt("Pending", 0, 4);
+       
+        initializeList();
         
-        jtbOrderList.setValueAt("Mary", 1, 0);
-        jtbOrderList.setValueAt("Normal", 1, 1);
-        jtbOrderList.setValueAt("Picked Up", 1, 2);
-        jtbOrderList.setValueAt("10.00 am", 1, 3);
-        jtbOrderList.setValueAt("COD", 1, 4);
+        for(int i = 0; !orderqueue.isEmpty(); i++)
+        {
+            order = orderqueue.dequeue();
+            
+            jtbOrderList.setValueAt(order.getCustName(), i, 0);
+            jtbOrderList.setValueAt(order.getCustType(), i, 1);
+            jtbOrderList.setValueAt(order.getTimestamp(), i, 2);
+            jtbOrderList.setValueAt(order.getTimestamp(), i, 3);
+            jtbOrderList.setValueAt(order.getPaymentStatus(), i, 4);
+
+        }
+        
+        
     }//GEN-LAST:event_jbtCheckOrderActionPerformed
 
+    private void initializeList() {
+     
+        try {
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("orders.dat"));
+
+        orderqueue = (QueueArray) in.readObject();
+        in.close();
+        
+        } catch (FileNotFoundException ex) {
+          JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+          JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+          JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private void jbtRecordOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRecordOrderActionPerformed
        
     }//GEN-LAST:event_jbtRecordOrderActionPerformed
