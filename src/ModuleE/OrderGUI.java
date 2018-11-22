@@ -23,6 +23,7 @@ public class OrderGUI extends javax.swing.JFrame {
     private String custType = "Normal";
     private String timestamp = "Pending";
     private String payStatus = "Pending";
+    private String orderStatus = "Wait to Pick Up";
      
     public OrderGUI() {
         initComponents();
@@ -246,7 +247,7 @@ public class OrderGUI extends javax.swing.JFrame {
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String orderDate = dateFormat.format(extdate);
-        orderqueue.enqueue(new Order(name,custType,style,size,flower,accessories,timestamp,payStatus,orderDate));
+        orderqueue.enqueue(new Order(name,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus));
         JOptionPane.showMessageDialog(new JFrame(), "Order Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE); 
         
         

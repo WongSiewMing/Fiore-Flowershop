@@ -67,12 +67,7 @@ public class QueueArray<T> implements QueueInterface<T>,Serializable{
     }
     
     public boolean isEmpty() {
-        if(firstIndex < 0){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return firstIndex > lastIndex;
     }
     
     public void clear() {

@@ -2,11 +2,13 @@ package ModuleD;
 
 import ModuleE.Order;
 import ModuleE.QueueArray;
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class OrderManagementGUI extends javax.swing.JFrame {
     
@@ -26,10 +28,10 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         jbtCheckOrder = new javax.swing.JButton();
         jbtCheckDelivery = new javax.swing.JButton();
         jlbTitle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbOrderList = new javax.swing.JTable();
         jbtRecordDelivery = new javax.swing.JButton();
         jbtRecordOrder = new javax.swing.JButton();
+        jspOrder = new javax.swing.JScrollPane();
+        jtbOrder = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,34 +52,6 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         jlbTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jlbTitle.setText("Order & Delivery Management");
 
-        jtbOrderList.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jtbOrderList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Customer Name", "Customer Type", "Order Status", "Time Stamp", "Payment Status"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jtbOrderList);
-
         jbtRecordDelivery.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtRecordDelivery.setText("Record Delivery");
 
@@ -89,14 +63,20 @@ public class OrderManagementGUI extends javax.swing.JFrame {
             }
         });
 
+        jtbOrder.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Customer Name", "Customer Type", "Order Status", "Time Stamp", "Payment Status"
+            }
+        ));
+        jspOrder.setViewportView(jtbOrder);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -107,14 +87,17 @@ public class OrderManagementGUI extends javax.swing.JFrame {
                         .addComponent(jlbTitle))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
-                        .addComponent(jbtCheckOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jbtRecordOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jbtCheckDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jbtRecordDelivery)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jspOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbtCheckOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(jbtRecordOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jbtCheckDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jbtRecordDelivery)))))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,8 +106,8 @@ public class OrderManagementGUI extends javax.swing.JFrame {
                 .addComponent(jlbFlowerShop)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jspOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtCheckOrder)
@@ -141,21 +124,18 @@ public class OrderManagementGUI extends javax.swing.JFrame {
        
         initializeList();
         
-        for(int i = 0; !orderqueue.isEmpty(); i++)
-        {
-            order = orderqueue.dequeue();
-            
-            jtbOrderList.setValueAt(order.getCustName(), i, 0);
-            jtbOrderList.setValueAt(order.getCustType(), i, 1);
-            jtbOrderList.setValueAt(order.getTimestamp(), i, 2);
-            jtbOrderList.setValueAt(order.getTimestamp(), i, 3);
-            jtbOrderList.setValueAt(order.getPaymentStatus(), i, 4);
+        DefaultTableModel model = (DefaultTableModel) jtbOrder.getModel();
+        
+        
+        while(orderqueue.isEmpty() != true ){
+                order = orderqueue.dequeue();
+                Object[] row = {order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus()};
+                model.addRow(row);
+            }
+            jtbOrder.setModel(model);
 
-        }
-        
-        
     }//GEN-LAST:event_jbtCheckOrderActionPerformed
-
+    
     private void initializeList() {
      
         try {
@@ -187,13 +167,13 @@ public class OrderManagementGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtCheckDelivery;
     private javax.swing.JButton jbtCheckOrder;
     private javax.swing.JButton jbtRecordDelivery;
     private javax.swing.JButton jbtRecordOrder;
     private javax.swing.JLabel jlbFlowerShop;
     private javax.swing.JLabel jlbTitle;
-    private javax.swing.JTable jtbOrderList;
+    private javax.swing.JScrollPane jspOrder;
+    private javax.swing.JTable jtbOrder;
     // End of variables declaration//GEN-END:variables
 }
