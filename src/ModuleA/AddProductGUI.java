@@ -178,6 +178,8 @@ public class AddProductGUI extends javax.swing.JFrame {
 
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
         
+        initializeList();
+        
         try{
             product.setProd_id(Integer.parseInt(jtfProd_id.getText()));
             product.setProd_name(jtfProd_name.getText());
@@ -193,25 +195,50 @@ public class AddProductGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
+        saveList();
+        
     }//GEN-LAST:event_jbtAddActionPerformed
-
-    private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
-        try {
-            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
-            ooStream.writeObject(flowerList);
-            ooStream.close();
-          } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-          } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot save to file", "ERROR", JOptionPane.ERROR_MESSAGE);
-          }
-        dispose();
-    }//GEN-LAST:event_jbtBackActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtResetActionPerformed
 
+    private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbtBackActionPerformed
+
+    
+    private void initializeList() {
+        try {
+            ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
+            flowerList = (ArrayList) (oiStream.readObject());
+            oiStream.close();
+        } catch (FileNotFoundException ex) {
+            if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==1){
+                saveList();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    
+    private void saveList(){
+        try {
+                    ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
+                    ooStream.writeObject(flowerList);
+                    ooStream.close();
+                  } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+                  } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Cannot save to file", "ERROR", JOptionPane.ERROR_MESSAGE);
+                  }
+    }
+    
     /**
      * @param args the command line arguments
      */

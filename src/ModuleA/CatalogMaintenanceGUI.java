@@ -19,7 +19,6 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
      */
     public CatalogMaintenanceGUI() {
         initComponents();
-        displayTable();
     }
 
     /**
@@ -37,7 +36,6 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         jbtAddPromotion = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableList = new javax.swing.JTable();
-        jbtBack = new javax.swing.JButton();
         jbtUpdatePromotion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -105,17 +103,6 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableList);
         jTableList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jbtBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jbtBack.setText("Back");
-        jbtBack.setMaximumSize(new java.awt.Dimension(215, 37));
-        jbtBack.setMinimumSize(new java.awt.Dimension(215, 37));
-        jbtBack.setPreferredSize(new java.awt.Dimension(215, 37));
-        jbtBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtBackActionPerformed(evt);
-            }
-        });
-
         jbtUpdatePromotion.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtUpdatePromotion.setText("Update Promotion");
         jbtUpdatePromotion.setMaximumSize(new java.awt.Dimension(215, 37));
@@ -154,8 +141,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(jbSearch)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jbSearch))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,17 +152,12 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jbtUpdatePromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jbtAddPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(43, Short.MAX_VALUE))))
+                                .addComponent(jbtAddPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jlbFlowerShop)
-                        .addGap(314, 314, 314))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jbtBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))))
+                .addComponent(jlbFlowerShop)
+                .addGap(314, 314, 314))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,10 +181,8 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jbtAddPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(jbtUpdatePromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(jbtBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jbtUpdatePromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(83, 83, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,16 +207,12 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtAddPromotionActionPerformed
 
-    private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
-        dispose();
-    }//GEN-LAST:event_jbtBackActionPerformed
-
     private void jbSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSearchActionPerformed
+        clearTable();
         displayTable();
     }//GEN-LAST:event_jbSearchActionPerformed
 
     private void displayTable(){
-        
         initializeList();
         DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
             for (int i=0; i<flowerList.size();i++){
@@ -246,6 +221,11 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
                 model.addRow(row);
             }
             jTableList.setModel(model);
+    }
+    
+    private void clearTable(){
+        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
+        model.setRowCount(0);
     }
     
     private void initializeList() {
@@ -307,7 +287,6 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     private javax.swing.JButton jbSearch;
     private javax.swing.JButton jbtAddProd;
     private javax.swing.JButton jbtAddPromotion;
-    private javax.swing.JButton jbtBack;
     private javax.swing.JButton jbtUpdateProd;
     private javax.swing.JButton jbtUpdatePromotion;
     private javax.swing.JLabel jlbFlowerShop;
