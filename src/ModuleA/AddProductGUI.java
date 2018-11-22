@@ -7,16 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.lang.NumberFormatException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AddProductGUI extends javax.swing.JFrame {
-    private List<Product> flowerList = new ArrayList<>();
+    private ListArray<Product> flowerList = new ListArray<>(25);
     private Product product = new Product();
 
     /**
@@ -24,6 +20,7 @@ public class AddProductGUI extends javax.swing.JFrame {
      */
     public AddProductGUI() {
         initComponents();
+        initializeList();
     }
 
     /**
@@ -178,7 +175,6 @@ public class AddProductGUI extends javax.swing.JFrame {
 
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
         
-        initializeList();
         
         try{
             product.setProd_id(Integer.parseInt(jtfProd_id.getText()));
@@ -189,18 +185,20 @@ public class AddProductGUI extends javax.swing.JFrame {
             product.setPrice(Double.parseDouble(jtfPrice.getText()));
             product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
             flowerList.add(product);
+            saveList();
             JOptionPane.showMessageDialog(new JFrame(), "Product Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
         catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
-        saveList();
-        
     }//GEN-LAST:event_jbtAddActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
-        // TODO add your handling code here:
+        jtfProd_id.setText("");
+        jtfProd_name.setText("");
+        jtfPrice.setText("");
+        jtfQuantity.setText("");
     }//GEN-LAST:event_jbtResetActionPerformed
 
     private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
@@ -211,10 +209,10 @@ public class AddProductGUI extends javax.swing.JFrame {
     private void initializeList() {
         try {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
-            flowerList = (ArrayList) (oiStream.readObject());
+            flowerList = (ListArray)oiStream.readObject();
             oiStream.close();
         } catch (FileNotFoundException ex) {
-            if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==1){
+            if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==0){
                 saveList();
             }
             else {
@@ -229,14 +227,15 @@ public class AddProductGUI extends javax.swing.JFrame {
     
     private void saveList(){
         try {
-                    ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
-                    ooStream.writeObject(flowerList);
-                    ooStream.close();
-                  } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-                  } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Cannot save to file", "ERROR", JOptionPane.ERROR_MESSAGE);
-                  }
+            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
+            ooStream.writeObject(flowerList);
+            ooStream.close();
+            
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     /**

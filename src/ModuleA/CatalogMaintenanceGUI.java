@@ -6,13 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 public class CatalogMaintenanceGUI extends javax.swing.JFrame {
-    private List<Product> flowerList = new ArrayList<>();
+    private ListArray<Product> flowerList = new ListArray<>(25);
     private Product product = new Product();
     /**
      * Creates new form CatalogMaintenanceGUI
@@ -215,7 +215,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     private void displayTable(){
         initializeList();
         DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
-            for (int i=0; i<flowerList.size();i++){
+            for (int i=0; i<flowerList.getLength();i++){
                 product = flowerList.get(i);
                 Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
                 model.addRow(row);
@@ -231,8 +231,8 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     private void initializeList() {
         try {
           ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
-          flowerList = (ArrayList) (oiStream.readObject());
-          oiStream.close();
+            flowerList = (ListArray)oiStream.readObject();
+            oiStream.close();
         } catch (FileNotFoundException ex) {
           JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
