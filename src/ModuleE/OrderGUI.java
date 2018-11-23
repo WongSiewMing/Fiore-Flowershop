@@ -226,6 +226,7 @@ public class OrderGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
         }
       
+        else{
         String name = taCustName.getText();
         String style = jcbStyle.getSelectedItem().toString();
         String size = jcbSize.getSelectedItem().toString();
@@ -250,6 +251,8 @@ public class OrderGUI extends javax.swing.JFrame {
         orderqueue.enqueue(new Order(name,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus));
         JOptionPane.showMessageDialog(new JFrame(), "Order Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE); 
         
+        writeFile();
+    }
         
     }//GEN-LAST:event_jbtOrderActionPerformed
 
@@ -268,14 +271,14 @@ public class OrderGUI extends javax.swing.JFrame {
 
     private void jbtCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCloseActionPerformed
     
-    if(taCustName.getText().equals("") || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0){
-         
-        JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
-        
-    }
-    else{
-        writeFile();
-    }
+//    if(taCustName.getText().equals("") || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0){
+//         
+//        JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
+//        
+//    }
+//    else{
+//        writeFile();
+//    }
     }//GEN-LAST:event_jbtCloseActionPerformed
 
     private void jbtCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelActionPerformed
@@ -312,7 +315,6 @@ public class OrderGUI extends javax.swing.JFrame {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("orders.dat"));
             out.writeObject(orderqueue);
             out.close();
-            this.dispose();
             
     } catch (FileNotFoundException ex) {
       JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
