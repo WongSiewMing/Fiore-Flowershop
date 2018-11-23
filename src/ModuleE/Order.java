@@ -12,9 +12,10 @@ public class Order implements Serializable {
     private String timestamp;
     private String paymentStatus;
     private String date;
+    private String orderStatus;
 
 
-    public Order(String custName,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date){
+    public Order(String custName,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus){
         this.custName = custName;
         this.custType = custType;
         this.arrangeStyle = arrangeStyle;
@@ -24,10 +25,19 @@ public class Order implements Serializable {
         this.timestamp = timestamp;
         this.paymentStatus = paymentStatus;
         this.date = date;
+        this.orderStatus = orderStatus;
     }
 
     public Order() {
 
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public String getDate() {
