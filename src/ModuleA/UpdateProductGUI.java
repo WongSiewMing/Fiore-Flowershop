@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ModuleA;
 
 import java.io.FileInputStream;
@@ -11,15 +15,18 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
-public class AddProductGUI extends javax.swing.JFrame {
+/**
+ *
+ * @author kokho
+ */
+public class UpdateProductGUI extends javax.swing.JFrame {
     private ListArray<Product> flowerList = new ListArray<>(25);
     private Product product = new Product();
 
     /**
-     * Creates new form AddProductGUI
+     * Creates new form UpdateProductGUI
      */
-    public AddProductGUI() {
+    public UpdateProductGUI() {
         initComponents();
         initializeList();
     }
@@ -33,38 +40,25 @@ public class AddProductGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jlbFlowerShop = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jtfProd_id = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jtfProd_name = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtfProd_desc = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jtfPrice = new javax.swing.JTextField();
+        jlbFlowerShop = new javax.swing.JLabel();
         jcbProd_type = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jtfProd_id = new javax.swing.JTextField();
         jtfQuantity = new javax.swing.JTextField();
-        jbtAdd = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jbtUpdate = new javax.swing.JButton();
+        jtfProd_name = new javax.swing.JTextField();
         jbtReset = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jbtBack = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jlbFlowerShop.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jlbFlowerShop.setText("UPDATE NEW PRODUCT");
-
-        jLabel1.setText("PRODUCT ID : ");
-
-        jtfProd_id.setToolTipText("");
-
-        jLabel2.setText("PRODUCT NAME : ");
-
-        jLabel3.setText("PRODUCT DESCRIPTION : ");
-
-        jLabel4.setText("PRODUCT TYPE : ");
 
         jtfProd_desc.setColumns(20);
         jtfProd_desc.setRows(5);
@@ -72,15 +66,24 @@ public class AddProductGUI extends javax.swing.JFrame {
 
         jLabel5.setText("PRODUCT PRICE (RM) : ");
 
+        jlbFlowerShop.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jlbFlowerShop.setText("ADD NEW PRODUCT");
+
         jcbProd_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fresh Flowers", "Bouquets", "Floral Arrangements" }));
+
+        jLabel1.setText("PRODUCT ID : ");
 
         jLabel6.setText("PRODUCT QUANTITY : ");
 
-        jbtAdd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jbtAdd.setText("Update");
-        jbtAdd.addActionListener(new java.awt.event.ActionListener() {
+        jtfProd_id.setToolTipText("");
+
+        jLabel2.setText("PRODUCT NAME : ");
+
+        jbtUpdate.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jbtUpdate.setText("Add");
+        jbtUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtAddActionPerformed(evt);
+                jbtUpdateActionPerformed(evt);
             }
         });
 
@@ -92,6 +95,8 @@ public class AddProductGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("PRODUCT DESCRIPTION : ");
+
         jbtBack.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jbtBack.setText("Back");
         jbtBack.addActionListener(new java.awt.event.ActionListener() {
@@ -100,14 +105,15 @@ public class AddProductGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("PRODUCT TYPE : ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbFlowerShop)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
@@ -116,7 +122,7 @@ public class AddProductGUI extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jbtAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,8 +136,11 @@ public class AddProductGUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbtReset, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addComponent(jbtBack, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(55, 55, 55))
+                                .addComponent(jbtBack, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlbFlowerShop)
+                        .addGap(15, 15, 15)))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +172,7 @@ public class AddProductGUI extends javax.swing.JFrame {
                     .addComponent(jtfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtReset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtBack, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
@@ -172,9 +181,8 @@ public class AddProductGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
-        
-        
+    private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateActionPerformed
+
         try{
             product.setProd_id(Integer.parseInt(jtfProd_id.getText()));
             product.setProd_name(jtfProd_name.getText());
@@ -185,13 +193,13 @@ public class AddProductGUI extends javax.swing.JFrame {
             product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
             flowerList.add(product);
             saveList();
-            JOptionPane.showMessageDialog(new JFrame(), "Product Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Product Updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
         catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-        
-    }//GEN-LAST:event_jbtAddActionPerformed
+
+    }//GEN-LAST:event_jbtUpdateActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
         jtfProd_id.setText("");
@@ -205,7 +213,6 @@ public class AddProductGUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jbtBackActionPerformed
 
-    
     private void initializeList() {
         try {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
@@ -243,7 +250,6 @@ public class AddProductGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
     /**
      * @param args the command line arguments
      */
@@ -261,20 +267,20 @@ public class AddProductGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddProductGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateProductGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddProductGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateProductGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddProductGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateProductGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddProductGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateProductGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddProductGUI().setVisible(true);
+                new UpdateProductGUI().setVisible(true);
             }
         });
     }
@@ -287,9 +293,9 @@ public class AddProductGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbtAdd;
     private javax.swing.JButton jbtBack;
     private javax.swing.JButton jbtReset;
+    private javax.swing.JButton jbtUpdate;
     private javax.swing.JComboBox<String> jcbProd_type;
     private javax.swing.JLabel jlbFlowerShop;
     private javax.swing.JTextField jtfPrice;

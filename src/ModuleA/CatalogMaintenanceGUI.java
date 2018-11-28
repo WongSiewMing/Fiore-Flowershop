@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -193,11 +191,12 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         AddProductGUI add = new AddProductGUI();
         add.setLocationRelativeTo(null);
         add.setVisible(true);
-        
     }//GEN-LAST:event_jbtAddProdActionPerformed
 
     private void jbtUpdateProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateProdActionPerformed
-        // TODO add your handling code here:
+        UpdateProductGUI update = new UpdateProductGUI();
+        update.setLocationRelativeTo(null);
+        update.setVisible(true);
     }//GEN-LAST:event_jbtUpdateProdActionPerformed
 
     private void jbtUpdatePromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdatePromotionActionPerformed
