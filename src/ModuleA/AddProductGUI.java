@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -209,7 +210,13 @@ public class AddProductGUI extends javax.swing.JFrame {
     private void initializeList() {
         try {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
-            flowerList = (ListArray)oiStream.readObject();
+            ArrayList tmp = new ArrayList();
+            tmp = (ArrayList)oiStream.readObject();
+            oiStream.close();
+            for(int i=0; i<tmp.size();i++){
+                product = (Product)tmp.get(i);
+                flowerList.add(product);
+            }
             oiStream.close();
         } catch (FileNotFoundException ex) {
             if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==0){

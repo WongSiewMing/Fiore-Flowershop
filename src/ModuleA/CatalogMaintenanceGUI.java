@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -230,13 +231,18 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     
     private void initializeList() {
         try {
-          ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
-            flowerList = (ListArray)oiStream.readObject();
+            ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
+            ArrayList tmp = new ArrayList();
+            tmp = (ArrayList)oiStream.readObject();
             oiStream.close();
+            for(int i=0; i<tmp.size();i++){
+                product = (Product)tmp.get(i);
+                flowerList.add(product);
+            }
         } catch (FileNotFoundException ex) {
           JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-          JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
           JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         }

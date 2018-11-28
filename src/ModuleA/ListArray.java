@@ -1,10 +1,8 @@
 
 package ModuleA;
 
-import java.io.Serializable;
 
-
-public class ListArray<T> implements ListInterface<T>, Serializable {
+public class ListArray<T> implements ListInterface<T>{
     
     private T[] list;
     private int numOfItem;
