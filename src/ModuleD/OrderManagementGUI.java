@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class OrderManagementGUI extends javax.swing.JFrame {
     
-    private QueueArray<Order> orderqueue = new QueueArray<>(20);
+    private QueueArray<Order> orderqueue = new QueueArray<>(10);
     private ListArray<Order> ordertoday = new ListArray<>();
     private Order order = new Order();
     
