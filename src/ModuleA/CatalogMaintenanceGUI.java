@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class CatalogMaintenanceGUI extends javax.swing.JFrame {
-    private ListArray<Product> flowerList = new ListArray<>(25);
+    private ListArray<Product> flowerList = new ListArray<>();
     private Product product = new Product();
     /**
      * Creates new form CatalogMaintenanceGUI
@@ -119,7 +119,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
 
         jLabel3.setText("Search by Catalog :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fresh Flower", "Bouquet", "Floral Arrangement" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Fresh Flowers", "Bouquets", "Floral Arrangements" }));
 
         jbSearch.setText("Search / Refreash");
         jbSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -218,22 +218,36 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     private void jbSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSearchActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
         clearTable(model);
-        displayTable(model);
+        displayTable(model, jComboBox1.getSelectedIndex());
     }//GEN-LAST:event_jbSearchActionPerformed
-
-    private void displayTable(DefaultTableModel model){
+    
+    private void displayTable(DefaultTableModel model, int type){
         initializeList();
-        for (int i=0; i<flowerList.getLength();i++){
+        for (int i=0; i<flowerList.length();i++){
             product = flowerList.get(i);
-            Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
-            model.addRow(row);
+            if (type == 1 && product.getProd_type().equals("Fresh Flowers")){
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                model.addRow(row);
+            }
+            else if (type == 2 && product.getProd_type().equals("Bouquets")){
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                model.addRow(row);
+            }
+            else if (type == 3 && product.getProd_type().equals("Floral Arrangements")){
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                model.addRow(row);
+            }
+            else if (type == 0){
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                model.addRow(row);
+            }
         }
         jTableList.setModel(model);
     }
     
     private void clearTable(DefaultTableModel model){
+        flowerList.clear();
         model.setRowCount(0);
-        jTableList.setModel(model);
     }
     
     private void initializeList() {

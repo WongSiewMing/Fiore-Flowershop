@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author kokho
  */
 public class UpdateProductGUI extends javax.swing.JFrame {
-    private ListArray<Product> flowerList = new ListArray<>(25);
+    private ListArray<Product> flowerList = new ListArray<>();
     private Product product = new Product();
 
     /**
@@ -188,7 +188,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateActionPerformed
-
+        boolean found = false;
         try{
             product.setProd_id(jtfProd_id.getText());
             product.setProd_name(jtfProd_name.getText());
@@ -197,17 +197,18 @@ public class UpdateProductGUI extends javax.swing.JFrame {
             product.setProd_type(ob.toString());
             product.setPrice(Double.parseDouble(jtfPrice.getText()));
             product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
-            for (int i=0; i<flowerList.getLength();i++){
+            for (int i=0; i<flowerList.length();i++){
                 Product tmp = new Product();
                 tmp = flowerList.get(i);
                 if (product.getProd_id().equals(tmp.getProd_id())){
                     flowerList.replace(i, product);
                     saveList();
                     JOptionPane.showMessageDialog(new JFrame(), "Product Updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    found = true;
                 }
-                else{
-                    JOptionPane.showMessageDialog(null, "No such data!", "ERROR!", JOptionPane.ERROR_MESSAGE);
-                }
+            }
+            if (found == false){
+                JOptionPane.showMessageDialog(null, "No such data!", "ERROR!", JOptionPane.ERROR_MESSAGE);
             }
         }
         catch(NumberFormatException ex){
@@ -256,10 +257,10 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     private void saveList(){
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
-            ArrayList tmp = new ArrayList();
-            for(int i=0; i<flowerList.getLength();i++){
+            ArrayList<Product> tmp = new ArrayList<Product>();
+            for(int i=0; i<flowerList.length();i++){
                 product = flowerList.get(i);
-                tmp.add(i, product);
+                tmp.add(product);
             }
             ooStream.writeObject(tmp);
             ooStream.close();
@@ -272,7 +273,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     }
     
     private void displayData(String id){
-        for(int i = 0; i<flowerList.getLength();i++){
+        for(int i = 0; i<flowerList.length();i++){
             product = flowerList.get(i);
             if (product.getProd_id().equals(id)){
                 jtfProd_id.setText(product.getProd_id());

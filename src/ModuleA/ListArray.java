@@ -3,90 +3,110 @@ package ModuleA;
 
 
 public class ListArray<T> implements ListInterface<T>{
-    
-    private T[] list;
-    private int numOfItem;
-    private static final int capacity = 25;
+    private int size = 0;
+    private T[] array;
     
     public ListArray(){
-        this(capacity);
+        array = (T[]) new Object[100];
     }
     
-    public ListArray(int capacity){
-        numOfItem = 0;
-        list = (T[]) new Object[capacity];
-    }
-    
-    public void add(T newEntry){
-        if (isFull()){
+    public void add(T item){
+        if(size == array.length){
             expandArray();
         }
         
-        list[numOfItem] = newEntry;
-        numOfItem++;
+        array[size] = item;
+        size++;
     }
     
-    public boolean add(int newPosition, T newEntry){
-        boolean success = true;
-        
-        if ((newPosition >= 0) && (newPosition <= numOfItem + 1)){
-            if (isFull()){
-                expandArray();
+    public void add(int i,T item){
+     
+        if(i <= size){
+            
+            for( int index = array.length - 2; index >= 0 ; index-- )
+            {
+                array[index+1] = array [index];
             }
-            makeRoom(newPosition);
-            list[newPosition] = newEntry;
-            numOfItem++;
+
+            array[i] = item;
+            size++;
         }
-        else {
-            success = false;
+        else{
+            throw new ArrayIndexOutOfBoundsException();
         }
-        return success;
     }
-    public T remove(int givenPosition){
-        T result = null;
-
-        if ((givenPosition >= 0) && (givenPosition <= numOfItem)) {
-            result = list[givenPosition];
-
-            if (givenPosition < numOfItem) {
-                removeGap(givenPosition);
-            }
-
-            numOfItem--;
+    
+    private void expandArray(){
+        T[] oldList = array;
+        int size = oldList.length;
+        array = (T[])new Object[size * 2];
+        
+        for(int i = 0; i < size ; i++){
+            array[i] = oldList[i];
         }
-        return result;
+    }
+    
+    public T get(int i){
+        T item = null;
+        
+        if(i < size){
+            item = array[i];
+        }
+        
+        return item;
+    }
+    
+    public boolean isEmpty(){
+        if(size == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public Object remove(int i){
+        
+        if(i < size){
+            Object obj = array[i];
+            array[i] = null;
+            int tmp = i;
+            
+            while(tmp < size){
+                array[tmp] = array[tmp + 1];
+                array[tmp + 1] = null;
+                tmp++;
+            }
+            size--;
+            return obj;
+        }
+        else{
+            throw new ArrayIndexOutOfBoundsException();
+        }
     }
     
     public void clear() {
-        numOfItem = 0;
+        size = 0;
     }
     
-    public boolean replace(int givenPosition, T newEntry) {
+    public boolean replace(int i, T item) {
         boolean isSuccessful = true;
 
-        if ((givenPosition >= 0) && (givenPosition <= numOfItem)) {
-            list[givenPosition] = newEntry;
+        if ((i >= 0) && (i <= size)) {
+            array[i] = item;
         } else {
             isSuccessful = false;
         }
 
         return isSuccessful;
       }
-
-    public T get(int givenPosition) {
-        T result = null;
-
-        if ((givenPosition >= 0) && (givenPosition <= numOfItem)) {
-          result = list[givenPosition];
-        }
-
-        return result;
-    }
-
-    public boolean contains(T anEntry) {
+    
+    public boolean contains(T item) {
         boolean found = false;
-        for (int index = 0; !found && (index < numOfItem); index++) {
-            if (anEntry.equals(list[index])) {
+        for (int index = 0; !found && (index < size); index++) {
+            if (item.equals(array[index])) {
                 found = true;
             }
         }
@@ -94,53 +114,20 @@ public class ListArray<T> implements ListInterface<T>{
         return found;
     }
 
-    public int getLength() {
-        return numOfItem;
-    }
-
-    public boolean isEmpty() {
-        return numOfItem == 0;
+    public int length() {
+        return size;
     }
 
     public boolean isFull() {
-        return  numOfItem == list.length;
+        return  size == array.length;
     }
 
     public String toString() {
         String outputStr = "";
-        for (int index = 0; index < numOfItem; ++index) {
-            outputStr += list[index] + "\n";
+        for (int index = 0; index < size; ++index) {
+            outputStr += array[index].toString() + "\n";
         }
 
         return outputStr;
     }
-    
-    private void expandArray() {
-        T[] oldList = list; 
-        int oldSize = oldList.length;     
-
-        list = (T[]) new Object[2 * oldSize];
-        
-        for (int index = 0; index < oldSize; index++) {
-            list[index] = oldList[index];
-        }
-    } 
-
-    private void makeRoom(int newPosition) {
-        int newIndex = newPosition - 1;
-        int lastIndex = numOfItem - 1;
-        
-        for (int index = lastIndex; index >= newIndex; index--) {
-            list[index + 1] = list[index];
-        }
-    }
-    
-    private void removeGap(int givenPosition) {
-        int removedIndex = givenPosition - 1;
-        int lastIndex = numOfItem - 1;
-
-        for (int index = removedIndex; index < lastIndex; index++) {
-            list[index] = list[index + 1];
-        }
-      }
 }

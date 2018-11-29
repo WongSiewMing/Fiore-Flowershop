@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 
 public class AddProductGUI extends javax.swing.JFrame {
-    private ListArray<Product> flowerList = new ListArray<>(25);
+    private ListArray<Product> flowerList = new ListArray<>();
     private Product product = new Product();
 
     /**
@@ -173,15 +173,18 @@ public class AddProductGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
+        
+        Product tmp = new Product();
         try{
-            product.setProd_id(jtfProd_id.getText());
-            product.setProd_name(jtfProd_name.getText());
-            product.setProd_desc(jtfProd_desc.getText());
+            
+            tmp.setProd_id(jtfProd_id.getText());
+            tmp.setProd_name(jtfProd_name.getText());
+            tmp.setProd_desc(jtfProd_desc.getText());
             Object ob = jcbProd_type.getSelectedItem();
-            product.setProd_type(ob.toString());
-            product.setPrice(Double.parseDouble(jtfPrice.getText()));
-            product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
-            flowerList.add(product);
+            tmp.setProd_type(ob.toString());
+            tmp.setPrice(Double.parseDouble(jtfPrice.getText()));
+            tmp.setQuantity(Integer.parseInt(jtfQuantity.getText()));
+            flowerList.add(tmp);
             saveList();
             JOptionPane.showMessageDialog(new JFrame(), "Product Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -208,13 +211,14 @@ public class AddProductGUI extends javax.swing.JFrame {
     private void initializeList() {
         try {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
-            ArrayList tmp = new ArrayList();
+            ArrayList<Product> tmp = new ArrayList<Product>();
             tmp = (ArrayList)oiStream.readObject();
-            for(int i=0; i<tmp.size();i++){
-                product = (Product)tmp.get(i);
+            for(int i=0; i<tmp.size(); i++){
+                product = tmp.get(i);
                 flowerList.add(product);
             }
             oiStream.close();
+            
         } catch (FileNotFoundException ex) {
             if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==0){
                 saveList();
@@ -233,9 +237,9 @@ public class AddProductGUI extends javax.swing.JFrame {
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
             ArrayList tmp = new ArrayList();
-            for(int i=0; i<flowerList.getLength();i++){
+            for(int i=0; i<flowerList.length();i++){
                 product = flowerList.get(i);
-                tmp.add(i,product);
+                tmp.add(product);
             }
             ooStream.writeObject(tmp);
             ooStream.close();
