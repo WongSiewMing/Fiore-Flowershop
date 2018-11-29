@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 
 public class RecordOrder extends javax.swing.JPanel {
 
-    private ModuleE.QueueArray<Order> orderqueue = new ModuleE.QueueArray<>(20);
+    private ModuleE.QueueArray<Order> orderqueue = new ModuleE.QueueArray<>(30);
     private Order order = new Order();
     List<Order> custorder = new ArrayList<>();
     LocalTime now = LocalTime.now(); 
