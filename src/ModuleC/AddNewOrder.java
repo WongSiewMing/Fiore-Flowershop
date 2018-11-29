@@ -5,9 +5,11 @@
  */
 package ModuleC;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -26,6 +28,7 @@ public class AddNewOrder extends javax.swing.JFrame {
     
     public AddNewOrder() {
         initComponents();
+        initializeList();
     }
 
     /**
@@ -52,7 +55,7 @@ public class AddNewOrder extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("SimHei", 0, 24)); // NOI18N
-        jLabel1.setText("Order detail");
+        jLabel1.setText("Order detail (Customer)");
 
         jLabel2.setText("Name:");
 
@@ -113,7 +116,7 @@ public class AddNewOrder extends javax.swing.JFrame {
                                 .addComponent(jcbSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(279, 279, 279)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1)))
                 .addContainerGap(286, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -155,6 +158,7 @@ public class AddNewOrder extends javax.swing.JFrame {
         product.setProductID(prod.toString());
         Object selection = (jcbSelection.getSelectedItem());
         product.setSelection(selection.toString());
+        product.setPayment("Cash");
         orderlist.add(product);
         saveList();
         JOptionPane.showMessageDialog(null, "Order Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -166,8 +170,31 @@ public class AddNewOrder extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
     
+    private void initializeList() {
+        try {
+            ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
+            ArrayList tmp = new ArrayList();
+            tmp = (ArrayList)oiStream.readObject();
+            for(int i=0; i<tmp.size();i++){
+                product = (Product)tmp.get(i);
+                orderlist.add(product);
+            }
+            oiStream.close();
+        } catch (FileNotFoundException ex) {
+            if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==0){
+                saveList();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+      }
+
      private void saveList(){
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("order.dat"));

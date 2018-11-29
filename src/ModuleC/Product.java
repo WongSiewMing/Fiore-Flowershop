@@ -14,6 +14,7 @@ public class Product {
     private String CustAddress;
     private String ProductID;
     private String Selection;
+    private String Payment;
 
     public Product() {
         
@@ -34,6 +35,10 @@ public class Product {
     public String getSelection() {
         return Selection;
     }
+    
+    public String getPayment() {
+        return Payment;
+    }
 
     public void setCustName(String CustName) {
         this.CustName = CustName;
@@ -50,9 +55,15 @@ public class Product {
     public void setSelection(String Selection) {
         this.Selection = Selection;
     }
+    
+    public void setPayment(String Payment) {
+        this.Payment = Payment;
+    }
 
     @Override
     public String toString() {
-        return "Product{" + "CustName=" + CustName + ", CustAddress=" + CustAddress + ", ProductID=" + ProductID + ", Selection=" + Selection + '}';
+        return "Product{" + "CustName=" + CustName + ", CustAddress=" + CustAddress + ", ProductID=" + ProductID + ", Selection=" + Selection + ", Payment=" + Payment + '}';
     }
+    
+
 }
