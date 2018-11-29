@@ -30,6 +30,12 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         initComponents();
         initializeList();
     }
+    
+    public UpdateProductGUI(String id) {
+        initComponents();
+        initializeList();
+        displayData(id);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,16 +190,25 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateActionPerformed
 
         try{
-            product.setProd_id(Integer.parseInt(jtfProd_id.getText()));
+            product.setProd_id(jtfProd_id.getText());
             product.setProd_name(jtfProd_name.getText());
             product.setProd_desc(jtfProd_desc.getText());
             Object ob = jcbProd_type.getSelectedItem();
             product.setProd_type(ob.toString());
             product.setPrice(Double.parseDouble(jtfPrice.getText()));
             product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
-            flowerList.add(product);
-            saveList();
-            JOptionPane.showMessageDialog(new JFrame(), "Product Updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            for (int i=0; i<flowerList.getLength();i++){
+                Product tmp = new Product();
+                tmp = flowerList.get(i);
+                if (product.getProd_id().equals(tmp.getProd_id())){
+                    flowerList.replace(i, product);
+                    saveList();
+                    JOptionPane.showMessageDialog(new JFrame(), "Product Updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "No such data!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
         catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -204,6 +219,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
         jtfProd_id.setText("");
         jtfProd_name.setText("");
+        jtfProd_desc.setText("");
         jcbProd_type.setSelectedIndex(0);
         jtfPrice.setText("");
         jtfQuantity.setText("");
@@ -218,7 +234,6 @@ public class UpdateProductGUI extends javax.swing.JFrame {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
             ArrayList tmp = new ArrayList();
             tmp = (ArrayList)oiStream.readObject();
-            oiStream.close();
             for(int i=0; i<tmp.size();i++){
                 product = (Product)tmp.get(i);
                 flowerList.add(product);
@@ -241,7 +256,12 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     private void saveList(){
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
-            ooStream.writeObject(flowerList);
+            ArrayList tmp = new ArrayList();
+            for(int i=0; i<flowerList.getLength();i++){
+                product = flowerList.get(i);
+                tmp.add(i, product);
+            }
+            ooStream.writeObject(tmp);
             ooStream.close();
             
         } catch (FileNotFoundException ex) {
@@ -249,6 +269,33 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null,"Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void displayData(String id){
+        for(int i = 0; i<flowerList.getLength();i++){
+            product = flowerList.get(i);
+            if (product.getProd_id().equals(id)){
+                jtfProd_id.setText(product.getProd_id());
+                jtfProd_name.setText(product.getProd_name());
+                jtfProd_desc.setText(product.getProd_desc());
+                jcbProd_type.setSelectedIndex(checkProdType(product.getProd_type()));
+                jtfPrice.setText(Double.toString(product.getPrice()));
+                jtfQuantity.setText(Integer.toString(product.getQuantity()));
+            }
+        }
+    }
+    
+    private int checkProdType(String type){
+        if (type.equals("Fresh Flowers")){
+            return 0;
+        }
+        else if (type.equals("Bouquets")){
+            return 1;
+        }
+        else if (type.equals("Floral Arrangements")){
+            return 2;
+        }
+        return 0;
     }
     /**
      * @param args the command line arguments

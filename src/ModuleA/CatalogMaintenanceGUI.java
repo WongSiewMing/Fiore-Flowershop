@@ -97,7 +97,6 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
             }
         });
         jTableList.setToolTipText("");
-        jTableList.setColumnSelectionAllowed(true);
         jTableList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableList.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableList);
@@ -195,11 +194,17 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtAddProdActionPerformed
 
     private void jbtUpdateProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateProdActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
+        try {
+            int index = jTableList.getSelectedRow();
+            String id = jTableList.getValueAt(index, 0).toString();
+            UpdateProductGUI update = new UpdateProductGUI(id);
+            update.setLocationRelativeTo(null);
+            update.setVisible(true);
+        }
+        catch (IndexOutOfBoundsException ex){
+            JOptionPane.showMessageDialog(null, "Please select one item from the table!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
         
-        UpdateProductGUI update = new UpdateProductGUI();
-        update.setLocationRelativeTo(null);
-        update.setVisible(true);
     }//GEN-LAST:event_jbtUpdateProdActionPerformed
 
     private void jbtUpdatePromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdatePromotionActionPerformed

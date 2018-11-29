@@ -173,10 +173,8 @@ public class AddProductGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
-        
-        
         try{
-            product.setProd_id(Integer.parseInt(jtfProd_id.getText()));
+            product.setProd_id(jtfProd_id.getText());
             product.setProd_name(jtfProd_name.getText());
             product.setProd_desc(jtfProd_desc.getText());
             Object ob = jcbProd_type.getSelectedItem();
@@ -196,6 +194,7 @@ public class AddProductGUI extends javax.swing.JFrame {
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
         jtfProd_id.setText("");
         jtfProd_name.setText("");
+        jtfProd_desc.setText("");
         jcbProd_type.setSelectedIndex(0);
         jtfPrice.setText("");
         jtfQuantity.setText("");
@@ -211,7 +210,6 @@ public class AddProductGUI extends javax.swing.JFrame {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
             ArrayList tmp = new ArrayList();
             tmp = (ArrayList)oiStream.readObject();
-            oiStream.close();
             for(int i=0; i<tmp.size();i++){
                 product = (Product)tmp.get(i);
                 flowerList.add(product);
@@ -234,7 +232,12 @@ public class AddProductGUI extends javax.swing.JFrame {
     private void saveList(){
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
-            ooStream.writeObject(flowerList);
+            ArrayList tmp = new ArrayList();
+            for(int i=0; i<flowerList.getLength();i++){
+                product = flowerList.get(i);
+                tmp.add(i,product);
+            }
+            ooStream.writeObject(tmp);
             ooStream.close();
             
         } catch (FileNotFoundException ex) {

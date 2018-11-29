@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 
 public class Product implements Serializable{
-    private int prod_id;
+    private String prod_id;
     private String prod_name;
     private String prod_desc;
     private String prod_type;
@@ -16,7 +16,7 @@ public class Product implements Serializable{
         
     }
     
-    public int getProd_id(){
+    public String getProd_id(){
         return prod_id;
     }
     
@@ -40,7 +40,7 @@ public class Product implements Serializable{
         return quantity;
     }
     
-    public void setProd_id(int prod_id){
+    public void setProd_id(String prod_id){
         this.prod_id = prod_id;
     }
     
@@ -65,6 +65,6 @@ public class Product implements Serializable{
     }
     
     public String toString() {
-        return String.format("%d %s %s %s %f %d", prod_id, prod_name, prod_desc, prod_type, price, quantity);
+        return String.format("%s %s %s %s %f %d", prod_id, prod_name, prod_desc, prod_type, price, quantity);
       }
 }
