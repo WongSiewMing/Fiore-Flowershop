@@ -81,6 +81,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
 
         jLabel6.setText("PRODUCT QUANTITY : ");
 
+        jtfProd_id.setEditable(false);
         jtfProd_id.setToolTipText("");
 
         jLabel2.setText("PRODUCT NAME : ");
@@ -218,7 +219,6 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtUpdateActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
-        jtfProd_id.setText("");
         jtfProd_name.setText("");
         jtfProd_desc.setText("");
         jcbProd_type.setSelectedIndex(0);
