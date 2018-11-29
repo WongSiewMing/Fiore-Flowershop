@@ -54,7 +54,7 @@ public class AddProductGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jlbFlowerShop.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jlbFlowerShop.setText("UPDATE NEW PRODUCT");
+        jlbFlowerShop.setText("ADD NEW PRODUCT");
 
         jLabel1.setText("PRODUCT ID : ");
 
@@ -77,7 +77,7 @@ public class AddProductGUI extends javax.swing.JFrame {
         jLabel6.setText("PRODUCT QUANTITY : ");
 
         jbtAdd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jbtAdd.setText("Update");
+        jbtAdd.setText("Add");
         jbtAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtAddActionPerformed(evt);
@@ -105,7 +105,7 @@ public class AddProductGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap(92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlbFlowerShop)
                     .addGroup(layout.createSequentialGroup()

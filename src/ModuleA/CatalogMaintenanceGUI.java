@@ -82,7 +82,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         jTableList.setAutoCreateRowSorter(true);
         jTableList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null}
             },
             new String [] {
                 "ID", "Name", "Description", "Product Type", "Price", "Quantity"
@@ -98,6 +98,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         });
         jTableList.setToolTipText("");
         jTableList.setColumnSelectionAllowed(true);
+        jTableList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableList.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableList);
         jTableList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -194,6 +195,8 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtAddProdActionPerformed
 
     private void jbtUpdateProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateProdActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
+        
         UpdateProductGUI update = new UpdateProductGUI();
         update.setLocationRelativeTo(null);
         update.setVisible(true);
@@ -208,24 +211,24 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtAddPromotionActionPerformed
 
     private void jbSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSearchActionPerformed
-        clearTable();
-        displayTable();
+        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
+        clearTable(model);
+        displayTable(model);
     }//GEN-LAST:event_jbSearchActionPerformed
 
-    private void displayTable(){
+    private void displayTable(DefaultTableModel model){
         initializeList();
-        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
-            for (int i=0; i<flowerList.getLength();i++){
-                product = flowerList.get(i);
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
-                model.addRow(row);
-            }
-            jTableList.setModel(model);
+        for (int i=0; i<flowerList.getLength();i++){
+            product = flowerList.get(i);
+            Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+            model.addRow(row);
+        }
+        jTableList.setModel(model);
     }
     
-    private void clearTable(){
-        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
+    private void clearTable(DefaultTableModel model){
         model.setRowCount(0);
+        jTableList.setModel(model);
     }
     
     private void initializeList() {
@@ -241,7 +244,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
           JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-          JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null, "File unable to read", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
           JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         }

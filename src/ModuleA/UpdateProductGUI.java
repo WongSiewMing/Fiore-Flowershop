@@ -67,7 +67,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         jLabel5.setText("PRODUCT PRICE (RM) : ");
 
         jlbFlowerShop.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jlbFlowerShop.setText("ADD NEW PRODUCT");
+        jlbFlowerShop.setText("UPDATE NEW PRODUCT");
 
         jcbProd_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fresh Flowers", "Bouquets", "Floral Arrangements" }));
 
@@ -80,7 +80,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         jLabel2.setText("PRODUCT NAME : ");
 
         jbtUpdate.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jbtUpdate.setText("Add");
+        jbtUpdate.setText("Update");
         jbtUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtUpdateActionPerformed(evt);
@@ -140,7 +140,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlbFlowerShop)
                         .addGap(15, 15, 15)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
