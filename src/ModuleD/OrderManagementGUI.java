@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -125,7 +126,8 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         initializeList();
         
         DefaultTableModel model = (DefaultTableModel) jtbOrder.getModel();
-        
+        model.setRowCount(0);
+        jtbOrder.setModel(model);
         
         while(orderqueue.isEmpty() != true ){
                 order = orderqueue.dequeue();
@@ -154,7 +156,11 @@ public class OrderManagementGUI extends javax.swing.JFrame {
     }
     
     private void jbtRecordOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRecordOrderActionPerformed
-       
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.getContentPane().add(new RecordOrder());
+            frame.pack();
+            frame.setVisible(true);
     }//GEN-LAST:event_jbtRecordOrderActionPerformed
 
     public static void main(String args[]) {
