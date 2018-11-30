@@ -19,7 +19,7 @@ public class OrderGUI extends javax.swing.JFrame {
     Date date = new Date();
     Date extdate = addDays(date,0);
     
-    private QueueArray<Order> orderqueue = new QueueArray<>();
+    private QueueArray<Order> orderqueue = new QueueArray<>(20);
     private String custType = "Normal";
     private String timestamp = "Pending";
     private String payStatus = "Pending";
