@@ -4,7 +4,7 @@ public class QueueArray<T> implements QueueInterface<T> {
     private T[] queue;
     private int lastIndex;
     private static final int firstIndex = 0;
-    private static final int initialCapacity = 50;
+    private static final int initialCapacity = 40;
     
     public QueueArray(){
         this(initialCapacity);
