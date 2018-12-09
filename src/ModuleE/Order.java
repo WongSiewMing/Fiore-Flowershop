@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Order implements Serializable {
     private String custName;
-    private String custAddress;
+    private String custLocation;
     private String pickUpType;
     private String custType;
     private String arrangeStyle;
@@ -17,9 +17,9 @@ public class Order implements Serializable {
     private String orderStatus;
 
 
-    public Order(String custName,String custAddress,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus){
+    public Order(String custName,String custLocation,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus){
         this.custName = custName;
-        this.custAddress = custAddress;
+        this.custLocation = custLocation;
         this.pickUpType = pickUpType;
         this.custType = custType;
         this.arrangeStyle = arrangeStyle;
@@ -36,12 +36,12 @@ public class Order implements Serializable {
 
     }
 
-    public String getCustAddress() {
-        return custAddress;
+    public String getcustLocation() {
+        return custLocation;
     }
 
-    public void setCustAddress(String custAddress) {
-        this.custAddress = custAddress;
+    public void setcustLocation(String custLocation) {
+        this.custLocation = custLocation;
     }
 
     public String getPickUpType() {

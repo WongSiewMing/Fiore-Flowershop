@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +17,7 @@ public class OrderManagementGUI extends javax.swing.JFrame {
     private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
     private LinkedList<Order> ordertoday = new LinkedList<>();
     private Order order = new Order();
+    private Order orderList = new Order();
     
     public OrderManagementGUI() {
         initComponents();
@@ -54,10 +56,10 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         jlbTitle.setText("Order & Delivery Management");
 
         jbtRecordDelivery.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbtRecordDelivery.setText("Record Delivery");
+        jbtRecordDelivery.setText("Update Delivery");
 
         jbtRecordOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbtRecordOrder.setText("Record Order");
+        jbtRecordOrder.setText("Update Order");
         jbtRecordOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtRecordOrderActionPerformed(evt);
@@ -143,7 +145,15 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         try {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream("orders.dat"));
 
-        orderqueue = (LinkedQueue) in.readObject();
+        ArrayList<Order> tmp = new ArrayList<Order>();
+        tmp = (ArrayList)in.readObject();
+        
+        for(int i=0; i<tmp.size(); i++)
+            {
+                orderList = tmp.get(i);
+                orderqueue.enqueue(orderList);
+            }
+        
         in.close();
         
         } catch (FileNotFoundException ex) {
@@ -158,7 +168,7 @@ public class OrderManagementGUI extends javax.swing.JFrame {
     private void jbtRecordOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRecordOrderActionPerformed
             JFrame frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.getContentPane().add(new RecordOrder());
+            frame.getContentPane().add(new UpdateOrder());
             frame.pack();
             frame.setVisible(true);
     }//GEN-LAST:event_jbtRecordOrderActionPerformed

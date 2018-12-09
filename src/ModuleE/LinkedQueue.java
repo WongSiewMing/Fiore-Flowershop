@@ -1,5 +1,7 @@
 package ModuleE;
 
+import java.io.Serializable;
+
 public class LinkedQueue<T> implements QueueInterface<T> {
 
   private Node firstNode; 
