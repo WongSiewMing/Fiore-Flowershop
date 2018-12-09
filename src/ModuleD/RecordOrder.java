@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 
 public class RecordOrder extends javax.swing.JPanel {
 
-    private ModuleE.QueueArray<Order> orderqueue = new ModuleE.QueueArray<>(30);
+    private ModuleE.LinkedQueue<Order> orderqueue = new ModuleE.LinkedQueue<>();
     private Order order = new Order();
     List<Order> custorder = new ArrayList<>();
     LocalTime now = LocalTime.now(); 
@@ -149,7 +149,7 @@ public class RecordOrder extends javax.swing.JPanel {
         try {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream("orders.dat"));
 
-        orderqueue = (ModuleE.QueueArray) in.readObject();
+        orderqueue = (ModuleE.LinkedQueue) in.readObject();
         in.close();
         
         } catch (FileNotFoundException ex) {

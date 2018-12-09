@@ -1,7 +1,5 @@
 package ModuleE;
 
-import ModuleD.*;
-
 public interface QueueInterface<T> {
     
     public void enqueue(T item);

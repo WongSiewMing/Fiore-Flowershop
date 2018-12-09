@@ -1,7 +1,7 @@
 package ModuleD;
 
 import ModuleE.Order;
-import ModuleE.QueueArray;
+import ModuleE.LinkedQueue;
 import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,8 +13,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class OrderManagementGUI extends javax.swing.JFrame {
     
-    private QueueArray<Order> orderqueue = new QueueArray<>(20);
-    private ListArray<Order> ordertoday = new ListArray<>();
+    private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
+    private LinkedList<Order> ordertoday = new LinkedList<>();
     private Order order = new Order();
     
     public OrderManagementGUI() {
@@ -143,7 +143,7 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         try {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream("orders.dat"));
 
-        orderqueue = (QueueArray) in.readObject();
+        orderqueue = (LinkedQueue) in.readObject();
         in.close();
         
         } catch (FileNotFoundException ex) {

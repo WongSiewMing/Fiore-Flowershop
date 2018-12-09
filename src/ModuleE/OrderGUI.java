@@ -19,7 +19,7 @@ public class OrderGUI extends javax.swing.JFrame {
     Date date = new Date();
     Date extdate = addDays(date,0);
     
-    private QueueArray<Order> orderqueue = new QueueArray<>(20);
+    private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
     private String custType = "Normal";
     private String timestamp = "Pending";
     private String payStatus = "Pending";
@@ -47,11 +47,13 @@ public class OrderGUI extends javax.swing.JFrame {
         jcbAccessories = new javax.swing.JComboBox<>();
         jcbPriority = new javax.swing.JComboBox<>();
         jbtOrder = new javax.swing.JButton();
-        jbtClose = new javax.swing.JButton();
         taCustName = new javax.swing.JTextField();
         jlCustName = new javax.swing.JLabel();
         jbtCheckOrder = new javax.swing.JButton();
-        jbtCancel = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jtfAddress = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jcbPickUp = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,15 +101,6 @@ public class OrderGUI extends javax.swing.JFrame {
             }
         });
 
-        jbtClose.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jbtClose.setText("Close Order");
-        jbtClose.setActionCommand("");
-        jbtClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCloseActionPerformed(evt);
-            }
-        });
-
         taCustName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jlCustName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -121,39 +114,26 @@ public class OrderGUI extends javax.swing.JFrame {
             }
         });
 
-        jbtCancel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jbtCancel.setText("Cancel");
-        jbtCancel.setActionCommand("");
-        jbtCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCancelActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Address");
+
+        jtfAddress.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Pick-Up Selection");
+
+        jcbPickUp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcbPickUp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -", "Self Pick-Up", "Delivery", " " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .addComponent(jbtOrder)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbtCheckOrder)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbtClose, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbtCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(111, 111, 111)
-                                .addComponent(jlCustName)
-                                .addGap(18, 18, 18)
-                                .addComponent(taCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jlbStyle)
@@ -169,12 +149,32 @@ public class OrderGUI extends javax.swing.JFrame {
                                     .addComponent(jcbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jcbAccessories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jlbFlowerShop)
-                                .addGap(51, 51, 51))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jlbFlowerShop, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jlCustName))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(taCustName)
+                                            .addComponent(jtfAddress))))
+                                .addGap(51, 51, 51))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcbPickUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(111, 111, 111))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(189, 189, 189)
                         .addComponent(jlbTitle)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtOrder)
+                .addGap(18, 18, 18)
+                .addComponent(jbtCheckOrder)
+                .addGap(217, 217, 217))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,10 +183,18 @@ public class OrderGUI extends javax.swing.JFrame {
                 .addComponent(jlbFlowerShop)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlCustName)
+                    .addComponent(taCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(taCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlCustName))
+                    .addComponent(jtfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbPickUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbStyle)
@@ -207,14 +215,11 @@ public class OrderGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlbPriority)
                     .addComponent(jcbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtCancel)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbtCheckOrder)
-                        .addComponent(jbtOrder)
-                        .addComponent(jbtClose)))
-                .addGap(30, 30, 30))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtCheckOrder)
+                    .addComponent(jbtOrder))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -228,6 +233,8 @@ public class OrderGUI extends javax.swing.JFrame {
       
         else{
         String name = taCustName.getText();
+        String address = jtfAddress.getText();
+        String pickuptype = jcbPickUp.getSelectedItem().toString();
         String style = jcbStyle.getSelectedItem().toString();
         String size = jcbSize.getSelectedItem().toString();
         String flower = jcbFlower.getSelectedItem().toString();
@@ -248,7 +255,7 @@ public class OrderGUI extends javax.swing.JFrame {
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String orderDate = dateFormat.format(extdate);
-        orderqueue.enqueue(new Order(name,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus));
+        orderqueue.enqueue(new Order(name,address,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus));
         JOptionPane.showMessageDialog(new JFrame(), "Order Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE); 
         
         writeFile();
@@ -258,7 +265,7 @@ public class OrderGUI extends javax.swing.JFrame {
 
     private void jbtCheckOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckOrderActionPerformed
         
-        if(taCustName.getText().equals("") || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0){
+        if(taCustName.getText().equals("") || jtfAddress.getText().equals("") || jcbPickUp.getSelectedIndex() == 0 || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0){
          
         JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
         
@@ -269,25 +276,10 @@ public class OrderGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtCheckOrderActionPerformed
 
-    private void jbtCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCloseActionPerformed
-    
-//    if(taCustName.getText().equals("") || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0){
-//         
-//        JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
-//        
-//    }
-//    else{
-//        writeFile();
-//    }
-    }//GEN-LAST:event_jbtCloseActionPerformed
-
-    private void jbtCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jbtCancelActionPerformed
-
     public String billList() {
     
-        String outputStr = "Your Name : " + taCustName.getText() + "\nStyle : " +jcbStyle.getSelectedItem().toString()+ "\nSize : " +jcbSize.getSelectedItem().toString()+ 
+        String outputStr = "Your Name : " + taCustName.getText() + "\nAddress : " +jtfAddress.getText() + "\nPick-Up Type:" +jcbPickUp.getSelectedItem().toString()+ 
+                "\nStyle : " +jcbStyle.getSelectedItem().toString()+ "\nSize : " +jcbSize.getSelectedItem().toString()+ 
                 "\nFlower Type : " +jcbFlower.getSelectedItem().toString()+ "\nAccessories : " + jcbAccessories.getSelectedItem().toString()+ 
                 "\nPriority : " +jcbPriority.getSelectedItem().toString() + "\n\nYour Bill : ";
     
@@ -297,7 +289,7 @@ public class OrderGUI extends javax.swing.JFrame {
     private void readFile(){
         try {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream("orders.dat"));
-        orderqueue = (QueueArray) in.readObject();
+        orderqueue = (LinkedQueue) in.readObject();
         in.close();
         
         } catch (FileNotFoundException ex) {
@@ -331,12 +323,13 @@ public class OrderGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtCancel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jbtCheckOrder;
-    private javax.swing.JButton jbtClose;
     private javax.swing.JButton jbtOrder;
     private javax.swing.JComboBox<String> jcbAccessories;
     private javax.swing.JComboBox<String> jcbFlower;
+    private javax.swing.JComboBox<String> jcbPickUp;
     private javax.swing.JComboBox<String> jcbPriority;
     private javax.swing.JComboBox<String> jcbSize;
     private javax.swing.JComboBox<String> jcbStyle;
@@ -348,6 +341,7 @@ public class OrderGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jlbSize;
     private javax.swing.JLabel jlbStyle;
     private javax.swing.JLabel jlbTitle;
+    private javax.swing.JTextField jtfAddress;
     private javax.swing.JTextField taCustName;
     // End of variables declaration//GEN-END:variables
 
