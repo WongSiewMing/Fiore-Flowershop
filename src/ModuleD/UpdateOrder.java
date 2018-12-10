@@ -17,10 +17,10 @@ import javax.swing.JFrame;
 
 public class UpdateOrder extends javax.swing.JPanel {
 
-    private ModuleE.LinkedQueue<Order> orderqueue = new ModuleE.LinkedQueue<>();
+    private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
     private Order order = new Order();
     private Order orderList = new Order();
-    List<Order> custorder = new ArrayList<>();
+    LinkedList<Order> custorder = new LinkedList<>();
     LocalTime now = LocalTime.now(); 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm a");
     
@@ -65,20 +65,19 @@ public class UpdateOrder extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlPaymentType)
+                    .addComponent(jlSelectOrder))
+                .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlPaymentType)
-                            .addComponent(jlSelectOrder))
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
-                        .addComponent(jbtUpdate)))
+                    .addComponent(jcbOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtUpdate)
+                .addGap(185, 185, 185))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,20 +103,20 @@ public class UpdateOrder extends javax.swing.JPanel {
         }
         else
         {
-            for(int i = 0; i < custorder.size(); i ++)
+            for(int i = 0; i < custorder.getNumberOfEntries(); i ++)
             {
-                if(jcbOrder.getSelectedItem().toString().equals(custorder.get(i).getCustName().toString())){
-                    order = custorder.get(i);
+                if(jcbOrder.getSelectedItem().toString().equals(custorder.getEntry(i).getOrderID().toString()+ " || " +custorder.getEntry(i).getCustName().toString())){
+                    order = custorder.getEntry(i);
                     order.setOrderStatus("Picked Up");
                     order.setPaymentStatus(jcbPaymentType.getSelectedItem().toString());
                     order.setTimestamp(now.format(dtf));
+                    transferQueue();
+                    writeFile();
+                    JOptionPane.showMessageDialog(new JFrame(), "Update Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             
         }
-        transferQueue();
-        writeFile();
-        JOptionPane.showMessageDialog(new JFrame(), "Update Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_jbtUpdateActionPerformed
 
     private void getOrder(){
@@ -140,8 +139,8 @@ public class UpdateOrder extends javax.swing.JPanel {
     
     private void transferQueue(){
         
-        for(int i = 0; i < custorder.size(); i ++){
-            orderqueue.enqueue(custorder.get(i));
+        for(int i = 0; i < custorder.getNumberOfEntries() ; i ++){
+            orderqueue.enqueue(custorder.getEntry(i));
         }
     }
     
