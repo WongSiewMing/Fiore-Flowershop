@@ -11,6 +11,7 @@ public class Product implements Serializable{
     private String prod_type;
     private double price;
     private int quantity;
+    private Promotion promotion;
     
     public Product(){
         
@@ -40,6 +41,10 @@ public class Product implements Serializable{
         return quantity;
     }
     
+    public Promotion getPromotion(){
+        return promotion;
+    }
+    
     public void setProd_id(String prod_id){
         this.prod_id = prod_id;
     }
@@ -62,6 +67,10 @@ public class Product implements Serializable{
     
     public void setQuantity(int quantity){
         this.quantity = quantity;
+    }
+    
+    public void setPromotion(Promotion promotion){
+        this.promotion = promotion;
     }
     
     public String toString() {

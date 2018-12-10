@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author kokho
  */
 public class UpdateProductGUI extends javax.swing.JFrame {
-    private ListArray<Product> flowerList = new ListArray<>();
+    private LinkedList<Product> flowerList = new LinkedList<>();
     private Product product = new Product();
 
     /**
@@ -198,9 +198,9 @@ public class UpdateProductGUI extends javax.swing.JFrame {
             product.setProd_type(ob.toString());
             product.setPrice(Double.parseDouble(jtfPrice.getText()));
             product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
-            for (int i=0; i<flowerList.length();i++){
+            for (int i=0; i<flowerList.getNumberOfEntries();i++){
                 Product tmp = new Product();
-                tmp = flowerList.get(i);
+                tmp = flowerList.getEntry(i);
                 if (product.getProd_id().equals(tmp.getProd_id())){
                     flowerList.replace(i, product);
                     saveList();
@@ -258,8 +258,8 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
             ArrayList<Product> tmp = new ArrayList<Product>();
-            for(int i=0; i<flowerList.length();i++){
-                product = flowerList.get(i);
+            for(int i=0; i<flowerList.getNumberOfEntries();i++){
+                product = flowerList.getEntry(i);
                 tmp.add(product);
             }
             ooStream.writeObject(tmp);
@@ -273,8 +273,8 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     }
     
     private void displayData(String id){
-        for(int i = 0; i<flowerList.length();i++){
-            product = flowerList.get(i);
+        for(int i = 0; i<flowerList.getNumberOfEntries();i++){
+            product = flowerList.getEntry(i);
             if (product.getProd_id().equals(id)){
                 jtfProd_id.setText(product.getProd_id());
                 jtfProd_name.setText(product.getProd_name());

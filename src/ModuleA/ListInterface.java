@@ -3,16 +3,16 @@ package ModuleA;
 
 
 public interface ListInterface<T>{
-    public void add(T item);
-    public void add(int i,T item);
-    public T get(int i);
+    public boolean add(T item);
+    public boolean add(int newPosition, T item);
+    public T remove(int givenPosition);
+    public boolean replace(int givenPosition, T item);
+    public T getEntry(int givenPosition);
+    public boolean contains(T anEntry);
+    public int getNumberOfEntries();
     public boolean isEmpty();
-    public Object remove(int i);
-    public void clear();
-    public boolean replace(int i, T item);
-    public boolean contains(T item);
-    public int length();
     public boolean isFull();
     public String toString();
+    
      
 }

@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class CatalogMaintenanceGUI extends javax.swing.JFrame {
-    private ListArray<Product> flowerList = new ListArray<>();
+    private LinkedList<Product> flowerList = new LinkedList<>();
     private Product product = new Product();
     /**
      * Creates new form CatalogMaintenanceGUI
@@ -82,14 +82,14 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         jTableList.setAutoCreateRowSorter(true);
         jTableList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Description", "Product Type", "Price", "Quantity"
+                "ID", "Name", "Description", "Product Type", "Price", "Quantity", "Start Date", "End Date", "Discount Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -223,22 +223,22 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     
     private void displayTable(DefaultTableModel model, int type){
         initializeList();
-        for (int i=0; i<flowerList.length();i++){
-            product = flowerList.get(i);
+        for (int i=0; i<flowerList.getNumberOfEntries();i++){
+            product = flowerList.getEntry(i);
             if (type == 1 && product.getProd_type().equals("Fresh Flowers")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
             }
             else if (type == 2 && product.getProd_type().equals("Bouquets")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
             }
             else if (type == 3 && product.getProd_type().equals("Floral Arrangements")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
             }
             else if (type == 0){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
             }
         }
