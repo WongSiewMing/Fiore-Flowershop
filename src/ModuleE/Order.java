@@ -3,7 +3,10 @@ package ModuleE;
 import java.io.Serializable;
 
 public class Order implements Serializable {
+    private String orderID;
     private String custName;
+    private String custLocation;
+    private String pickUpType;
     private String custType;
     private String arrangeStyle;
     private String arrangeSize;
@@ -15,8 +18,11 @@ public class Order implements Serializable {
     private String orderStatus;
 
 
-    public Order(String custName,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus){
+    public Order(String orderID,String custName,String custLocation,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus){
+        this.orderID = orderID;
         this.custName = custName;
+        this.custLocation = custLocation;
+        this.pickUpType = pickUpType;
         this.custType = custType;
         this.arrangeStyle = arrangeStyle;
         this.arrangeSize = arrangeSize;
@@ -32,6 +38,31 @@ public class Order implements Serializable {
 
     }
 
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
+
+    public String getCustLocation() {
+        return custLocation;
+    }
+
+    public void setCustLocation(String custLocation) {
+        this.custLocation = custLocation;
+    }
+
+    public String getPickUpType() {
+        return pickUpType;
+    }
+
+    public void setPickUpType(String pickUpType) {
+        this.pickUpType = pickUpType;
+    }
+
+    
     public String getOrderStatus() {
         return orderStatus;
     }
