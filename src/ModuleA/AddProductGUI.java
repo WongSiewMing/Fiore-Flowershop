@@ -79,9 +79,13 @@ public class AddProductGUI extends javax.swing.JFrame {
 
         jLabel5.setText("PRODUCT PRICE (RM) : ");
 
+        jtfPrice.setText("0.0");
+
         jcbProd_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fresh Flowers", "Bouquets", "Floral Arrangements" }));
 
         jLabel6.setText("PRODUCT QUANTITY : ");
+
+        jtfQuantity.setText("0");
 
         jbtAdd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtAdd.setText("Add");
@@ -124,6 +128,7 @@ public class AddProductGUI extends javax.swing.JFrame {
 
         jLabel9.setText("DISCOUNT PRICE : ");
 
+        jDiscountPrice.setText("0.0");
         jDiscountPrice.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -259,11 +264,15 @@ public class AddProductGUI extends javax.swing.JFrame {
         jtfProd_name.setText("");
         jtfProd_desc.setText("");
         jcbProd_type.setSelectedIndex(0);
-        jtfPrice.setText("");
-        jtfQuantity.setText("");
+        jtfPrice.setText("0.0");
+        jtfQuantity.setText("0");
+        jCheckPromotion.setSelected(false);
+        jStartDate.setEnabled(false);
         jStartDate.setDate(null);
+        jEndDate.setEnabled(false);
         jEndDate.setDate(null);
-        jDiscountPrice.setText("");
+        jDiscountPrice.setEnabled(false);
+        jDiscountPrice.setText("0.0");
     }//GEN-LAST:event_jbtResetActionPerformed
 
     private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed

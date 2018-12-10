@@ -195,6 +195,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfPrice">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0.0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jcbProd_type">
       <Properties>
@@ -216,6 +219,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfQuantity">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jbtAdd">
       <Properties>
@@ -285,6 +291,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jDiscountPrice">
       <Properties>
+        <Property name="text" type="java.lang.String" value="0.0"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>

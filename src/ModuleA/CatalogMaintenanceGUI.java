@@ -225,6 +225,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         initializeList();
         for (int i=0; i<flowerList.getNumberOfEntries();i++){
             product = flowerList.getEntry(i);
+            System.out.println(product.toString());
             if (type == 1 && product.getProd_type().equals("Fresh Flowers")){
                 Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
