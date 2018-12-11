@@ -70,14 +70,14 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         jTableList.setAutoCreateRowSorter(true);
         jTableList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Description", "Product Type", "Price", "Quantity", "Start Date", "End Date", "Discount Price"
+                "ID", "Name", "Description", "Product Type", "Price", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -159,16 +159,16 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbSearch))
+                    .addComponent(jbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbtAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jbtViewPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jbtViewPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(83, 83, Short.MAX_VALUE))
         );
 
@@ -196,7 +196,9 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtUpdateProdActionPerformed
 
     private void jbtViewPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewPromotionActionPerformed
-        // TODO add your handling code here:
+        ViewPromotionGUI view = new ViewPromotionGUI();
+        view.setLocationRelativeTo(null);
+        view.setVisible(true);
     }//GEN-LAST:event_jbtViewPromotionActionPerformed
 
     private void jbSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSearchActionPerformed
@@ -209,20 +211,21 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         initializeList();
         for (int i=0; i<flowerList.getNumberOfEntries();i++){
             product = flowerList.getEntry(i);
+            
             if (type == 1 && product.getProd_type().equals("Fresh Flowers")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
                 model.addRow(row);
             }
             else if (type == 2 && product.getProd_type().equals("Bouquets")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
                 model.addRow(row);
             }
             else if (type == 3 && product.getProd_type().equals("Floral Arrangements")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
                 model.addRow(row);
             }
             else if (type == 0){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
                 model.addRow(row);
             }
         }
