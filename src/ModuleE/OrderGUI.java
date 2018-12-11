@@ -24,6 +24,11 @@ public class OrderGUI extends javax.swing.JFrame {
     
     private LinkedQueue<Order> tmpqueue = new LinkedQueue<>();
     private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
+    
+    private LinkedQueue<Order> expressorder = new LinkedQueue<>();
+    private LinkedQueue<Order> normalorder = new LinkedQueue<>();
+    private LinkedQueue<Order> flexiorder = new LinkedQueue<>();
+    
     private Order order = new Order();
     private String custType = "Normal";
     private String timestamp = "Pending";
@@ -112,7 +117,7 @@ public class OrderGUI extends javax.swing.JFrame {
         jlCustName.setText("Full Name");
 
         jbtCheckOrder.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jbtCheckOrder.setText("Check Order");
+        jbtCheckOrder.setText("Check Bill");
         jbtCheckOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtCheckOrderActionPerformed(evt);
@@ -231,12 +236,30 @@ public class OrderGUI extends javax.swing.JFrame {
         
         readFile();
         
+        int num = getID();
+        
+        while(!orderqueue.isEmpty()){
+            order = orderqueue.dequeue();
+            
+            if(order.getPriority().toString().equals("Express (Within 3 days)  (+ RM 50)")){
+                expressorder.enqueue(order);
+            }
+            
+            if(order.getPriority().toString().equals("Normal (Within 7 days) (+ RM 30)")){
+                normalorder.enqueue(order);
+            }
+            
+            if(order.getPriority().toString().equals("Flexi  (Within 10 days) (+ RM 10)")){
+                flexiorder.enqueue(order);
+            }
+        }
+        
         if(taCustName.getText().equals("") || jcbPickUp.getSelectedIndex() == 0 || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0 || (jcbPickUp.getSelectedIndex() == 2 && jcbLocation.getSelectedIndex() == 0)){            
                 JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
         }
       
         else{
-            String ID = generateId(getID());
+            String ID = generateId(num);
             String name = taCustName.getText();
             String pickuptype = jcbPickUp.getSelectedItem().toString();
             
@@ -269,22 +292,53 @@ public class OrderGUI extends javax.swing.JFrame {
         if(jcbPriority.getSelectedIndex() == 1)
         {
             extdate = addDays(date,3);
-//            bill.setPriorityPrice(50);
         }
         else if(jcbPriority.getSelectedIndex() == 2)
         {
             extdate = addDays(date,7);
-//            bill.setPriorityPrice(30);
         }
         else if(jcbPriority.getSelectedIndex() == 3)
         {
             extdate = addDays(date,10);
-//            bill.setPriorityPrice(10);
         }
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String orderDate = dateFormat.format(extdate);
-        orderqueue.enqueue(new Order(ID,name,location,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus));
+        
+        if(jcbPriority.getSelectedIndex() == 1)
+        {
+            expressorder.enqueue(new Order(ID,name,location,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
+        }
+        else if(jcbPriority.getSelectedIndex() == 2)
+        {
+            normalorder.enqueue(new Order(ID,name,location,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
+        }
+        else if(jcbPriority.getSelectedIndex() == 3)
+        {
+            flexiorder.enqueue(new Order(ID,name,location,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
+        }
+        
+        if(!expressorder.isEmpty()){
+            while(!expressorder.isEmpty()){
+                order = expressorder.dequeue();
+                orderqueue.enqueue(order);
+            }
+        }
+        
+        if(!normalorder.isEmpty()){
+            while(!normalorder.isEmpty()){
+                order = normalorder.dequeue();
+                orderqueue.enqueue(order);
+            }
+        }
+        
+        if(!flexiorder.isEmpty()){
+            while(!flexiorder.isEmpty()){
+                order = flexiorder.dequeue();
+                orderqueue.enqueue(order);
+            }
+        }
+//        orderqueue.enqueue(new Order(ID,name,location,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus));
         JOptionPane.showMessageDialog(new JFrame(), "Order Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE); 
         
         writeFile();
@@ -294,9 +348,14 @@ public class OrderGUI extends javax.swing.JFrame {
 
     private void jbtCheckOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckOrderActionPerformed
         
+        
         if(taCustName.getText().equals("") || jcbPickUp.getSelectedIndex() == 0 || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0|| (jcbPickUp.getSelectedIndex() == 2 && jcbLocation.getSelectedIndex() == 0)){
             JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+            }
+        else if(bill.getID() == null){
+            JOptionPane.showMessageDialog(null, "You haven't place any order yet !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
         else{
             if(jcbPriority.getSelectedIndex() == 1)
         {
@@ -374,25 +433,6 @@ public class OrderGUI extends javax.swing.JFrame {
             bill.setAccessoriesPrice(100);
         }
         
-            String ID = generateId(getID());
-            String name = taCustName.getText();
-            String location = jcbLocation.getSelectedItem().toString();
-            String pickuptype = jcbPickUp.getSelectedItem().toString();
-            String style = jcbStyle.getSelectedItem().toString();
-            String size = jcbSize.getSelectedItem().toString();
-            String flower = jcbFlower.getSelectedItem().toString();
-            String accessories = jcbAccessories.getSelectedItem().toString();
-            String priority = jcbPriority.getSelectedItem().toString();
-        
-            bill.setID(ID);
-            bill.setName(name);
-            bill.setLocation(location);
-            bill.setPickUp(pickuptype);
-            bill.setStyle(style);
-            bill.setSize(size);
-            bill.setFlower(flower);
-            bill.setAccessories(accessories);
-            bill.setPriority(priority);
             JOptionPane.showMessageDialog(null, bill.billList());
         }
     }//GEN-LAST:event_jbtCheckOrderActionPerformed

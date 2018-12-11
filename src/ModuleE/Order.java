@@ -16,9 +16,9 @@ public class Order implements Serializable {
     private String paymentStatus;
     private String date;
     private String orderStatus;
+    private String priority;
 
-
-    public Order(String orderID,String custName,String custLocation,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus){
+    public Order(String orderID,String custName,String custLocation,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus,String priority){
         this.orderID = orderID;
         this.custName = custName;
         this.custLocation = custLocation;
@@ -32,6 +32,7 @@ public class Order implements Serializable {
         this.paymentStatus = paymentStatus;
         this.date = date;
         this.orderStatus = orderStatus;
+        this.priority = priority;
     }
 
     public Order() {
@@ -141,6 +142,14 @@ public class Order implements Serializable {
 
     public void setAccessories(String accessories) {
         this.accessories = accessories;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
         
 }

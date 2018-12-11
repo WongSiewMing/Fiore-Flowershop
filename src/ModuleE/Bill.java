@@ -147,9 +147,10 @@ public class Bill implements BillInterface{
     
     public String billList()
     {
-        return "Order ID : " + ID + "\nYour Name : " + name + "\nPick-Up Type : " +pickUp+ "\nPick-Up Location : " +location+ 
+        return "Order ID : " + ID + "\n\nYour Name : " + name + 
+                "\nPick-Up Type : " +pickUp+ "\nPick-Up Location : " +location+ 
                 "\nStyle : " +style+ "\nSize : " +size+ 
                 "\nFlower Type : " +flower+ "\nAccessories : " + accessories+ 
-                "\nPriority : " +priority + "\n\nYour Bill : " + totalBill();
+                "\nPriority : " +priority + "\n\nYour Bill : RM " + totalBill();
     }
 }
