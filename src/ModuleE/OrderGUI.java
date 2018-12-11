@@ -238,8 +238,18 @@ public class OrderGUI extends javax.swing.JFrame {
         else{
             String ID = generateId(getID());
             String name = taCustName.getText();
-            String location = jcbLocation.getSelectedItem().toString();
             String pickuptype = jcbPickUp.getSelectedItem().toString();
+            
+            String location = "";
+            if(jcbPickUp.getSelectedIndex() == 1)
+            {
+                location = "-";
+            }
+            else
+            {
+                location = jcbLocation.getSelectedItem().toString();
+            }
+            
             String style = jcbStyle.getSelectedItem().toString();
             String size = jcbSize.getSelectedItem().toString();
             String flower = jcbFlower.getSelectedItem().toString();
@@ -259,14 +269,17 @@ public class OrderGUI extends javax.swing.JFrame {
         if(jcbPriority.getSelectedIndex() == 1)
         {
             extdate = addDays(date,3);
+//            bill.setPriorityPrice(50);
         }
         else if(jcbPriority.getSelectedIndex() == 2)
         {
             extdate = addDays(date,7);
+//            bill.setPriorityPrice(30);
         }
         else if(jcbPriority.getSelectedIndex() == 3)
         {
             extdate = addDays(date,10);
+//            bill.setPriorityPrice(10);
         }
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -285,7 +298,82 @@ public class OrderGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
     }
         else{
-            
+            if(jcbPriority.getSelectedIndex() == 1)
+        {
+            extdate = addDays(date,3);
+            bill.setPriorityPrice(50);
+        }
+        else if(jcbPriority.getSelectedIndex() == 2)
+        {
+            extdate = addDays(date,7);
+            bill.setPriorityPrice(30);
+        }
+        else if(jcbPriority.getSelectedIndex() == 3)
+        {
+            extdate = addDays(date,10);
+            bill.setPriorityPrice(10);
+        }
+        
+        if(jcbPickUp.getSelectedIndex() == 2){
+            bill.setPickUpPrice(10);
+        }
+        else
+        {
+            bill.setPickUpPrice(0);
+        }
+        
+        if(jcbStyle.getSelectedIndex() == 1 || jcbStyle.getSelectedIndex() == 2 || jcbStyle.getSelectedIndex() == 3){
+            bill.setStylePrice(10);
+        }
+        else if(jcbStyle.getSelectedIndex() == 4 || jcbStyle.getSelectedIndex() == 5){
+            bill.setStylePrice(20);
+        }
+        else{
+            bill.setStylePrice(30);
+        }
+        
+        if(jcbSize.getSelectedIndex() == 1){
+            bill.setSizePrice(10);
+        }
+        else if(jcbSize.getSelectedIndex() == 2){
+            bill.setSizePrice(20);
+        }
+        else{
+            bill.setSizePrice(30);
+        }
+        
+        if(jcbFlower.getSelectedIndex() == 1 || jcbFlower.getSelectedIndex() == 2 || jcbFlower.getSelectedIndex() == 3 || jcbFlower.getSelectedIndex() == 4){
+            bill.setFlowerPrice(30);
+        }
+        else if(jcbFlower.getSelectedIndex() == 5 || jcbFlower.getSelectedIndex() == 6 || jcbFlower.getSelectedIndex() == 7){
+            bill.setFlowerPrice(40);
+        }
+        else if(jcbFlower.getSelectedIndex() == 8 || jcbFlower.getSelectedIndex() == 9){
+            bill.setFlowerPrice(50);
+        }
+        else if(jcbFlower.getSelectedIndex() == 10){
+            bill.setFlowerPrice(60);
+        }
+        else if(jcbFlower.getSelectedIndex() == 11 || jcbFlower.getSelectedIndex() == 12){
+            bill.setFlowerPrice(70);
+        }
+        
+        if(jcbAccessories.getSelectedIndex() == 1){
+            bill.setAccessoriesPrice(20);
+        }
+        else if(jcbAccessories.getSelectedIndex() == 2){
+            bill.setAccessoriesPrice(40);
+        }
+        else if(jcbAccessories.getSelectedIndex() == 3){
+            bill.setAccessoriesPrice(60);
+        }
+        else if(jcbAccessories.getSelectedIndex() == 4){
+            bill.setAccessoriesPrice(80);
+        }
+        else{
+            bill.setAccessoriesPrice(100);
+        }
+        
             String ID = generateId(getID());
             String name = taCustName.getText();
             String location = jcbLocation.getSelectedItem().toString();

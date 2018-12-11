@@ -10,6 +10,13 @@ public class Bill implements BillInterface{
     private String flower;
     private String accessories;
     private String priority;
+    
+    private int pickUpPrice;
+    private int stylePrice;
+    private int sizePrice;
+    private int flowerPrice;
+    private int accessoriesPrice;
+    private int priorityPrice;
 
     public String getID() {
         return ID;
@@ -82,12 +89,67 @@ public class Bill implements BillInterface{
     public void setPriority(String priority) {
         this.priority = priority;
     }
+
+    public int getPickUpPrice() {
+        return pickUpPrice;
+    }
+
+    public void setPickUpPrice(int pickUpPrice) {
+        this.pickUpPrice = pickUpPrice;
+    }
+
+    public int getStylePrice() {
+        return stylePrice;
+    }
+
+    public void setStylePrice(int stylePrice) {
+        this.stylePrice = stylePrice;
+    }
+
+    public int getSizePrice() {
+        return sizePrice;
+    }
+
+    public void setSizePrice(int sizePrice) {
+        this.sizePrice = sizePrice;
+    }
+
+    public int getFlowerPrice() {
+        return flowerPrice;
+    }
+
+    public void setFlowerPrice(int flowerPrice) {
+        this.flowerPrice = flowerPrice;
+    }
+
+    public int getAccessoriesPrice() {
+        return accessoriesPrice;
+    }
+
+    public void setAccessoriesPrice(int accessoriesPrice) {
+        this.accessoriesPrice = accessoriesPrice;
+    }
+
+    public int getPriorityPrice() {
+        return priorityPrice;
+    }
+
+    public void setPriorityPrice(int priorityPrice) {
+        this.priorityPrice = priorityPrice;
+    }
+    
+    public int totalBill()
+    {
+        int totalBill = getAccessoriesPrice() + getFlowerPrice() + getPickUpPrice() + getPriorityPrice() + getSizePrice() + getStylePrice();
+        
+        return totalBill;
+    }
     
     public String billList()
     {
         return "Order ID : " + ID + "\nYour Name : " + name + "\nPick-Up Type : " +pickUp+ "\nPick-Up Location : " +location+ 
                 "\nStyle : " +style+ "\nSize : " +size+ 
                 "\nFlower Type : " +flower+ "\nAccessories : " + accessories+ 
-                "\nPriority : " +priority + "\n\nYour Bill : ";
+                "\nPriority : " +priority + "\n\nYour Bill : " + totalBill();
     }
 }

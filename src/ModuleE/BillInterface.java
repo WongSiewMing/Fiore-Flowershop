@@ -21,5 +21,19 @@ public interface BillInterface {
     public void setPriority(String priority);
     public String getPriority();
     
+    public void setPickUpPrice(int pickupPrice);
+    public int getPickUpPrice();
+    public void setStylePrice(int stylePrice);
+    public int getStylePrice();
+    public void setSizePrice(int sizePrice);
+    public int getSizePrice();
+    public void setFlowerPrice(int flowerPrice);
+    public int getFlowerPrice();
+    public void setAccessoriesPrice(int accessoriesPrice);
+    public int getAccessoriesPrice();
+    public void setPriorityPrice(int priorityPrice);
+    public int getPriorityPrice();
+    
+    public int totalBill();
     public String billList();
 }
