@@ -69,6 +69,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         jEndDate = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jDiscountPrice = new javax.swing.JTextField();
+        jCheckPromotion = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,18 +138,25 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         jDiscountPrice.setText("0");
         jDiscountPrice.setEnabled(false);
 
+        jCheckPromotion.setText("Include Promotion");
+        jCheckPromotion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckPromotionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
+                        .addGap(42, 42, 42)
                         .addComponent(jbtReset, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
+                        .addGap(46, 46, 46)
                         .addComponent(jbtBack, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jlbFlowerShop)
                     .addGroup(layout.createSequentialGroup()
@@ -159,6 +167,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
+                            .addComponent(jCheckPromotion)
                             .addComponent(jLabel10)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
@@ -173,7 +182,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
                             .addComponent(jStartDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jEndDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jDiscountPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,24 +212,27 @@ public class UpdateProductGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jtfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckPromotion)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jDiscountPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtReset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtBack, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jDiscountPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtReset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtBack, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,26 +240,33 @@ public class UpdateProductGUI extends javax.swing.JFrame {
 
     private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateActionPerformed
         boolean found = false;
+        Product tmp = new Product();
+        
         try{
-            product.setProd_id(jtfProd_id.getText());
-            product.setProd_name(jtfProd_name.getText());
-            product.setProd_desc(jtfProd_desc.getText());
+            tmp.setProd_id(jtfProd_id.getText());
+            tmp.setProd_name(jtfProd_name.getText());
+            tmp.setProd_desc(jtfProd_desc.getText());
             Object ob = jcbProd_type.getSelectedItem();
-            product.setProd_type(ob.toString());
-            product.setPrice(Double.parseDouble(jtfPrice.getText()));
-            product.setQuantity(Integer.parseInt(jtfQuantity.getText()));
-            Promotion promotion = new Promotion(jStartDate.getCalendar().getTime(), jEndDate.getCalendar().getTime(), Double.parseDouble(jDiscountPrice.getText()));
-            product.setPromotion(promotion);
+            tmp.setProd_type(ob.toString());
+            tmp.setPrice(Double.parseDouble(jtfPrice.getText()));
+            tmp.setQuantity(Integer.parseInt(jtfQuantity.getText()));
+            if (jCheckPromotion.isSelected()){
+                Promotion promotion = new Promotion(jStartDate.getCalendar().getTime(), jEndDate.getCalendar().getTime(), Double.parseDouble(jDiscountPrice.getText()));
+                tmp.setPromotion(promotion);
+            }
+            else{
+                Promotion promotion = new Promotion();
+                tmp.setPromotion(promotion);
+            }
             
             for (int i=0; i<flowerList.getNumberOfEntries();i++){
                 System.out.println("Begin Loop");
-                Product tmp = new Product();
-                tmp = flowerList.getEntry(i);
-                System.out.println(tmp.toString());
+                product = flowerList.getEntry(i);
+                System.out.println(product.toString());
                 if (product.getProd_id().equals(tmp.getProd_id())){
                     System.out.println("Pass if");
-                    System.out.println(product.toString());
-                    flowerList.replace(i, product);
+                    System.out.println(tmp.toString());
+                    flowerList.replace(i, tmp);
                     found = true;
                 }
             }
@@ -271,14 +290,31 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         jcbProd_type.setSelectedIndex(0);
         jtfPrice.setText("0.0");
         jtfQuantity.setText("0");
+        jCheckPromotion.setSelected(false);
+        jStartDate.setEnabled(false);
         jStartDate.setDate(null);
+        jEndDate.setEnabled(false);
         jEndDate.setDate(null);
+        jDiscountPrice.setEnabled(false);
         jDiscountPrice.setText("0.0");
     }//GEN-LAST:event_jbtResetActionPerformed
 
     private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
         dispose();
     }//GEN-LAST:event_jbtBackActionPerformed
+
+    private void jCheckPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckPromotionActionPerformed
+        if (jCheckPromotion.isSelected()){
+            jStartDate.setEnabled(true);
+            jEndDate.setEnabled(true);
+            jDiscountPrice.setEnabled(true);
+        }
+        else {
+            jStartDate.setEnabled(false);
+            jEndDate.setEnabled(false);
+            jDiscountPrice.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckPromotionActionPerformed
 
     private void initializeList() {
         try {
@@ -333,6 +369,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
                 jtfPrice.setText(Double.toString(product.getPrice()));
                 jtfQuantity.setText(Integer.toString(product.getQuantity()));
                 if (product.getPromotion().getStart_date() != null && product.getPromotion().getEnd_date() != null && product.getPromotion().getDiscount_price() != 0){
+                    jCheckPromotion.setSelected(true);
                     jStartDate.setEnabled(true);
                     jEndDate.setEnabled(true);
                     jDiscountPrice.setEnabled(true);
@@ -392,6 +429,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckPromotion;
     private javax.swing.JTextField jDiscountPrice;
     private com.toedter.calendar.JDateChooser jEndDate;
     private javax.swing.JLabel jLabel1;

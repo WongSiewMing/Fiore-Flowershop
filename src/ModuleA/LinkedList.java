@@ -16,6 +16,7 @@ public class LinkedList<T> implements ListInterface<T> {
     numberOfEntries = 0;
   }
 
+  @Override
   public boolean add(T item) {
     Node newNode = new Node(item);
 
@@ -34,10 +35,11 @@ public class LinkedList<T> implements ListInterface<T> {
     return true;
   }
 
+  @Override
   public boolean add(int newPosition, T item) { 
     boolean isSuccessful = true;
 
-    if ((newPosition >= 0) && (newPosition <= numberOfEntries)) {
+    if ((newPosition >= 0) && (newPosition <= numberOfEntries + 1)) {
       Node newNode = new Node(item);
 
       if (isEmpty() || (newPosition == 0)) {     
@@ -45,7 +47,7 @@ public class LinkedList<T> implements ListInterface<T> {
         firstNode = newNode;
       } else {								                     
         Node nodeBefore = firstNode;
-        for (int i = 0; i < newPosition; i++) {
+        for (int i = 0; i < newPosition - 1; i++) {
           nodeBefore = nodeBefore.next;		
         }
 
@@ -61,6 +63,7 @@ public class LinkedList<T> implements ListInterface<T> {
     return isSuccessful;
   }
 
+  @Override
   public T remove(int givenPosition) {
     T result = null;                
 
@@ -70,7 +73,7 @@ public class LinkedList<T> implements ListInterface<T> {
         firstNode = firstNode.next;
       } else {                         
         Node nodeBefore = firstNode;
-        for (int i = 0; i < givenPosition; i++) {
+        for (int i = 0; i < givenPosition - 1; ++i) {
           nodeBefore = nodeBefore.next;		
         }
         result = nodeBefore.next.data;  
@@ -83,6 +86,7 @@ public class LinkedList<T> implements ListInterface<T> {
     return result;                   
   }
 
+  @Override
   public boolean replace(int givenPosition, T item) {
     boolean isSuccessful = true;
 
@@ -99,6 +103,7 @@ public class LinkedList<T> implements ListInterface<T> {
     return isSuccessful;
   }
 
+  @Override
   public T getEntry(int givenPosition) {
     T result = null;
 
@@ -113,6 +118,7 @@ public class LinkedList<T> implements ListInterface<T> {
     return result;
   }
 
+  @Override
   public boolean contains(T anEntry) {
     boolean found = false;
     Node currentNode = firstNode;
@@ -128,10 +134,12 @@ public class LinkedList<T> implements ListInterface<T> {
     return found;
   }
 
+  @Override
   public int getNumberOfEntries() {
     return numberOfEntries;
   }
 
+  @Override
   public boolean isEmpty() {
     boolean result;
 
@@ -140,10 +148,12 @@ public class LinkedList<T> implements ListInterface<T> {
     return result;
   }
 
+  @Override
   public boolean isFull() {
     return false;
   }
 
+  @Override
   public String toString() {
     String outputStr = "";
     Node currentNode = firstNode;
@@ -170,4 +180,4 @@ public class LinkedList<T> implements ListInterface<T> {
     }
   } 
 
-} 
+}
