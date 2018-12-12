@@ -6,8 +6,14 @@ public interface BillInterface {
     public String getID();
     public void setName(String name);
     public String getName();
-    public void setLocation(String location);
-    public String getLocation();
+    public void setAddress1(String address1);
+    public String getAddress1();
+    public void setAddress2(String address2);
+    public String getAddress2();
+    public void setState(String state);
+    public String getState();
+    public void setCountry(String country);
+    public String getCountry();
     public void setPickUp(String pickup);
     public String getPickUp();
     public void setStyle(String style);
@@ -23,6 +29,8 @@ public interface BillInterface {
     
     public void setPickUpPrice(int pickupPrice);
     public int getPickUpPrice();
+    public void setStatePrice(int statePrice);
+    public int getStatePrice();
     public void setStylePrice(int stylePrice);
     public int getStylePrice();
     public void setSizePrice(int sizePrice);

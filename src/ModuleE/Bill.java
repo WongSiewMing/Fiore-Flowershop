@@ -3,7 +3,10 @@ package ModuleE;
 public class Bill implements BillInterface{
     private String ID;
     private String name;
-    private String location;
+    private String address1;
+    private String address2;
+    private String state;
+    private String country;
     private String pickUp;
     private String style;
     private String size;
@@ -12,6 +15,7 @@ public class Bill implements BillInterface{
     private String priority;
     
     private int pickUpPrice;
+    private int statePrice;
     private int stylePrice;
     private int sizePrice;
     private int flowerPrice;
@@ -20,6 +24,46 @@ public class Bill implements BillInterface{
 
     public String getID() {
         return ID;
+    }
+
+    public String getAddress1() {
+        return address1;
+    }
+
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public int getStatePrice() {
+        return statePrice;
+    }
+
+    public void setStatePrice(int statePrice) {
+        this.statePrice = statePrice;
     }
 
     public void setID(String ID) {
@@ -32,14 +76,6 @@ public class Bill implements BillInterface{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getPickUp() {
@@ -140,7 +176,7 @@ public class Bill implements BillInterface{
     
     public int totalBill()
     {
-        int totalBill = getAccessoriesPrice() + getFlowerPrice() + getPickUpPrice() + getPriorityPrice() + getSizePrice() + getStylePrice();
+        int totalBill = getAccessoriesPrice() + getFlowerPrice() + getPickUpPrice() + getPriorityPrice() + getSizePrice() + getStylePrice() + getStatePrice();
         
         return totalBill;
     }
@@ -148,7 +184,8 @@ public class Bill implements BillInterface{
     public String billList()
     {
         return "Order ID : " + ID + "\n\nYour Name : " + name + 
-                "\nPick-Up Type : " +pickUp+ "\nPick-Up Location : " +location+ 
+                "\nAddress : \n" +address1+ "\n" +address2+ "\n" +state+
+                "\n\nPick-Up Type : " +pickUp+ 
                 "\nStyle : " +style+ "\nSize : " +size+ 
                 "\nFlower Type : " +flower+ "\nAccessories : " + accessories+ 
                 "\nPriority : " +priority + "\n\nYour Bill : RM " + totalBill();

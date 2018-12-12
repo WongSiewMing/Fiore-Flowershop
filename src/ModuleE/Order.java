@@ -5,7 +5,10 @@ import java.io.Serializable;
 public class Order implements Serializable {
     private String orderID;
     private String custName;
-    private String custLocation;
+    private String addressLine1;
+    private String addressLine2;
+    private String state;
+    private String country;
     private String pickUpType;
     private String custType;
     private String arrangeStyle;
@@ -18,10 +21,13 @@ public class Order implements Serializable {
     private String orderStatus;
     private String priority;
 
-    public Order(String orderID,String custName,String custLocation,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus,String priority){
+    public Order(String orderID,String custName,String addressLine1,String addressLine2,String state,String country,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus,String priority){
         this.orderID = orderID;
         this.custName = custName;
-        this.custLocation = custLocation;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.state = state;
+        this.country = country;
         this.pickUpType = pickUpType;
         this.custType = custType;
         this.arrangeStyle = arrangeStyle;
@@ -47,12 +53,36 @@ public class Order implements Serializable {
         this.orderID = orderID;
     }
 
-    public String getCustLocation() {
-        return custLocation;
+    public String getAddressLine1() {
+        return addressLine1;
     }
 
-    public void setCustLocation(String custLocation) {
-        this.custLocation = custLocation;
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getPickUpType() {

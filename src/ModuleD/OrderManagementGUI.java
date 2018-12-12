@@ -141,7 +141,7 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         
         while(orderqueue.isEmpty() != true ){
                 order = orderqueue.dequeue();
-                Object[] row = {order.getOrderID(),order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus(),order.getCustLocation()};
+                Object[] row = {order.getOrderID(),order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus()};
                 model.addRow(row);
             }
             jtbOrder.setModel(model);
