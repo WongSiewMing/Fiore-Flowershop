@@ -12,6 +12,8 @@ public interface BillInterface {
     public String getAddress2();
     public void setState(String state);
     public String getState();
+    public void setPostCode(String postCode);
+    public String getPostCode();
     public void setCountry(String country);
     public String getCountry();
     public void setPickUp(String pickup);

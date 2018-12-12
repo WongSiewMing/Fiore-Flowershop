@@ -70,6 +70,8 @@ public class OrderGUI extends javax.swing.JFrame {
         jtfAddress2 = new javax.swing.JTextField();
         jtfCountry = new javax.swing.JTextField();
         jcbState = new javax.swing.JComboBox<>();
+        jlbPostCode = new javax.swing.JLabel();
+        jtfPostCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,6 +161,11 @@ public class OrderGUI extends javax.swing.JFrame {
         jcbState.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcbState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -", "Selangor", "Kuala Lumpur", "Johor", "Penang", "Perak", "Pahang", "Negeri Sembilan", "Kedah", "Melaka", "Terengganu", "Kelantan", "Perlis", "Sabah (+ RM 10)", "Sarawak (+ RM 10)" }));
 
+        jlbPostCode.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlbPostCode.setText("Post Code");
+
+        jtfPostCode.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,8 +174,27 @@ public class OrderGUI extends javax.swing.JFrame {
                 .addGap(201, 201, 201)
                 .addComponent(jlbTitle)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlbAddress1)
+                    .addComponent(jlCustName))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(taCustName, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                    .addComponent(jtfAddress1))
+                .addGap(157, 157, 157))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlbState)
+                            .addComponent(jlbCountry))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -197,29 +223,16 @@ public class OrderGUI extends javax.swing.JFrame {
                                 .addComponent(jcbAccessories, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(93, 93, 93)
-                        .addComponent(jlbAddress2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlbState)
-                            .addComponent(jlbCountry))
+                            .addComponent(jlbPostCode)
+                            .addComponent(jlbAddress2))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtfAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jtfPostCode)
+                                .addGap(181, 181, 181)))))
                 .addContainerGap(55, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlbAddress1)
-                    .addComponent(jlCustName))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(taCustName, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                    .addComponent(jtfAddress1))
-                .addGap(157, 157, 157))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,18 +253,19 @@ public class OrderGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbAddress2))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jlbState))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jcbState, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfPostCode, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jlbPostCode))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbState, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbState))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbCountry))
-                .addGap(19, 19, 19)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbPickUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbpickUp))
@@ -279,7 +293,7 @@ public class OrderGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtOrder)
                     .addComponent(jbtCheckOrder))
-                .addGap(29, 29, 29))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -307,7 +321,7 @@ public class OrderGUI extends javax.swing.JFrame {
             }
         }
         
-        if(taCustName.getText().equals("") || jcbPickUp.getSelectedIndex() == 0 || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0 || jtfAddress1.getText() == "" || jtfAddress2.getText() == "" || jcbState.getSelectedIndex() == 0){            
+        if(taCustName.getText().equals("") || jcbPickUp.getSelectedIndex() == 0 || jcbStyle.getSelectedIndex() == 0 || jcbSize.getSelectedIndex() == 0 || jcbFlower.getSelectedIndex() == 0 || jcbAccessories.getSelectedIndex() == 0 || jcbPriority.getSelectedIndex() == 0 || jtfAddress1.getText() == "" || jtfAddress2.getText() == "" || jcbState.getSelectedIndex() == 0 || jtfPostCode.getText() == ""){            
                 JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
         }
       
@@ -316,6 +330,7 @@ public class OrderGUI extends javax.swing.JFrame {
             String name = taCustName.getText();
             String address1 = jtfAddress1.getText();
             String address2 = jtfAddress2.getText();
+            String postCode = jtfPostCode.getText();
             String state = jcbState.getSelectedItem().toString();
             String country = jtfCountry.getText();
             String pickuptype = jcbPickUp.getSelectedItem().toString();
@@ -330,6 +345,7 @@ public class OrderGUI extends javax.swing.JFrame {
             bill.setName(name);
             bill.setAddress1(address1);
             bill.setAddress2(address2);
+            bill.setPostCode(postCode);
             bill.setState(state);
             bill.setCountry(country);
             bill.setPickUp(pickuptype);
@@ -357,15 +373,15 @@ public class OrderGUI extends javax.swing.JFrame {
         
         if(jcbPriority.getSelectedIndex() == 1)
         {
-            expressorder.enqueue(new Order(ID,name,address1,address2,state,country,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
+            expressorder.enqueue(new Order(ID,name,address1,address2,postCode,state,country,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
         }
         else if(jcbPriority.getSelectedIndex() == 2)
         {
-            normalorder.enqueue(new Order(ID,name,address1,address2,state,country,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
+            normalorder.enqueue(new Order(ID,name,address1,address2,postCode,state,country,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
         }
         else if(jcbPriority.getSelectedIndex() == 3)
         {
-            flexiorder.enqueue(new Order(ID,name,address1,address2,state,country,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
+            flexiorder.enqueue(new Order(ID,name,address1,address2,postCode,state,country,pickuptype,custType,style,size,flower,accessories,timestamp,payStatus,orderDate,orderStatus,priority));
         }
         
         if(!expressorder.isEmpty()){
@@ -611,6 +627,7 @@ public class OrderGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jlbCountry;
     private javax.swing.JLabel jlbFlower;
     private javax.swing.JLabel jlbFlowerShop;
+    private javax.swing.JLabel jlbPostCode;
     private javax.swing.JLabel jlbPriority;
     private javax.swing.JLabel jlbSize;
     private javax.swing.JLabel jlbState;
@@ -620,6 +637,7 @@ public class OrderGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jtfAddress1;
     private javax.swing.JTextField jtfAddress2;
     private javax.swing.JTextField jtfCountry;
+    private javax.swing.JTextField jtfPostCode;
     private javax.swing.JTextField taCustName;
     // End of variables declaration//GEN-END:variables
 

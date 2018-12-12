@@ -5,6 +5,7 @@ public class Bill implements BillInterface{
     private String name;
     private String address1;
     private String address2;
+    private String postCode;
     private String state;
     private String country;
     private String pickUp;
@@ -40,6 +41,14 @@ public class Bill implements BillInterface{
 
     public void setAddress2(String address2) {
         this.address2 = address2;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
     public String getState() {
@@ -184,10 +193,10 @@ public class Bill implements BillInterface{
     public String billList()
     {
         return "Order ID : " + ID + "\n\nYour Name : " + name + 
-                "\nAddress : \n" +address1+ "\n" +address2+ "\n" +state+
+                "\nAddress : \n" +address1+ "\n" +address2+ "\n" + postCode+ "\n"+state+
                 "\n\nPick-Up Type : " +pickUp+ 
                 "\nStyle : " +style+ "\nSize : " +size+ 
                 "\nFlower Type : " +flower+ "\nAccessories : " + accessories+ 
-                "\nPriority : " +priority + "\n\nYour Bill : RM " + totalBill();
+                "\nPriority : " +priority + "\n\nTotal Amount : RM " + totalBill();
     }
 }

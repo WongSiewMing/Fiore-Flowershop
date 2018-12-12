@@ -7,6 +7,7 @@ public class Order implements Serializable {
     private String custName;
     private String addressLine1;
     private String addressLine2;
+    private String postCode;
     private String state;
     private String country;
     private String pickUpType;
@@ -21,11 +22,12 @@ public class Order implements Serializable {
     private String orderStatus;
     private String priority;
 
-    public Order(String orderID,String custName,String addressLine1,String addressLine2,String state,String country,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus,String priority){
+    public Order(String orderID,String custName,String addressLine1,String addressLine2,String postCode,String state,String country,String pickUpType,String custType,String arrangeStyle,String arrangeSize,String flower,String accessories,String timestamp,String paymentStatus,String date,String orderStatus,String priority){
         this.orderID = orderID;
         this.custName = custName;
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
+        this.postCode = postCode;
         this.state = state;
         this.country = country;
         this.pickUpType = pickUpType;
@@ -43,6 +45,14 @@ public class Order implements Serializable {
 
     public Order() {
 
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
     public String getOrderID() {
