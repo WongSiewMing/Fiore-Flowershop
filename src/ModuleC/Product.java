@@ -1,69 +1,79 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ModuleC;
 
-/**
- *
- * @author wtf981008
- */
-public class Product {
-    private String CustName;
-    private String CustAddress;
-    private String ProductID;
-    private String Selection;
-    private String Payment;
+import java.io.Serializable;
 
-    public Product() {
+
+public class Product implements Serializable{
+    private String prod_id;
+    private String prod_name;
+    private String prod_desc;
+    private String prod_type;
+    private double price;
+    private int quantity;
+    private Promotion promotion;
+    
+    public Product(){
         
     }
-
-    public String getCustName() {
-        return CustName;
-    }
-
-    public String getCustAddress() {
-        return CustAddress;
-    }
-
-    public String getProductID() {
-        return ProductID;
-    }
-
-    public String getSelection() {
-        return Selection;
+    
+    public String getProd_id(){
+        return prod_id;
     }
     
-    public String getPayment() {
-        return Payment;
-    }
-
-    public void setCustName(String CustName) {
-        this.CustName = CustName;
-    }
-
-    public void setCustAddress(String CustAddress) {
-        this.CustAddress = CustAddress;
-    }
-
-    public void setProductID(String ProductID) {
-        this.ProductID = ProductID;
-    }
-
-    public void setSelection(String Selection) {
-        this.Selection = Selection;
+    public String getProd_name(){
+        return prod_name;
     }
     
-    public void setPayment(String Payment) {
-        this.Payment = Payment;
+    public String getProd_desc(){
+        return prod_desc;
     }
-
-    @Override
+    
+    public String getProd_type(){
+        return prod_type;
+    }
+    
+    public double getPrice(){
+        return price;
+    }
+    
+    public int getQuantity(){
+        return quantity;
+    }
+    
+    public Promotion getPromotion(){
+        return promotion;
+    }
+    
+    public void setProd_id(String prod_id){
+        this.prod_id = prod_id;
+    }
+    
+    public void setProd_name(String prod_name){
+        this.prod_name = prod_name;
+    }
+    
+    public void setProd_desc(String prod_desc){
+        this.prod_desc = prod_desc;
+    }
+    
+    public void setProd_type(String prod_type){
+        this.prod_type = prod_type;
+    }
+    
+    public void setPrice(double price){
+        this.price = price;
+    }
+    
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
+    
+    public void setPromotion(Promotion promotion){
+        this.promotion = promotion;
+    }
+    
     public String toString() {
-        return "Product{" + "CustName=" + CustName + ", CustAddress=" + CustAddress + ", ProductID=" + ProductID + ", Selection=" + Selection + ", Payment=" + Payment + '}';
-    }
-    
-
+        return String.format("%s %s %s %s %f %d", prod_id, prod_name, prod_desc, prod_type, price, quantity);
+      }
 }

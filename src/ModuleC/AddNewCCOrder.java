@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ModuleC;
 
 import java.io.FileInputStream;
@@ -14,21 +10,19 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author wtf981008
- */
+
 public class AddNewCCOrder extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AddNewCCOrder
-     */
-    private ListArray<Product> orderlist = new ListArray<>(25);
+    
+    private LinkedList<Product> flowerList = new LinkedList<Product>();
+    private LinkedList<Order> orderList = new LinkedList<Order>();
     private Product product = new Product();
+    private Order order = new Order();
     
     public AddNewCCOrder() {
         initComponents();
-        //initializeList();
+        initializeList();
+        displayData();
     }
 
     /**
@@ -41,166 +35,239 @@ public class AddNewCCOrder extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jCancel = new javax.swing.JButton();
+        jSubmit = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jOrderId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jtfCustName = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jtfCustAdd = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jcbProdSelection = new javax.swing.JComboBox<>();
+        jPaymentMethod = new javax.swing.JComboBox<>();
+        jCollectionMethod = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jcbSelection = new javax.swing.JComboBox<>();
+        jCustName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jcbPayment = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jCustType = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jCreditLimit = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        jProductID = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jQuantity = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setText("Order Detail (Coorperate customer)");
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel1.setText("CREATE CUSTOMER ORDER");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setText("Name: ");
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel3.setText("Address: ");
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setText("Product Selection:");
-
-        jcbProdSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1001", "1002", "1003" }));
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setText("Selection:");
-
-        jcbSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Self pick up", "Delivery" }));
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel6.setText("Payment Method:");
-
-        jcbPayment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Credit limit" }));
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jCancel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jCancel.setText("Cancel");
+        jCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jCancelActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton2.setText("Submit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jSubmit.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jSubmit.setText("Submit");
+        jSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jSubmitActionPerformed(evt);
             }
         });
+
+        jLabel7.setText("ORDER ID : ");
+
+        jOrderId.setEditable(false);
+        jOrderId.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+
+        jLabel2.setText("CUSTOMER ID : ");
+
+        jLabel3.setText("PAYMENT METHOD : ");
+
+        jLabel4.setText("COLLECTION METHOD : ");
+
+        jPaymentMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash On Delivery", "Cash", "Credit Card" }));
+
+        jCollectionMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Self Pick Up", "Delivery" }));
+
+        jLabel5.setText("CUSTOMER NAME : ");
+
+        jCustName.setEditable(false);
+
+        jLabel6.setText("CUSTOMER TYPE : ");
+
+        jCustType.setEditable(false);
+
+        jLabel8.setText("CUSTOMER CREDIT LIMIT : ");
+
+        jCreditLimit.setEditable(false);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "NAME", "UNIT PRICE", "QUANTITY"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel9.setText("PRODUCT ID : ");
+
+        jLabel10.setText("QUANTITY : ");
+
+        jLabel11.setText("PRODUCT LISTING");
+
+        jAdd.setText("ADD PRODUCT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfCustAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcbProdSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(284, 284, 284))
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcbPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(278, 278, 278)))))
-                .addGap(275, 275, 275))
+                                    .addComponent(jCustType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCreditLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPaymentMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCollectionMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(95, 95, 95)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jLabel9))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jProductID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(80, 80, 80)
+                                                .addComponent(jAdd))))
+                                    .addComponent(jLabel11)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(jSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(109, 109, 109)
+                        .addComponent(jCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(188, 188, 188))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7)
+                    .addComponent(jOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jProductID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAdd))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfCustAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel5)
+                    .addComponent(jCustName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jCustType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jCreditLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jPaymentMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jCollectionMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbProdSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(83, 83, 83))
+                    .addComponent(jCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{
-        product.setCustName(jtfCustName.getText());
-        product.setCustAddress(jtfCustAdd.getText());
-        Object prod =(jcbProdSelection.getSelectedItem());
-        product.setProductID(prod.toString());
-        Object selection = (jcbSelection.getSelectedItem());
-        product.setSelection(selection.toString());
-        Object payment = (jcbPayment.getSelectedItem());
-        product.setPayment(payment.toString());
-        orderlist.add(product);
-        //saveList();
-        JOptionPane.showMessageDialog(null, "Order Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubmitActionPerformed
+        
+    }//GEN-LAST:event_jSubmitActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jCancelActionPerformed
 
-    /*private void initializeList() {
+    private void initializeList() {
         try {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
-            ArrayList tmp = new ArrayList();
-            tmp = (ArrayList)oiStream.readObject();
-            for(int i=0; i<tmp.size();i++){
-                product = (Product)tmp.get(i);
-                orderlist.add(product);
+            ObjectInputStream oiStream2 = new ObjectInputStream(new FileInputStream("custOrder.dat"));
+            ArrayList tmpflower = new ArrayList();
+            ArrayList tmporder = new ArrayList();
+            tmpflower = (ArrayList)oiStream.readObject();
+            tmporder = (ArrayList) oiStream2.readObject();
+            for(int i=0; i<tmpflower.size();i++){
+                product = (Product)tmpflower.get(i);
+                flowerList.add(product);
+            }
+            for(int j=0; j<tmporder.size();j++){
+                order = (Order)tmporder.get(j);
+                orderList.add(order);
             }
             oiStream.close();
+            oiStream2.close();
         } catch (FileNotFoundException ex) {
             if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==0){
                 saveList();
@@ -217,11 +284,11 @@ public class AddNewCCOrder extends javax.swing.JFrame {
 
      private void saveList(){
         try {
-            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("order.dat"));
+            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("custOrder.dat"));
             ArrayList tmp = new ArrayList();
-            for(int i=0; i<orderlist.getLength();i++){
-                product = orderlist.get(i);
-                tmp.add(i,product);
+            for(int i=0; i<orderList.getNumberOfEntries();i++){
+                order = orderList.getEntry(i);
+                tmp.add(i,order);
             }
             ooStream.writeObject(tmp);
             ooStream.close();
@@ -232,7 +299,10 @@ public class AddNewCCOrder extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-    */
+     
+    private void displayData(){
+        
+    }
      
     /**
      * @param args the command line arguments
@@ -270,18 +340,30 @@ public class AddNewCCOrder extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jAdd;
+    private javax.swing.JButton jCancel;
+    private javax.swing.JComboBox<String> jCollectionMethod;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField jCreditLimit;
+    private javax.swing.JTextField jCustName;
+    private javax.swing.JTextField jCustType;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JComboBox<String> jcbPayment;
-    private javax.swing.JComboBox<String> jcbProdSelection;
-    private javax.swing.JComboBox<String> jcbSelection;
-    private javax.swing.JTextField jtfCustAdd;
-    private javax.swing.JTextField jtfCustName;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jOrderId;
+    private javax.swing.JComboBox<String> jPaymentMethod;
+    private javax.swing.JComboBox<String> jProductID;
+    private javax.swing.JTextField jQuantity;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jSubmit;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
