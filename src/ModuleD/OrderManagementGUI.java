@@ -15,11 +15,13 @@ public class OrderManagementGUI extends javax.swing.JFrame {
     
     private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
     private LinkedList<Order> ordertoday = new LinkedList<>();
+    private LinkedList<Order> deliverytoday = new LinkedList<>();
     private Order order = new Order();
     private Order orderList = new Order();
     
     public OrderManagementGUI() {
         initComponents();
+        transferList();
     }
 
     @SuppressWarnings("unchecked")
@@ -50,6 +52,11 @@ public class OrderManagementGUI extends javax.swing.JFrame {
 
         jbtCheckDelivery.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtCheckDelivery.setText("Check Delivery");
+        jbtCheckDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtCheckDeliveryActionPerformed(evt);
+            }
+        });
 
         jlbTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jlbTitle.setText("Order & Delivery Management");
@@ -70,7 +77,7 @@ public class OrderManagementGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Order ID", "Customer Name", "Customer Type", "Order Status", "Time Stamp", "Payment Status", "Delivery Location"
+                "Order ID", "Customer Name", "Customer Type", "Order Status", "Time Stamp", "Payment Status", "Address"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -87,20 +94,21 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlbFlowerShop)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jlbTitle)))
+                .addGap(390, 390, 390))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbFlowerShop)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(jlbTitle))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addComponent(jspOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 911, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jspOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 1114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
+                        .addGap(254, 254, 254)
                         .addComponent(jbtCheckOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(jbtRecordOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -108,16 +116,16 @@ public class OrderManagementGUI extends javax.swing.JFrame {
                         .addComponent(jbtCheckDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(jbtRecordDelivery)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(jlbFlowerShop)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbTitle)
-                .addGap(13, 13, 13)
+                .addGap(18, 18, 18)
                 .addComponent(jspOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -133,17 +141,16 @@ public class OrderManagementGUI extends javax.swing.JFrame {
 
     private void jbtCheckOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckOrderActionPerformed
        
-        initializeList();
-        
         DefaultTableModel model = (DefaultTableModel) jtbOrder.getModel();
         model.setRowCount(0);
         jtbOrder.setModel(model);
         
-        while(orderqueue.isEmpty() != true ){
-                order = orderqueue.dequeue();
-                Object[] row = {order.getOrderID(),order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus()};
-                model.addRow(row);
-            }
+        for(int i = 0; i < ordertoday.getNumberOfEntries() ; i++){
+            order = ordertoday.getEntry(i);
+            Object[] row = {order.getOrderID(),order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus(),(order.getAddressLine1() + order.getAddressLine2() + order.getPostCode() + order.getState())};
+            model.addRow(row);
+        }
+
             jtbOrder.setModel(model);
 
     }//GEN-LAST:event_jbtCheckOrderActionPerformed
@@ -173,6 +180,21 @@ public class OrderManagementGUI extends javax.swing.JFrame {
         }
     }
     
+    public void transferList(){
+        
+        initializeList();
+        
+        while(!orderqueue.isEmpty()){
+            order = orderqueue.dequeue();
+
+            if(order.getPickUpType().toString().equals("Self Pick-Up (+ RM 0)")){
+                ordertoday.add(order);
+            }
+            else{
+                deliverytoday.add(order);
+            }
+        }
+    }
     private void jbtRecordOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRecordOrderActionPerformed
             JFrame frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -180,6 +202,22 @@ public class OrderManagementGUI extends javax.swing.JFrame {
             frame.pack();
             frame.setVisible(true);
     }//GEN-LAST:event_jbtRecordOrderActionPerformed
+
+    private void jbtCheckDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckDeliveryActionPerformed
+        
+        DefaultTableModel model = (DefaultTableModel) jtbOrder.getModel();
+        model.setRowCount(0);
+        jtbOrder.setModel(model);
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries() ; i++){
+            order = deliverytoday.getEntry(i);
+            Object[] row = {order.getOrderID(),order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus(),(order.getAddressLine1() + order.getAddressLine2() + order.getPostCode() + order.getState())};
+            model.addRow(row);
+        }
+
+            jtbOrder.setModel(model);
+
+    }//GEN-LAST:event_jbtCheckDeliveryActionPerformed
 
     public static void main(String args[]) {
         
