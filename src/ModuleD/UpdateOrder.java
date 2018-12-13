@@ -48,7 +48,7 @@ public class UpdateOrder extends javax.swing.JPanel {
         jcbOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -" }));
 
         jcbPaymentType.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcbPaymentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -", "Cash On Delivery", "Cash", "Credit Card", "Touch & Go" }));
+        jcbPaymentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -", "Cash ", "Credit Card", "Touch & Go" }));
 
         jbtUpdate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jbtUpdate.setText("Update");
@@ -71,7 +71,7 @@ public class UpdateOrder extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jcbOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcbPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtUpdate)
@@ -122,7 +122,9 @@ public class UpdateOrder extends javax.swing.JPanel {
         
         while(orderqueue.isEmpty() != true ){
             order = orderqueue.dequeue();
-            jcbOrder.addItem(order.getOrderID() + " || " +order.getCustName());
+            if(order.getPickUpType().toString().equals("Self Pick-Up (+ RM 0)")){
+                jcbOrder.addItem(order.getOrderID() + " || " +order.getCustName());
+            }
         }
     }
 

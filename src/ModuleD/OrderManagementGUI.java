@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class OrderManagementGUI extends javax.swing.JFrame {
     
     private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
+    private LinkedQueue<Order> efficientRoute = new LinkedQueue<>();
     private LinkedList<Order> ordertoday = new LinkedList<>();
     private LinkedList<Order> deliverytoday = new LinkedList<>();
     private Order order = new Order();
@@ -63,6 +64,11 @@ public class OrderManagementGUI extends javax.swing.JFrame {
 
         jbtRecordDelivery.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtRecordDelivery.setText("Update Delivery");
+        jbtRecordDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtRecordDeliveryActionPerformed(evt);
+            }
+        });
 
         jbtRecordOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtRecordOrder.setText("Update Order");
@@ -140,7 +146,8 @@ public class OrderManagementGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtCheckOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckOrderActionPerformed
-       
+
+        transferList();
         DefaultTableModel model = (DefaultTableModel) jtbOrder.getModel();
         model.setRowCount(0);
         jtbOrder.setModel(model);
@@ -179,12 +186,117 @@ public class OrderManagementGUI extends javax.swing.JFrame {
           JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
+    public void efficientRoute(){
+        transferList();
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            
+            if(order.getState().toString().equals("Kuala Lumpur")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Selangor")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Perak")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Negeri Sembilan")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Pahang")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Melaka")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Penang")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Kelantan")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Terengganu")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Johor")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Kedah")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Perlis")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Sabah (+ RM 10)")){
+                efficientRoute.enqueue(order);
+            }
+        }
+        
+        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
+            order = deliverytoday.getEntry(i);
+            if(order.getState().toString().equals("Sarawak (+ RM 10)")){
+                efficientRoute.enqueue(order);
+            }
+        }
+    }
     
     public void transferList(){
         
         initializeList();
+        ordertoday.clear();
+        deliverytoday.clear();
         
         while(!orderqueue.isEmpty()){
+            
             order = orderqueue.dequeue();
 
             if(order.getPickUpType().toString().equals("Self Pick-Up (+ RM 0)")){
@@ -195,6 +307,7 @@ public class OrderManagementGUI extends javax.swing.JFrame {
             }
         }
     }
+    
     private void jbtRecordOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRecordOrderActionPerformed
             JFrame frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -205,19 +318,27 @@ public class OrderManagementGUI extends javax.swing.JFrame {
 
     private void jbtCheckDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckDeliveryActionPerformed
         
+        efficientRoute();
         DefaultTableModel model = (DefaultTableModel) jtbOrder.getModel();
         model.setRowCount(0);
         jtbOrder.setModel(model);
         
-        for(int i = 0; i < deliverytoday.getNumberOfEntries() ; i++){
-            order = deliverytoday.getEntry(i);
+        while(!efficientRoute.isEmpty()){
+            order = efficientRoute.dequeue();
             Object[] row = {order.getOrderID(),order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus(),(order.getAddressLine1() + order.getAddressLine2() + order.getPostCode() + order.getState())};
             model.addRow(row);
         }
-
             jtbOrder.setModel(model);
 
     }//GEN-LAST:event_jbtCheckDeliveryActionPerformed
+
+    private void jbtRecordDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRecordDeliveryActionPerformed
+        JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.getContentPane().add(new UpdateDelivery());
+            frame.pack();
+            frame.setVisible(true);
+    }//GEN-LAST:event_jbtRecordDeliveryActionPerformed
 
     public static void main(String args[]) {
         
