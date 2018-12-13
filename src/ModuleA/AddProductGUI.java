@@ -254,6 +254,8 @@ public class AddProductGUI extends javax.swing.JFrame {
             flowerList.add(tmp);
             saveList();
             JOptionPane.showMessageDialog(new JFrame(), "Product Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            clearData();
+            jtfProd_id.setText(generateId());
         }
         catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -262,19 +264,7 @@ public class AddProductGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtAddActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
-        jtfProd_id.setText("");
-        jtfProd_name.setText("");
-        jtfProd_desc.setText("");
-        jcbProd_type.setSelectedIndex(0);
-        jtfPrice.setText("0.0");
-        jtfQuantity.setText("0");
-        jCheckPromotion.setSelected(false);
-        jStartDate.setEnabled(false);
-        jStartDate.setDate(null);
-        jEndDate.setEnabled(false);
-        jEndDate.setDate(null);
-        jDiscountPrice.setEnabled(false);
-        jDiscountPrice.setText("0.0");
+        clearData();
     }//GEN-LAST:event_jbtResetActionPerformed
 
     private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
@@ -365,6 +355,21 @@ public class AddProductGUI extends javax.swing.JFrame {
             id = "FL001";
         }
         return id;
+    }
+    
+    private void clearData(){
+        jtfProd_name.setText("");
+        jtfProd_desc.setText("");
+        jcbProd_type.setSelectedIndex(0);
+        jtfPrice.setText("0.0");
+        jtfQuantity.setText("0");
+        jCheckPromotion.setSelected(false);
+        jStartDate.setEnabled(false);
+        jStartDate.setDate(null);
+        jEndDate.setEnabled(false);
+        jEndDate.setDate(null);
+        jDiscountPrice.setEnabled(false);
+        jDiscountPrice.setText("0.0");
     }
     
     /**
