@@ -260,12 +260,8 @@ public class UpdateProductGUI extends javax.swing.JFrame {
             }
             
             for (int i=0; i<flowerList.getNumberOfEntries();i++){
-                System.out.println("Begin Loop");
                 product = flowerList.getEntry(i);
-                System.out.println(product.toString());
                 if (product.getProd_id().equals(tmp.getProd_id())){
-                    System.out.println("Pass if");
-                    System.out.println(tmp.toString());
                     flowerList.replace(i, tmp);
                     found = true;
                 }
