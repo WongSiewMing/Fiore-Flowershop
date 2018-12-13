@@ -38,15 +38,15 @@ public class LinkedList<T> implements ListInterface<T> {
   public boolean add(int newPosition, T item) { 
     boolean isSuccessful = true;
 
-    if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1)) {
+    if ((newPosition >= 0) && (newPosition <= numberOfEntries + 1)) {
       Node newNode = new Node(item);
 
-      if (isEmpty() || (newPosition == 1)) {     
+      if (isEmpty() || (newPosition == 0)) {     
         newNode.next = firstNode;
         firstNode = newNode;
       } else {								                     
         Node nodeBefore = firstNode;
-        for (int i = 1; i < newPosition - 1; ++i) {
+        for (int i = 0; i < newPosition - 1; i++) {
           nodeBefore = nodeBefore.next;		
         }
 
@@ -66,13 +66,13 @@ public class LinkedList<T> implements ListInterface<T> {
   public T remove(int givenPosition) {
     T result = null;                
 
-    if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
-      if (givenPosition == 1) {      
+    if ((givenPosition >= 0) && (givenPosition <= numberOfEntries)) {
+      if (givenPosition == 0) {      
         result = firstNode.data;   
         firstNode = firstNode.next;
       } else {                         
         Node nodeBefore = firstNode;
-        for (int i = 1; i < givenPosition - 1; ++i) {
+        for (int i = 0; i < givenPosition - 1; ++i) {
           nodeBefore = nodeBefore.next;		
         }
         result = nodeBefore.next.data;  
@@ -89,9 +89,9 @@ public class LinkedList<T> implements ListInterface<T> {
   public boolean replace(int givenPosition, T item) {
     boolean isSuccessful = true;
 
-    if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
+    if ((givenPosition >= 0) && (givenPosition <= numberOfEntries)) {
       Node currentNode = firstNode;
-      for (int i = 0; i < givenPosition - 1; ++i) {
+      for (int i = 0; i < givenPosition; i++) {
         currentNode = currentNode.next;		
       }
       currentNode.data = item;	
@@ -106,9 +106,9 @@ public class LinkedList<T> implements ListInterface<T> {
   public T getEntry(int givenPosition) {
     T result = null;
 
-    if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
+    if ((givenPosition >= 0) && (givenPosition <= numberOfEntries)) {
       Node currentNode = firstNode;
-      for (int i = 0; i < givenPosition - 1; ++i) {
+      for (int i = 0; i < givenPosition; i++) {
         currentNode = currentNode.next;		
       }
       result = currentNode.data;	

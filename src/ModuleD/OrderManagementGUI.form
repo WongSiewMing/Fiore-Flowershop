@@ -23,33 +23,35 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jlbFlowerShop" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                      <Component id="jlbTitle" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="390" max="-2" attributes="0"/>
+          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
-                      <Component id="jlbFlowerShop" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="jspOrder" min="-2" pref="1114" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="286" max="-2" attributes="0"/>
-                      <Component id="jlbTitle" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jspOrder" min="-2" pref="664" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jbtCheckOrder" min="-2" pref="139" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="jbtRecordOrder" min="-2" pref="139" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="jbtCheckDelivery" min="-2" pref="139" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="jbtRecordDelivery" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace min="-2" pref="254" max="-2" attributes="0"/>
+                      <Component id="jbtCheckOrder" min="-2" pref="139" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jbtRecordOrder" min="-2" pref="139" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="jbtCheckDelivery" min="-2" pref="139" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="jbtRecordDelivery" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="88" max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,8 +62,8 @@
               <Component id="jlbFlowerShop" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jlbTitle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-              <Component id="jspOrder" pref="177" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Component id="jspOrder" min="-2" pref="254" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbtCheckOrder" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -69,7 +71,7 @@
                   <Component id="jbtCheckDelivery" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtRecordOrder" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,6 +103,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Check Delivery"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtCheckDeliveryActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlbTitle">
       <Properties>
@@ -117,6 +122,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Update Delivery"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtRecordDeliveryActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtRecordOrder">
       <Properties>
@@ -136,12 +144,14 @@
         <Component class="javax.swing.JTable" name="jtbOrder">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="0">
-                <Column editable="true" title="Customer Name" type="java.lang.Object"/>
-                <Column editable="true" title="Customer Type" type="java.lang.Object"/>
-                <Column editable="true" title="Order Status" type="java.lang.Object"/>
-                <Column editable="true" title="Time Stamp" type="java.lang.Object"/>
-                <Column editable="true" title="Payment Status" type="java.lang.Object"/>
+              <Table columnCount="7" rowCount="0">
+                <Column editable="false" title="Order ID" type="java.lang.Object"/>
+                <Column editable="false" title="Customer Name" type="java.lang.Object"/>
+                <Column editable="false" title="Customer Type" type="java.lang.Object"/>
+                <Column editable="false" title="Order Status" type="java.lang.Object"/>
+                <Column editable="false" title="Time Stamp" type="java.lang.Object"/>
+                <Column editable="false" title="Payment Status" type="java.lang.Object"/>
+                <Column editable="false" title="Address" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
