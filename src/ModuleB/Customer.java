@@ -21,6 +21,21 @@ public class Customer implements Serializable{
     private String contact;
     private double limit;
 
+    Customer(String custId, String  custName, String custAddress, String type, String contact, double limit) {
+       this.custId=custId;
+       this.custName=custName;
+       this.custAddress=custAddress;
+       this.type=type;
+       this.contact=contact;
+       this.limit=limit;
+       
+    }
+    Customer(){
+        
+    }
+
+    
+
     public String getCustId() {
         return custId;
     }

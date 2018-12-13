@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,13 +22,29 @@ import javax.swing.JOptionPane;
  * @author jun_y
  */
 public class AddCustomerUI extends javax.swing.JFrame {
-    private List<Customer> custList = new ArrayList<>();
+    private LinkedList<Customer> custList = new LinkedList<>();
     private Customer cust = new Customer();
     /**
      * Creates new form AddCustomerUI
      */
     public AddCustomerUI() {
         initComponents();
+        initializeList();
+         if(custList.isEmpty()==true){
+            
+            custList.add(new Customer ("N0000","","","","",0.0));
+             jtfCustID.setText("N"+ generateId());
+             removeInitialize();
+             
+        }
+        else{
+            jtfCustID.setText("N"+ generateId());
+        }
+          
+        jcbLimit.setEnabled(false);
+  
+       
+
     }
 
     /**
@@ -42,10 +58,10 @@ public class AddCustomerUI extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jtfCustName = new javax.swing.JTextField();
+        jtfCustID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jtfAddress = new javax.swing.JTextField();
+        jtfCustName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jtfContact = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -55,15 +71,15 @@ public class AddCustomerUI extends javax.swing.JFrame {
         jButtonBack = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jcbType = new javax.swing.JComboBox<>();
-        jtfCustID = new javax.swing.JTextField();
+        jtfAddress = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Customer ID");
+        jLabel1.setText("Customer Type");
 
-        jLabel3.setText("Customer Name:");
+        jLabel3.setText("Customer ID:");
 
-        jLabel4.setText("Address:        ");
+        jLabel4.setText("Customer Name:");
 
         jLabel5.setText("Contact Number:");
 
@@ -106,45 +122,64 @@ public class AddCustomerUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel7.setText("Customer type:");
+        jLabel7.setText("Customer Address:");
 
+        jcbType.setEditable(true);
         jcbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal","Cooperate" }));
+        jcbType.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbTypeItemStateChanged(evt);
+            }
+        });
+        jcbType.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbTypeFocusGained(evt);
+            }
+        });
+        jcbType.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jcbTypePropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(105, 105, 105))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jcbType, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jtfCustID, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jcbLimit, 0, 101, Short.MAX_VALUE)
+                                            .addComponent(jtfContact, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                            .addComponent(jtfAddress))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfCustID))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfAddress)
-                            .addComponent(jcbLimit, 0, 101, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfContact, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                            .addComponent(jcbType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,30 +187,28 @@ public class AddCustomerUI extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jtfCustID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jcbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfCustID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jtfContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jcbLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
@@ -201,22 +234,24 @@ public class AddCustomerUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-       
-        initializeList();
-       try{
-            cust.setCustId(jtfCustID.getText());
-            cust.setCustName(jtfCustName.getText());
-            cust.setCustAddress(jtfAddress.getText());
+        Customer tmpCust = new Customer();
+        
+        try{
+            tmpCust.setCustId(jtfCustID.getText());
+            tmpCust.setCustName(jtfCustName.getText());
+            tmpCust.setCustAddress(jtfAddress.getText());
             Object ob = jcbType.getSelectedItem();
-            cust.setType(ob.toString());
-            cust.setContact(jtfContact.getText());
+            tmpCust.setType(ob.toString());
+            tmpCust.setContact(jtfContact.getText());
             Object limitOB = jcbLimit.getSelectedItem();
-            cust.setLimit(Double.parseDouble(limitOB.toString()));
-            custList.add(cust);
+            tmpCust.setLimit(Double.parseDouble(limitOB.toString()));
+            custList.add(tmpCust);
             
+            JOptionPane.showMessageDialog(new JFrame(), "Customer Details Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+           saveList();
+           
             
-            
-            JOptionPane.showMessageDialog(new JFrame(), "Product Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+           
         }
         catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -224,21 +259,47 @@ public class AddCustomerUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-       
-        try {
-            Customer newcust = custList.get(0);
-            System.out.println(newcust.toString());
-            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("customer.dat"));
-            ooStream.writeObject(custList);
-            ooStream.close();
-          } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-          } catch (IOException ex) {
-             JOptionPane.showMessageDialog(null, "Cannot save to file", "ERROR", JOptionPane.ERROR_MESSAGE);
-          }
-        dispose();
+       dispose();
       
     }//GEN-LAST:event_jButtonBackActionPerformed
+
+    private void jcbTypePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jcbTypePropertyChange
+     
+    }//GEN-LAST:event_jcbTypePropertyChange
+
+    private void jcbTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTypeItemStateChanged
+           
+           Object ob = jcbType.getSelectedItem();
+           if(ob.toString().equals("Normal")){
+               if(custList.isEmpty()==true){
+                custList.add(new Customer ("N0000","","","","",0.0));
+               jtfCustID.setText("N"+ generateId());
+               removeInitialize();
+               
+               }else{
+                 jtfCustID.setText("N"+ generateId());  
+               }
+               jcbLimit.setEnabled(false);
+           }
+           else{
+               if(custList.isEmpty()==true){
+               custList.add(new Customer ("C0000","","","","",0.0));
+               jtfCustID.setText("C"+ generateId());
+               removeInitialize2();
+               }
+               else{
+               jtfCustID.setText("C"+ generateId());
+               }
+              
+               jcbLimit.setEnabled(true);
+              
+                
+           }
+    }//GEN-LAST:event_jcbTypeItemStateChanged
+
+    private void jcbTypeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbTypeFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbTypeFocusGained
 
     /**
      * @param args the command line arguments
@@ -279,19 +340,79 @@ public class AddCustomerUI extends javax.swing.JFrame {
         });
     }
     private void initializeList() {
-        
         try {
-          ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("customer.dat"));
-          custList = (ArrayList) (oiStream.readObject());
-          oiStream.close();
+            ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("customer.dat"));
+            ArrayList<Customer> tmp = new ArrayList<Customer>();
+            tmp = (ArrayList)oiStream.readObject();
+            for(int i=0; i<tmp.size(); i++){
+                cust = tmp.get(i);
+                custList.add(cust);
+            }
+            oiStream.close();
+            
         } catch (FileNotFoundException ex) {
-          JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==0){
+                saveList();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (IOException ex) {
-          JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
-          JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
       }
+     private void saveList(){
+        try {
+            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("customer.dat"));
+            ArrayList tmp = new ArrayList();
+            for(int i=0; i<custList.getNumberOfEntries();i++){
+                cust = custList.getEntry(i);
+                tmp.add(cust);
+            }
+            ooStream.writeObject(tmp);
+            ooStream.close();
+            
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+     
+     public String generateId(){
+         Customer tmp = custList.getEntry(custList.getNumberOfEntries()-1);
+         String tmpID = tmp.getCustId();
+         String code = tmpID.substring(1);
+         int id = Integer.parseInt(code);
+         id++;
+         if(id<1000){
+             id=id+1000;
+         }
+        return String.format("%d",id);
+         
+     }
+     
+     public void removeInitialize(){
+        for(int i=0; i<custList.getNumberOfEntries();i++){
+            Customer tmp = custList.getEntry(i);
+            if(tmp.getCustId().equals("N0000")){
+              custList.remove(i);
+            }
+        
+     }
+     }
+         public void removeInitialize2(){
+        for(int i=0; i<custList.getNumberOfEntries();i++){
+            Customer tmp = custList.getEntry(i);
+            if(tmp.getCustId().equals("C0000")){
+              custList.remove(i);
+            }
+        
+     }
+     }
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;

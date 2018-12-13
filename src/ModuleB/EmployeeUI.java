@@ -22,17 +22,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author jun_y
  */
-public class ViewCustomerUI extends javax.swing.JFrame {
+public class EmployeeUI extends javax.swing.JFrame {
 
-  private ListArray<Customer> custList = new ListArray<>();
+  private LinkedList<Customer> custList = new LinkedList<>();
     private Customer cust = new Customer();
     private boolean error = true;
 
     /**
      * Creates new form ViewCustomerUI
      */
-    public ViewCustomerUI() {
+    public EmployeeUI() {
         initComponents();
+       
+       
         
 
     }
@@ -56,7 +58,8 @@ public class ViewCustomerUI extends javax.swing.JFrame {
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
         jButtonBack = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonApply = new javax.swing.JButton();
+        jButtonViewInvoice = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableList = new javax.swing.JTable();
 
@@ -133,23 +136,33 @@ public class ViewCustomerUI extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Approve Limit");
+        jButtonApply.setText("Apply Credit Limit");
+        jButtonApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonApplyActionPerformed(evt);
+            }
+        });
+
+        jButtonViewInvoice.setText("View Invoice");
+        jButtonViewInvoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonViewInvoiceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButtonViewInvoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonApply, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(432, 432, 432))
         );
         jPanel1Layout.setVerticalGroup(
@@ -159,10 +172,12 @@ public class ViewCustomerUI extends javax.swing.JFrame {
                 .addComponent(jButtonAdd)
                 .addGap(36, 36, 36)
                 .addComponent(jButtonUpdate)
-                .addGap(41, 41, 41)
+                .addGap(29, 29, 29)
                 .addComponent(jButtonDelete)
-                .addGap(36, 36, 36)
-                .addComponent(jButton2)
+                .addGap(31, 31, 31)
+                .addComponent(jButtonApply)
+                .addGap(35, 35, 35)
+                .addComponent(jButtonViewInvoice)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonBack))
         );
@@ -241,9 +256,7 @@ public class ViewCustomerUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        ModuleB home = new ModuleB();
-        home.setVisible(true);
-        setVisible(false);
+ 
         dispose();
     }//GEN-LAST:event_jButtonBackActionPerformed
 
@@ -254,7 +267,8 @@ public class ViewCustomerUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
-        refreshTable();
+        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
+        refreshTable(model);
     }//GEN-LAST:event_jButtonRefreshActionPerformed
 
     private void jTableListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListMouseClicked
@@ -268,16 +282,12 @@ public class ViewCustomerUI extends javax.swing.JFrame {
         DefaultTableModel model=(DefaultTableModel) jTableList.getModel();
         int selectedRowIndex=jTableList.getSelectedRow();
         String id = model.getValueAt(selectedRowIndex,0).toString();
-         
-        System.out.println(id);
-         initializeList();
-          for (int i=0; i<custList.length();i++){
-               
-            Customer tmp = custList.get(i);
+        for (int i=0; i<custList.getNumberOfEntries();i++){
+            Customer tmp = custList.getEntry(i);
                 if (cust.getCustId().equals(id)){
-                    custList.replace(i, tmp);
-                    save();
-                    JOptionPane.showMessageDialog(new JFrame(), "Product Updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    custList.remove(i);
+                    saveList();
+                    JOptionPane.showMessageDialog(new JFrame(), "Customer Deleted Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                     error = true;
                 }
             }
@@ -289,6 +299,18 @@ public class ViewCustomerUI extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonApplyActionPerformed
+        ApplyCreditLimitUI newframe3 = new ApplyCreditLimitUI();
+        newframe3.setVisible(true);
+        newframe3.setTitle("Apply Credit Limit");
+    }//GEN-LAST:event_jButtonApplyActionPerformed
+
+    private void jButtonViewInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewInvoiceActionPerformed
+        InvoiceUI newframe4= new InvoiceUI();
+        newframe4.setVisible(true);
+        newframe4.setTitle("View Invoice");
+    }//GEN-LAST:event_jButtonViewInvoiceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,20 +329,23 @@ public class ViewCustomerUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewCustomerUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewCustomerUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewCustomerUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewCustomerUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ViewCustomerUI ui = new ViewCustomerUI();
+                EmployeeUI ui = new EmployeeUI();
                 ui.setVisible(true);
                 ui.setTitle("View Customer");
                 ui.displayTable();
@@ -329,13 +354,14 @@ public class ViewCustomerUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonApply;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonRefresh;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonUpdate;
+    private javax.swing.JButton jButtonViewInvoice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -350,8 +376,8 @@ public class ViewCustomerUI extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
         model.setRowCount(0);
 
-        for (int i = 0; i < custList.length(); i++) {
-            cust = custList.get(i);
+        for (int i = 0; i < custList.getNumberOfEntries(); i++) {
+            cust = custList.getEntry(i);
             Object[] row = {cust.getCustId(), cust.getCustName(), cust.getCustAddress(), cust.getType(), cust.getContact(), cust.getLimit()};
             model.addRow(row);
 
@@ -359,20 +385,27 @@ public class ViewCustomerUI extends javax.swing.JFrame {
         jTableList.setModel(model);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    private void refreshTable(){
-        custList.clear();
-        initializeList();
-        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
+    private void refreshTable(DefaultTableModel model){
+        
+        clearTable(model);
         model.setRowCount(0);
+        initializeList();
+       
+       
 
-        for (int i = 0; i < custList.length(); i++) {
-            cust = custList.get(i);
+        for (int i = 0; i < custList.getNumberOfEntries(); i++) {
+            cust = custList.getEntry(i);
             Object[] row = {cust.getCustId(), cust.getCustName(), cust.getCustAddress(), cust.getType(), cust.getContact(), cust.getLimit()};
             model.addRow(row);
 
         }
         jTableList.setModel(model);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     private void clearTable(DefaultTableModel model){
+        custList.clear();
+        model.setRowCount(0);
     }
     private void searchTable() {
         initializeList();
@@ -412,16 +445,17 @@ public class ViewCustomerUI extends javax.swing.JFrame {
     private void initializeList() {
         try {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("customer.dat"));
-            ArrayList tmp = new ArrayList();
+            ArrayList<Customer> tmp = new ArrayList<Customer>();
             tmp = (ArrayList)oiStream.readObject();
-            for(int i=0; i<tmp.size();i++){
-                cust = (Customer)tmp.get(i);
+            for(int i=0; i<tmp.size(); i++){
+                cust = tmp.get(i);
                 custList.add(cust);
             }
             oiStream.close();
+            
         } catch (FileNotFoundException ex) {
             if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==0){
-                save();
+                saveList();
             }
             else {
                 JOptionPane.showMessageDialog(null, "Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -432,12 +466,12 @@ public class ViewCustomerUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
       }
-    private void save(){
+     private void saveList(){
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("customer.dat"));
-            ListArray<Customer> tmp = new ListArray<>();
-            for(int i=0; i<custList.length();i++){
-                cust = custList.get(i);
+            ArrayList tmp = new ArrayList();
+            for(int i=0; i<custList.getNumberOfEntries();i++){
+                cust = custList.getEntry(i);
                 tmp.add(cust);
             }
             ooStream.writeObject(tmp);
@@ -448,6 +482,7 @@ public class ViewCustomerUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null,"Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    
+}
     
 }

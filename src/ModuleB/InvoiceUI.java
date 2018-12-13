@@ -19,6 +19,7 @@ public class InvoiceUI extends javax.swing.JFrame {
 
     public InvoiceUI() {
         initComponents();
+       
     }
 
     /**
@@ -174,18 +175,44 @@ public class InvoiceUI extends javax.swing.JFrame {
         String id = model.getValueAt(selectedRowIndex,0).toString();
         String name = model.getValueAt(selectedRowIndex,1).toString();
         String date = model.getValueAt(selectedRowIndex,2).toString();
-        String status = model.getValueAt(selectedRowIndex,3).toString();
-        jTextArea1.setText("Fiore Flower Shop\t\t\t\t INVOICE\n\nNo5,JalanTBR 3\t\t\t            Date:"+date+"\n53300,Kuala Lumpur\t    \t\t    Invoice#:"+id+"\n\nBill To\t\t\t\tFor:Ordering products\nCompany Name:"+name+"\nAddress:\nPhone:\n\n_____________________________________________________________________\nProduct ID     Description      Unit Price    \t Qty\t    Amount\n_____________________________________________________________________\n\n\n\n\n\n\n\n\n______________________________________________________________________\n\t\t\tTotal Amount:\t\t\n______________________________________________________________________\n\n\n\n");
+        ArrayList <Object>orderList= new ArrayList<>();
+        ArrayList <String>orderItem= new ArrayList<>();
+      
+        orderItem.add(String.format("FL001\tRose\t8.00\t12\t96.00\nFL004\tViolet\t6.00\t15\t     90.00\n"));
+        orderItem.add(String.format("FL002\tLily\t6.00\t30\t180.00\nFL003\tCarnation\t10.00\t10\t     100.00\n"));
+        orderItem.add(String.format("FL001\tRose\t8.00\t10\t80.00\nFL002\tLily\t6.00\t10\t     60.00\n"));
+        orderItem.add(String.format("FL004\tViolet\t6.00\t11\t66.00\nFL003\tCarnation\t10.00\t12\t     120.00\n"));
+        orderList.add(orderItem);
+        
+        if(id.equals("2018122")){
+        jTextArea1.setText("Fiore Flower Shop\t\t\t\t INVOICE\n\nNo5,JalanTBR 3\t\t\t\tDate:"+date+"\n53300,Kuala Lumpur\t    \t\t\tInvoice#:"+id+"\n\nBill To\t\t\t\t\tFor:Ordering products\nCompany Name:"+name+"\nAddress:8,Jalan Pahang,53300 Kuala Lumpur\nPhone:03-2187727\n\n__________________________________________________________________________\nProduct ID     Description      Unit Price    \t Qty\t    Amount\n__________________________________________________________________________\n"+orderItem.get(0)+"\n\n\n\n\n\n\n\n\n___________________________________________________________________________\n\t\t\tTotal Amount:186.00\t\n___________________________________________________________________________\n\n\n\n");
+        }
+        else if(id.equals("2018123")){
+        jTextArea1.setText("Fiore Flower Shop\t\t\t\t INVOICE\n\nNo5,JalanTBR 3\t\t\t\tDate:"+date+"\n53300,Kuala Lumpur\t    \t\t\tInvoice#:"+id+"\n\nBill To\t\t\t\t\tFor:Ordering products\nCompany Name:"+name+"\nAddress:12,Jalan Ampang,53300 Kuala Lumpur\nPhone:03-2827182\n\n__________________________________________________________________________\nProduct ID     Description      Unit Price    \t Qty\t    Amount\n__________________________________________________________________________\n"+orderItem.get(1)+"\n\n\n\n\n\n\n\n\n___________________________________________________________________________\n\t\t\tTotal Amount:280.00\t\n___________________________________________________________________________\n\n\n\n");
+   
+        }
+        else if(id.equals("2018124")){
+        jTextArea1.setText("Fiore Flower Shop\t\t\t\t INVOICE\n\nNo5,JalanTBR 3\t\t\t\tDate:"+date+"\n53300,Kuala Lumpur\t    \t\t\tInvoice#:"+id+"\n\nBill To\t\t\t\t\tFor:Ordering products\nCompany Name:"+name+"\nAddress:6.Jalan Genting Klang,53300 Kuala Lumpur\nPhone: 08-2010232\n\n__________________________________________________________________________\nProduct ID     Description      Unit Price    \t Qty\t    Amount\n__________________________________________________________________________\n"+orderItem.get(2)+"\n\n\n\n\n\n\n\n\n___________________________________________________________________________\n\t\t\tTotal Amount:140.00\t\n___________________________________________________________________________\n\n\n\n");
+
+        }
+        else if(id.equals("2018220")){
+        jTextArea1.setText("Fiore Flower Shop\t\t\t\t INVOICE\n\nNo5,JalanTBR 3\t\t\t\tDate:"+date+"\n53300,Kuala Lumpur\t    \t\t\tInvoice#:"+id+"\n\nBill To\t\t\t\t\tFor:Ordering products\nCompany Name:"+name+"\nAddress:2,Jalan Tun Raza,53300 Kuala Lumpur\nPhone: 09-2778882\n\n__________________________________________________________________________\nProduct ID     Description      Unit Price    \t Qty\t    Amount\n__________________________________________________________________________\n"+orderItem.get(3)+"\n\n\n\n\n\n\n\n\n___________________________________________________________________________\n\t\t\tTotal Amount:188.00\t\n___________________________________________________________________________\n\n\n\n");
+   
+        }
+        
+        //jTextArea1.setText("Fiore Flower Shop\t\t\t\t INVOICE\n\nNo5,JalanTBR 3\t\t\t            Date:"+date+"\n53300,Kuala Lumpur\t    \t\t    Invoice#:"+id+"\n\nBill To\t\t\t\tFor:Ordering products\nCompany Name:"+name+"\nAddress:\nPhone:\n\n_____________________________________________________________________\nProduct ID     Description      Unit Price    \t Qty\t    Amount\n_____________________________________________________________________\n"+orderItem.get(0)+"\n\n\n\n\n\n\n\n\n______________________________________________________________________\n\t\t\tTotal Amount:196.00\t\n______________________________________________________________________\n\n\n\n");
     }//GEN-LAST:event_jButtonViewMouseClicked
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-         ModuleB home = new ModuleB();
+         EmployeeUI home = new EmployeeUI();
          home.setVisible(true);
          setVisible(false);
          dispose();
                      
     }//GEN-LAST:event_jButtonBackActionPerformed
-
+    private String displayInvoice(){
+        return String.format("FioreFlowerShop");
+    }
     /**
      * @param args the command line arguments
      */
@@ -211,6 +238,10 @@ public class InvoiceUI extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InvoiceUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

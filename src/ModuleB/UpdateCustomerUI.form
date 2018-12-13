@@ -68,10 +68,15 @@
                               <Component id="jLabel33" alignment="1" max="32767" attributes="0"/>
                               <Component id="jLabel6" alignment="1" pref="88" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jtfAddress" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jcbLimit" alignment="0" pref="101" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                  <Component id="jtfAddress" pref="101" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jtfLimit" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -81,8 +86,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jtfContact" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jcbType" alignment="0" pref="101" max="32767" attributes="0"/>
+                              <Component id="jtfContact" pref="101" max="32767" attributes="0"/>
+                              <Component id="jtfType" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -112,11 +117,11 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jcbType" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel4" min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="jtfType" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jtfContact" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
@@ -124,7 +129,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jcbLimit" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfLimit" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -164,16 +169,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Credit Limit:      "/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jcbLimit">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;0&quot;, &quot;2000&quot;, &quot;3000&quot;, &quot;5000&quot; })" type="code"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
 
@@ -226,17 +221,20 @@
             <Property name="text" type="java.lang.String" value="Customer type:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jcbType">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Normal&quot;,&quot;Cooperate&quot; })" type="code"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JTextField" name="jtfCustID">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtfType">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtfLimit">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
