@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class CatalogMaintenanceGUI extends javax.swing.JFrame {
-    private ListArray<Product> flowerList = new ListArray<>();
+    private LinkedList<Product> flowerList = new LinkedList<>();
     private Product product = new Product();
     /**
      * Creates new form CatalogMaintenanceGUI
@@ -32,10 +32,8 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         jlbFlowerShop = new javax.swing.JLabel();
         jbtAddProd = new javax.swing.JButton();
         jbtUpdateProd = new javax.swing.JButton();
-        jbtAddPromotion = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableList = new javax.swing.JTable();
-        jbtUpdatePromotion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -66,30 +64,19 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
             }
         });
 
-        jbtAddPromotion.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jbtAddPromotion.setText("Create Promotion");
-        jbtAddPromotion.setMaximumSize(new java.awt.Dimension(215, 37));
-        jbtAddPromotion.setMinimumSize(new java.awt.Dimension(215, 37));
-        jbtAddPromotion.setPreferredSize(new java.awt.Dimension(215, 37));
-        jbtAddPromotion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtAddPromotionActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jTableList.setAutoCreateRowSorter(true);
         jTableList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Description", "Product Type", "Price", "Quantity"
+                "ID", "Name", "Description", "Product Type", "Price", "Quantity", "Start Date", "End Date", "Discount Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -101,17 +88,6 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         jTableList.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableList);
         jTableList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
-        jbtUpdatePromotion.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jbtUpdatePromotion.setText("Update Promotion");
-        jbtUpdatePromotion.setMaximumSize(new java.awt.Dimension(215, 37));
-        jbtUpdatePromotion.setMinimumSize(new java.awt.Dimension(215, 37));
-        jbtUpdatePromotion.setPreferredSize(new java.awt.Dimension(215, 37));
-        jbtUpdatePromotion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtUpdatePromotionActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Welcome to Catalog Maintenance Menu!");
@@ -132,31 +108,32 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jbSearch))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jbtUpdatePromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jbtAddPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(302, Short.MAX_VALUE)
                 .addComponent(jlbFlowerShop)
                 .addGap(314, 314, 314))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jbSearch))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(348, 348, 348)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jbtAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,19 +146,14 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbSearch))
+                    .addComponent(jbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbtAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jbtAddPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jbtUpdatePromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(83, 83, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,14 +179,6 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbtUpdateProdActionPerformed
 
-    private void jbtUpdatePromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdatePromotionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtUpdatePromotionActionPerformed
-
-    private void jbtAddPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddPromotionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtAddPromotionActionPerformed
-
     private void jbSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSearchActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
         clearTable(model);
@@ -223,22 +187,23 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     
     private void displayTable(DefaultTableModel model, int type){
         initializeList();
-        for (int i=0; i<flowerList.length();i++){
-            product = flowerList.get(i);
+        for (int i=0; i<flowerList.getNumberOfEntries();i++){
+            product = flowerList.getEntry(i);
+            
             if (type == 1 && product.getProd_type().equals("Fresh Flowers")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
             }
             else if (type == 2 && product.getProd_type().equals("Bouquets")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
             }
             else if (type == 3 && product.getProd_type().equals("Floral Arrangements")){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
             }
             else if (type == 0){
-                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity()};
+                Object[] row = {product.getProd_id(), product.getProd_name(), product.getProd_desc(), product.getProd_type(), product.getPrice(), product.getQuantity(), product.getPromotion().getStart_date(), product.getPromotion().getEnd_date(), product.getPromotion().getDiscount_price()};
                 model.addRow(row);
             }
         }
@@ -313,9 +278,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     private javax.swing.JTable jTableList;
     private javax.swing.JButton jbSearch;
     private javax.swing.JButton jbtAddProd;
-    private javax.swing.JButton jbtAddPromotion;
     private javax.swing.JButton jbtUpdateProd;
-    private javax.swing.JButton jbtUpdatePromotion;
     private javax.swing.JLabel jlbFlowerShop;
     // End of variables declaration//GEN-END:variables
 }
