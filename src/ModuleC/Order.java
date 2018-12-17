@@ -9,6 +9,7 @@ public class Order implements Serializable{
     private String order_id;
     private Customer customer;
     private LinkedList<Product> prod_list = new LinkedList<Product>();
+    private LinkedList<Product> custom_list = new LinkedList<Product>();
     private String collect_method;
     private String payment_method;
     private double total_payment;
