@@ -1,28 +1,18 @@
 package ModuleD;
 
 import ModuleE.Order;
-import ModuleE.LinkedQueue;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class OrderManagementGUI extends javax.swing.JFrame {
-    
-    private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
-    private LinkedQueue<Order> efficientRoute = new LinkedQueue<>();
-    private LinkedList<Order> ordertoday = new LinkedList<>();
-    private LinkedList<Order> deliverytoday = new LinkedList<>();
+
     private Order order = new Order();
-    private Order orderList = new Order();
+    
+    OrderManagement orderManagement = new OrderManagement();
     
     public OrderManagementGUI() {
         initComponents();
-        transferList();
+        orderManagement.transferList();
     }
 
     @SuppressWarnings("unchecked")
@@ -147,13 +137,13 @@ public class OrderManagementGUI extends javax.swing.JFrame {
 
     private void jbtCheckOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckOrderActionPerformed
 
-        transferList();
+        orderManagement.transferList();
         DefaultTableModel model = (DefaultTableModel) jtbOrder.getModel();
         model.setRowCount(0);
         jtbOrder.setModel(model);
         
-        for(int i = 0; i < ordertoday.getNumberOfEntries() ; i++){
-            order = ordertoday.getEntry(i);
+        for(int i = 0; i < orderManagement.getOrdertoday().getNumberOfEntries() ; i++){
+            order = orderManagement.getOrdertoday().getEntry(i);
             Object[] row = {order.getOrderID(),order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus(),(order.getAddressLine1() + order.getAddressLine2() + order.getPostCode() + order.getState())};
             model.addRow(row);
         }
@@ -161,152 +151,6 @@ public class OrderManagementGUI extends javax.swing.JFrame {
             jtbOrder.setModel(model);
 
     }//GEN-LAST:event_jbtCheckOrderActionPerformed
-    
-    private void initializeList() {
-     
-        try {
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream("orders.dat"));
-
-        ArrayList<Order> tmp = new ArrayList<Order>();
-        tmp = (ArrayList)in.readObject();
-        
-        for(int i=0; i<tmp.size(); i++)
-            {
-                orderList = tmp.get(i);
-                orderqueue.enqueue(orderList);
-            }
-        
-        in.close();
-        
-        } catch (FileNotFoundException ex) {
-          JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException ex) {
-          JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException ex) {
-          JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    public void efficientRoute(){
-        transferList();
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            
-            if(order.getState().toString().equals("Kuala Lumpur")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Selangor")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Perak")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Negeri Sembilan")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Pahang")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Melaka")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Penang")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Kelantan")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Terengganu")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Johor")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Kedah")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Perlis")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Sabah (+ RM 10)")){
-                efficientRoute.enqueue(order);
-            }
-        }
-        
-        for(int i = 0; i < deliverytoday.getNumberOfEntries(); i ++){
-            order = deliverytoday.getEntry(i);
-            if(order.getState().toString().equals("Sarawak (+ RM 10)")){
-                efficientRoute.enqueue(order);
-            }
-        }
-    }
-    
-    public void transferList(){
-        
-        initializeList();
-        ordertoday.clear();
-        deliverytoday.clear();
-        
-        while(!orderqueue.isEmpty()){
-            
-            order = orderqueue.dequeue();
-
-            if(order.getPickUpType().toString().equals("Self Pick-Up (+ RM 0)")){
-                ordertoday.add(order);
-            }
-            else{
-                deliverytoday.add(order);
-            }
-        }
-    }
     
     private void jbtRecordOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRecordOrderActionPerformed
             JFrame frame = new JFrame();
@@ -318,13 +162,13 @@ public class OrderManagementGUI extends javax.swing.JFrame {
 
     private void jbtCheckDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCheckDeliveryActionPerformed
         
-        efficientRoute();
+        orderManagement.efficientRoute();
         DefaultTableModel model = (DefaultTableModel) jtbOrder.getModel();
         model.setRowCount(0);
         jtbOrder.setModel(model);
         
-        while(!efficientRoute.isEmpty()){
-            order = efficientRoute.dequeue();
+        while(!orderManagement.getEfficientRoute().isEmpty()){
+            order = orderManagement.getEfficientRoute().dequeue();
             Object[] row = {order.getOrderID(),order.getCustName(),order.getCustType(),order.getOrderStatus(),order.getTimestamp(),order.getPaymentStatus(),(order.getAddressLine1() + order.getAddressLine2() + order.getPostCode() + order.getState())};
             model.addRow(row);
         }
