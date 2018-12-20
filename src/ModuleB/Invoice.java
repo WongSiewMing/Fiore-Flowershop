@@ -5,6 +5,7 @@
  */
 package ModuleB;
 
+import ModuleE.Order;
 import java.io.Serializable;
 
 /**
@@ -12,52 +13,63 @@ import java.io.Serializable;
  * @author jun_y
  */
 public class Invoice implements Serializable{
-    private int invoiceNum;
-    private String companyName;
-    private String date;
-    private String status;
     
-public Invoice(){
     
-}
+    private String invoiceID ;
+    private Customer customer;
+    private Order order;
+    private String invoiceStatus;
 
-    public int getInvoiceNum() {
-        return invoiceNum;
+  
+
+   
+
+    public Invoice ( ){
+    
+    
+    }
+    
+  
+  
+    
+    public String getInvoiceID() {
+        return invoiceID;
     }
 
-    public void setInvoiceNum(int invoiceNum) {
-        this.invoiceNum = invoiceNum;
+    public void setInvoiceID(String invoiceID) {
+        this.invoiceID = invoiceID;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public String getDate() {
-        return date;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+     public String getInvoiceStatus() {
+        return invoiceStatus;
     }
 
-    public String getStatus() {
-        return status;
+    public void setInvoiceStatus(String invoiceStatus) {
+        this.invoiceStatus = invoiceStatus;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
+    
     @Override
     public String toString() {
-        return "Invoice{" + "invoiceNum=" + invoiceNum + ", companyName=" + companyName + ", date=" + date + ", status=" + status + '}';
+        return "Invoice{" + "invoiceID=" + invoiceID + ", customer=" + customer + ", order=" + order + ", invoiceStatus=" + invoiceStatus + '}';
     }
+    
+    
 
-    
-    
+
+
 }
