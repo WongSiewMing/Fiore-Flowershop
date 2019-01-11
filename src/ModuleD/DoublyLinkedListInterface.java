@@ -1,9 +1,9 @@
 package ModuleD;
 
-public interface ListInterface<T> {
-    public boolean add(T item);
+public interface DoublyLinkedListInterface<T> {
+    public void add(T item);
     public boolean add(int newPosition, T item);
-    public T remove(int givenPosition);
+    public T remove(int index);
     public void clear();
     public boolean replace(int givenPosition, T item);
     public T getEntry(int givenPosition);

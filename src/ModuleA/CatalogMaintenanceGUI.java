@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class CatalogMaintenanceGUI extends javax.swing.JFrame {
-    private LinkedList<Product> flowerList = new LinkedList<>();
+    private CircularLinkedList<Product> flowerList = new CircularLinkedList<>();
     private Product product = new Product();
     /**
      * Creates new form CatalogMaintenanceGUI
@@ -30,39 +30,20 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jlbFlowerShop = new javax.swing.JLabel();
-        jbtAddProd = new javax.swing.JButton();
-        jbtUpdateProd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableList = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jbSearch = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jbtUpdateProd = new javax.swing.JButton();
+        jbtAddProd = new javax.swing.JButton();
+        jBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jlbFlowerShop.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jlbFlowerShop.setFont(new java.awt.Font("Segoe Script", 1, 26)); // NOI18N
         jlbFlowerShop.setText("FIORE FLOWERSHOP");
-
-        jbtAddProd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jbtAddProd.setText("Add New Product");
-        jbtAddProd.setToolTipText("");
-        jbtAddProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtAddProdActionPerformed(evt);
-            }
-        });
-
-        jbtUpdateProd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jbtUpdateProd.setText("Update Product Details");
-        jbtUpdateProd.setMaximumSize(new java.awt.Dimension(215, 37));
-        jbtUpdateProd.setMinimumSize(new java.awt.Dimension(215, 37));
-        jbtUpdateProd.setPreferredSize(new java.awt.Dimension(215, 37));
-        jbtUpdateProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtUpdateProdActionPerformed(evt);
-            }
-        });
 
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -89,19 +70,64 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableList);
         jTableList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Welcome to Catalog Maintenance Menu!");
-        jLabel1.setToolTipText("");
-
         jLabel3.setText("Search by Catalog :");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Fresh Flowers", "Bouquets", "Floral Arrangements" }));
 
-        jbSearch.setText("Search / Refreash");
+        jbSearch.setText("Search / Refresh");
         jbSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSearchActionPerformed(evt);
+            }
+        });
+
+        jbtUpdateProd.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jbtUpdateProd.setText("Update Product Details");
+        jbtUpdateProd.setMaximumSize(new java.awt.Dimension(215, 37));
+        jbtUpdateProd.setMinimumSize(new java.awt.Dimension(215, 37));
+        jbtUpdateProd.setPreferredSize(new java.awt.Dimension(215, 37));
+        jbtUpdateProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtUpdateProdActionPerformed(evt);
+            }
+        });
+
+        jbtAddProd.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jbtAddProd.setText("Add New Product");
+        jbtAddProd.setToolTipText("");
+        jbtAddProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAddProdActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jbtAddProd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(503, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtAddProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jBack.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jBack.setText("Back");
+        jBack.setToolTipText("");
+        jBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBackActionPerformed(evt);
             }
         });
 
@@ -111,35 +137,28 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jbSearch))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(jbtAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(302, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlbFlowerShop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(314, 314, 314))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBack)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jlbFlowerShop)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(28, 28, 28)
+                                    .addComponent(jbSearch))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
+                .addGap(38, 38, 38)
                 .addComponent(jlbFlowerShop, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -147,11 +166,11 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
                     .addComponent(jbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtUpdateProd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,6 +180,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         AddProductGUI add = new AddProductGUI();
         add.setLocationRelativeTo(null);
         add.setVisible(true);
+        add.setTitle("Add New Product");
     }//GEN-LAST:event_jbtAddProdActionPerformed
 
     private void jbtUpdateProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateProdActionPerformed
@@ -170,6 +190,7 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
             UpdateProductGUI update = new UpdateProductGUI(id);
             update.setLocationRelativeTo(null);
             update.setVisible(true);
+            update.setTitle("Update Product Product");
         }
         catch (IndexOutOfBoundsException ex){
             JOptionPane.showMessageDialog(null, "Please select one item from the table!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -182,10 +203,18 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         clearTable(model);
         displayTable(model, jComboBox1.getSelectedIndex());
     }//GEN-LAST:event_jbSearchActionPerformed
+
+    private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
+       dispose();
+        MainMenu.MainMenu ui = new MainMenu.MainMenu();
+        ui.setVisible(true);
+        ui.setTitle("Main Menu");
+        ui.setResizable(false);
+    }//GEN-LAST:event_jBackActionPerformed
     
     private void displayTable(DefaultTableModel model, int type){
         initializeList();
-        for (int i=0; i<flowerList.getNumberOfEntries();i++){
+        for (int i=0; i<flowerList.size();i++){
             product = flowerList.getEntry(i);
             
             if (type == 1 && product.getProd_type().equals("Fresh Flowers")){
@@ -262,16 +291,19 @@ public class CatalogMaintenanceGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CatalogMaintenanceGUI().setVisible(true);
-                new CatalogMaintenanceGUI().setDefaultCloseOperation(EXIT_ON_CLOSE);
+               CatalogMaintenanceGUI ui = new CatalogMaintenanceGUI();
+               ui.setVisible(true);
+               ui.setTitle("Catalog Maintainenance");
+               
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBack;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableList;
     private javax.swing.JButton jbSearch;

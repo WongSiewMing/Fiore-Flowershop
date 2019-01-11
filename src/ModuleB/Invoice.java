@@ -5,6 +5,7 @@
  */
 package ModuleB;
 
+import ModuleC.Order;
 import java.io.Serializable;
 
 /**
@@ -12,52 +13,59 @@ import java.io.Serializable;
  * @author jun_y
  */
 public class Invoice implements Serializable{
-    private int invoiceNum;
-    private String companyName;
-    private String date;
-    private String status;
-    
-public Invoice(){
-    
-}
 
-    public int getInvoiceNum() {
-        return invoiceNum;
+    public String getInvoiceID() {
+        return invoiceID;
     }
 
-    public void setInvoiceNum(int invoiceNum) {
-        this.invoiceNum = invoiceNum;
+    public void setInvoiceID(String invoiceID) {
+        this.invoiceID = invoiceID;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getCustomerID() {
+        return customerID;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
     }
 
-    public String getDate() {
-        return date;
+    public String getOrderID() {
+        return orderID;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
 
-    public String getStatus() {
-        return status;
+    public String getInvoiceStatus() {
+        return invoiceStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setInvoiceStatus(String invoiceStatus) {
+        this.invoiceStatus = invoiceStatus;
     }
 
     @Override
     public String toString() {
-        return "Invoice{" + "invoiceNum=" + invoiceNum + ", companyName=" + companyName + ", date=" + date + ", status=" + status + '}';
+        return "Invoice{" + "invoiceID=" + invoiceID + ", customerID=" + customerID + ", orderID=" + orderID + ", invoiceStatus=" + invoiceStatus + '}';
     }
+    
+    
+    private String invoiceID ;
+    private String customerID;
+    private String orderID;
+    private String invoiceStatus;
+
+ public Invoice(){
+     
+ }
+
+   
+   
 
     
-    
+
+
+
 }

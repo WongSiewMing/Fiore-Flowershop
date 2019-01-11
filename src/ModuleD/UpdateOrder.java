@@ -1,13 +1,6 @@
 package ModuleD;
 
-import ModuleE.Order;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import ModuleC.Order;
 import javax.swing.JOptionPane;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -15,40 +8,51 @@ import javax.swing.JFrame;
 
 public class UpdateOrder extends javax.swing.JPanel {
 
-    private LinkedQueue<Order> orderqueue = new LinkedQueue<>();
     private Order order = new Order();
-    private Order orderList = new Order();
-    LinkedList<Order> custorder = new LinkedList<>();
+
     LocalTime now = LocalTime.now(); 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm a");
+
+    OrderManagement orderManagement = new OrderManagement();
     
     public UpdateOrder() {
         initComponents();
         getOrder();  
-        transferList();
+        orderManagement.transferOrderList();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PaymentTypeGroup = new javax.swing.ButtonGroup();
+        OrderStatusGroup = new javax.swing.ButtonGroup();
+        TimeStampGroup = new javax.swing.ButtonGroup();
         jlSelectOrder = new javax.swing.JLabel();
         jlPaymentType = new javax.swing.JLabel();
         jcbOrder = new javax.swing.JComboBox<>();
-        jcbPaymentType = new javax.swing.JComboBox<>();
         jbtUpdate = new javax.swing.JButton();
+        Pending = new javax.swing.JRadioButton();
+        Cash = new javax.swing.JRadioButton();
+        CreditCard = new javax.swing.JRadioButton();
+        jlbOrderStatus = new javax.swing.JLabel();
+        Waiting = new javax.swing.JRadioButton();
+        PickedUp = new javax.swing.JRadioButton();
+        OrderCancel = new javax.swing.JRadioButton();
+        jlbTime = new javax.swing.JLabel();
+        TimePending = new javax.swing.JRadioButton();
+        CurrentTime = new javax.swing.JRadioButton();
+        jtfTime = new javax.swing.JTextField();
+        OtherTime = new javax.swing.JRadioButton();
 
-        jlSelectOrder.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jlSelectOrder.setText("Select Order");
+        jlSelectOrder.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlSelectOrder.setText("Please Select Order ");
 
-        jlPaymentType.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jlPaymentType.setText("Select Payment Type");
+        jlPaymentType.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlPaymentType.setText("Payment Type");
 
         jcbOrder.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcbOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -" }));
-
-        jcbPaymentType.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcbPaymentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Please Select -", "Cash ", "Credit Card", "Touch & Go" }));
 
         jbtUpdate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jbtUpdate.setText("Update");
@@ -58,144 +62,198 @@ public class UpdateOrder extends javax.swing.JPanel {
             }
         });
 
+        PaymentTypeGroup.add(Pending);
+        Pending.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Pending.setSelected(true);
+        Pending.setText("Pending");
+
+        PaymentTypeGroup.add(Cash);
+        Cash.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Cash.setText("Cash");
+
+        PaymentTypeGroup.add(CreditCard);
+        CreditCard.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        CreditCard.setText("Credit Card");
+
+        jlbOrderStatus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlbOrderStatus.setText("Order Status");
+
+        OrderStatusGroup.add(Waiting);
+        Waiting.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Waiting.setSelected(true);
+        Waiting.setText("Wait to Pick Up");
+
+        OrderStatusGroup.add(PickedUp);
+        PickedUp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        PickedUp.setText("Picked Up");
+
+        OrderStatusGroup.add(OrderCancel);
+        OrderCancel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        OrderCancel.setText("Cancel");
+
+        jlbTime.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlbTime.setText("Time Stamp");
+
+        TimeStampGroup.add(TimePending);
+        TimePending.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TimePending.setSelected(true);
+        TimePending.setText("Pending");
+
+        TimeStampGroup.add(CurrentTime);
+        CurrentTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        CurrentTime.setText("Current Time");
+
+        jtfTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        TimeStampGroup.add(OtherTime);
+        OtherTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        OtherTime.setText("Other");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlbTime)
+                    .addComponent(jlbOrderStatus)
                     .addComponent(jlPaymentType)
                     .addComponent(jlSelectOrder))
-                .addGap(68, 68, 68)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jcbOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(101, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtUpdate)
-                .addGap(185, 185, 185))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(Pending)
+                                .addGap(18, 18, 18)
+                                .addComponent(Cash)
+                                .addGap(18, 18, 18)
+                                .addComponent(CreditCard)))
+                        .addGap(181, 181, 181))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Waiting)
+                                .addGap(18, 18, 18)
+                                .addComponent(PickedUp)
+                                .addGap(18, 18, 18)
+                                .addComponent(OrderCancel)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jbtUpdate)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(TimePending)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(CurrentTime)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(OtherTime)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jtfTime, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlSelectOrder)
                     .addComponent(jcbOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlPaymentType)
-                    .addComponent(jcbPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                    .addComponent(Pending)
+                    .addComponent(Cash)
+                    .addComponent(CreditCard))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbOrderStatus)
+                    .addComponent(Waiting)
+                    .addComponent(PickedUp)
+                    .addComponent(OrderCancel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbTime)
+                    .addComponent(TimePending)
+                    .addComponent(CurrentTime)
+                    .addComponent(jtfTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OtherTime))
+                .addGap(18, 18, 18)
                 .addComponent(jbtUpdate)
-                .addGap(57, 57, 57))
+                .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateActionPerformed
         
-        if(jcbOrder.getSelectedIndex() == 0 || jcbPaymentType.getSelectedIndex() == 0){
+        Pending.setActionCommand("Pending");
+        CreditCard.setActionCommand("Credit Card");
+        Cash.setActionCommand("Cash");
+        
+        Waiting.setActionCommand("Wait to Pick Up");
+        PickedUp.setActionCommand("Picked Up");
+        OrderCancel.setActionCommand("Cancel");
+        
+        TimePending.setActionCommand("Pending");
+        CurrentTime.setActionCommand(now.format(dtf));
+        OtherTime.setActionCommand(jtfTime.getText());
+        
+        if(jcbOrder.getSelectedIndex() == 0 || (OtherTime.isSelected() && jtfTime.getText().toString().equals(""))){
             JOptionPane.showMessageDialog(null, "Please enter all required data !", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else
         {
-            for(int i = 0; i < custorder.getNumberOfEntries(); i ++)
+            for(int i = 0; i < orderManagement.getCustorder().getNumberOfEntries(); i ++)
             {
-                if(jcbOrder.getSelectedItem().toString().equals(custorder.getEntry(i).getOrderID().toString()+ " || " +custorder.getEntry(i).getCustName().toString())){
-                    order = custorder.getEntry(i);
-                    order.setOrderStatus("Picked Up");
-                    order.setPaymentStatus(jcbPaymentType.getSelectedItem().toString());
-                    order.setTimestamp(now.format(dtf));
-                    transferQueue();
-                    writeFile();
+                if(jcbOrder.getSelectedItem().toString().equals(orderManagement.getCustorder().getEntry(i).getOrder_id()+ " || " +orderManagement.getCustorder().getEntry(i).getCustomer().getCustName())){
+                    order = orderManagement.getCustorder().getEntry(i);
+                    order.setOrderStatus(OrderStatusGroup.getSelection().getActionCommand());
+                    order.setPaymentStatus(PaymentTypeGroup.getSelection().getActionCommand());
+                    order.setTimestamp(TimeStampGroup.getSelection().getActionCommand());
+                    orderManagement.transferOrderQueue();
+                    orderManagement.writeOrderFile();
                     JOptionPane.showMessageDialog(new JFrame(), "Update Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
-            }
-            
+            }        
         }
     }//GEN-LAST:event_jbtUpdateActionPerformed
 
-    private void getOrder(){
-        initializeList();
+    public void getOrder(){
+        orderManagement.readFile();
         
-        while(orderqueue.isEmpty() != true ){
-            order = orderqueue.dequeue();
-            if(order.getPickUpType().toString().equals("Self Pick-Up (+ RM 0)")){
-                jcbOrder.addItem(order.getOrderID() + " || " +order.getCustName());
+        while(orderManagement.getOrderqueue().isEmpty() != true ){
+            order = orderManagement.getOrderqueue().dequeue();
+            if(order.getPickUpType().equals("Self Pick-Up (+ RM 0)") || order.getPickUpType().toString().equals("Self Pick Up")){
+                jcbOrder.addItem(order.getOrder_id() + " || " +order.getCustomer().getCustName());
             }
         }
     }
-
-    private void transferList(){
-        
-        initializeList();
-        
-        for(int i = 0; orderqueue.isEmpty() != true; i++ ){
-            custorder.add(i,orderqueue.dequeue());
-        }
-    }
     
-    private void transferQueue(){
-        
-        for(int i = 0; i < custorder.getNumberOfEntries() ; i ++){
-            orderqueue.enqueue(custorder.getEntry(i));
-        }
-    }
-    
-    private void initializeList() {
-     
-        try {
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream("orders.dat"));
-
-        ArrayList<Order> tmp = new ArrayList<Order>();
-        tmp = (ArrayList)in.readObject();
-        
-        for(int i=0; i<tmp.size(); i++)
-            {
-                orderList = tmp.get(i);
-                orderqueue.enqueue(orderList);
-            }
-        in.close();
-        
-        } catch (FileNotFoundException ex) {
-          JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException ex) {
-          JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException ex) {
-          JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void writeFile(){
-        try {
-            
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("orders.dat"));
-            ArrayList tmp = new ArrayList();
-            
-            while(!orderqueue.isEmpty())
-            {
-                orderList = orderqueue.dequeue();
-                tmp.add(orderList);
-            }
-            
-            out.writeObject(tmp);
-            out.close();
-            
-    } catch (FileNotFoundException ex) {
-      JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-    } catch (IOException ex) {
-      JOptionPane.showMessageDialog(null, "Cannot save to file", "ERROR", JOptionPane.ERROR_MESSAGE);
-    }
-    }
-    
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Cash;
+    private javax.swing.JRadioButton CreditCard;
+    private javax.swing.JRadioButton CurrentTime;
+    private javax.swing.JRadioButton OrderCancel;
+    private javax.swing.ButtonGroup OrderStatusGroup;
+    private javax.swing.JRadioButton OtherTime;
+    private javax.swing.ButtonGroup PaymentTypeGroup;
+    private javax.swing.JRadioButton Pending;
+    private javax.swing.JRadioButton PickedUp;
+    private javax.swing.JRadioButton TimePending;
+    private javax.swing.ButtonGroup TimeStampGroup;
+    private javax.swing.JRadioButton Waiting;
     private javax.swing.JButton jbtUpdate;
     private javax.swing.JComboBox<String> jcbOrder;
-    private javax.swing.JComboBox<String> jcbPaymentType;
     private javax.swing.JLabel jlPaymentType;
     private javax.swing.JLabel jlSelectOrder;
+    private javax.swing.JLabel jlbOrderStatus;
+    private javax.swing.JLabel jlbTime;
+    private javax.swing.JTextField jtfTime;
     // End of variables declaration//GEN-END:variables
 }
 

@@ -1,34 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ModuleC;
 
+import ModuleA.*;
+import ModuleB.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author wtf981008
- */
 public class AddNewOrder extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AddNewCatalogItem
-     */
-    private ListArray<Product> orderlist = new ListArray<>(25);
-    private Product product = new Product();
-    
+    private ModuleA.CircularLinkedList<Product> flowerList = new ModuleA.CircularLinkedList<Product>();
+    private SinglyLinkedList<Order> orderList = new SinglyLinkedList<Order>();
+    private SinglyLinkedList<Customer> custList = new SinglyLinkedList<Customer>();
+    private ModuleA.CircularLinkedList<ProdList> prodList = new ModuleA.CircularLinkedList<ProdList>();
+    private ModuleA.Product product = new ModuleA.Product();
+    private ModuleB.LinkedList<Invoice> invList = new ModuleB.LinkedList<Invoice>();
+    private Order order = new Order();
+    private Invoice inv = new Invoice();
+    private Customer customer = new Customer();
+    private ProdList prod = new ProdList();
+    private double total = 0.0;
+    private int test = 0;
+
     public AddNewOrder() {
         initComponents();
-        //initializeList();
+        initializeList();
+
+        jOrderId.setText(generateId());
+        displayData();
+
     }
 
     /**
@@ -41,180 +50,682 @@ public class AddNewOrder extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jCancel = new javax.swing.JButton();
+        jSubmit = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jOrderId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jCustID = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPaymentMethod = new javax.swing.JComboBox<>();
+        jCollectionMethod = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jtfCustName = new javax.swing.JTextField();
-        jtfCustAdd = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jcbProdSelection = new javax.swing.JComboBox<>();
+        jCustName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jcbSelection = new javax.swing.JComboBox<>();
+        jCustType = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jCreditLimit = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jProductID = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jQuantity = new javax.swing.JTextField();
+        jAdd = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jProductList = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        jTotal = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTimeStamp = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("SimHei", 0, 24)); // NOI18N
-        jLabel1.setText("Order detail (Customer)");
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel1.setText("CREATE CUSTOMER ORDER");
 
-        jLabel2.setText("Name:");
-
-        jLabel3.setText("Product Selection :");
-
-        jLabel5.setText("Address:");
-
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jCancel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jCancel.setText("Cancel");
+        jCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jCancelActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Submit");
-        jButton2.setToolTipText("");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jSubmit.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jSubmit.setText("Submit");
+        jSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jSubmitActionPerformed(evt);
             }
         });
 
-        jcbProdSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1001", "1002", "1003", " " }));
+        jLabel7.setText("ORDER ID : ");
 
-        jLabel6.setText("Selection :");
+        jOrderId.setEditable(false);
+        jOrderId.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 
-        jcbSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Self pick up", "Delivery" }));
+        jLabel2.setText("CUSTOMER ID : ");
+
+        jCustID.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCustIDItemStateChanged(evt);
+            }
+        });
+
+        jLabel3.setText("PAYMENT METHOD : ");
+
+        jLabel4.setText("COLLECTION METHOD : ");
+
+        jPaymentMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash On Delivery", "Credit Card", "Touch & Go" }));
+
+        jCollectionMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Self Pick Up", "Delivery" }));
+        jCollectionMethod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCollectionMethodActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("CUSTOMER NAME : ");
+
+        jCustName.setEditable(false);
+
+        jLabel6.setText("CUSTOMER TYPE : ");
+
+        jCustType.setEditable(false);
+
+        jLabel8.setText("CUSTOMER CURRENT CREDIT: ");
+
+        jCreditLimit.setEditable(false);
+
+        jLabel9.setText("PRODUCT ID : ");
+
+        jLabel10.setText("QUANTITY : ");
+
+        jAdd.setText("Add Product");
+        jAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAddActionPerformed(evt);
+            }
+        });
+
+        jProductList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Quantity", "Unit Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jProductList);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel13.setText("TOTAL : ");
+
+        jTotal.setEditable(false);
+
+        jLabel12.setText("PICK UP DATE : ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jcbProdSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
+                            .addComponent(jLabel12)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTimeStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(569, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jAdd)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jcbSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jtfCustAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(jProductID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCustID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCustType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCreditLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPaymentMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCollectionMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(279, 279, 279)
-                        .addComponent(jLabel1)))
-                .addContainerGap(295, Short.MAX_VALUE))
+                        .addGap(77, 77, 77)
+                        .addComponent(jSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfCustAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jCustID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jCustName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jCustType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jCreditLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jPaymentMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jCollectionMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jTimeStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jProductID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbProdSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jAdd)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(150, Short.MAX_VALUE))
+                    .addComponent(jSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{
-        product.setCustName(jtfCustName.getText());
-        product.setCustAddress(jtfCustAdd.getText());
-        Object prod =(jcbProdSelection.getSelectedItem());
-        product.setProductID(prod.toString());
-        Object selection = (jcbSelection.getSelectedItem());
-        product.setSelection(selection.toString());
-        product.setPayment("Cash");
-        orderlist.add(product);
-        //saveList();
-        JOptionPane.showMessageDialog(null, "Order Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        }catch(NumberFormatException ex){
+    private void jSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubmitActionPerformed
+
+        Order tmp = new Order();
+        Invoice tmpInv = new Invoice();
+        ProdList tmpList = new ProdList();
+        DefaultTableModel model = (DefaultTableModel) jProductList.getModel();
+        double credit = Double.parseDouble(jTotal.getText());
+        String creditPayment = jPaymentMethod.getSelectedItem().toString();
+
+        try {
+            tmp.setOrder_id(jOrderId.getText());
+            for (int i = 0; i < custList.getNumberOfEntries(); i++) {
+                if (i == jCustID.getSelectedIndex()) {
+                    customer = custList.getEntry(i);
+                    if (creditPayment.equals("Credit Card") && customer.getType().equals("Cooperate")) {
+                        customer.setCurrentCredit(customer.getCurrentCredit() - credit);
+                        if (customer.getCurrentCredit() < 0) {
+                            throw new negativeException("Negative number entered");
+                        } else {
+                            custList.replace(i, customer);
+                        }
+
+                    }
+                    tmp.setCustomer(customer);
+                }
+            }
+
+            for (int j = 0; j < jProductList.getRowCount(); j++) {
+
+                String id = model.getValueAt(j, 0).toString();
+                int quantity = Integer.parseInt(model.getValueAt(j, 2).toString());
+
+                for (int k = 0; k < flowerList.size(); k++) {
+                    product = flowerList.getEntry(k);
+
+                    if (id.equals(product.getProd_id())) {
+
+                        product.setQuantity(product.getQuantity() - quantity);
+                        flowerList.replace(k, product);
+                    }
+
+                }
+
+            }
+
+            tmp.setPickUpType(jCollectionMethod.getSelectedItem().toString());
+            tmp.setArrangeStyle("");
+            tmp.setArrangeSize("");
+            tmp.setFlower("");
+            tmp.setAccessories("");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            String date = dateFormat.format(jTimeStamp.getCalendar().getTime());
+            tmp.setTimestamp("Pending");
+            tmp.setDate(date);
+            tmp.setOrderStatus("Pending");
+            tmp.setPriority("Normal (Within 7 days) (+ RM 30)");
+            tmp.setPaymentStatus(jPaymentMethod.getSelectedItem().toString());
+            tmp.setTotal_payment(Double.parseDouble(jTotal.getText()));
+//------- Generate Invoice Part
+            Object custId = jCustID.getSelectedItem();
+            String tempID = custId.toString();
+            String newID = tempID.substring(0, 5);
+
+            tmpInv.setCustomerID(newID);
+            tmpInv.setOrderID(jOrderId.getText());
+            tmpInv.setInvoiceID(generateInvoiceID());
+            tmpInv.setInvoiceStatus("Paid");
+
+            invList.add(tmpInv);
+            orderList.add(tmp);
+            saveList();
+            JOptionPane.showMessageDialog(new JFrame(), "Order Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            clearData();
+            jOrderId.setText(generateId());
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        } catch (negativeException ex) {
+            JOptionPane.showMessageDialog(null, "Customer Credit is not enough!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jSubmitActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
-    /*private void initializeList() {
+        MainMenu.MainMenu menu = new MainMenu.MainMenu();
+        menu.setVisible(true);
+        menu.setTitle("Main Menu");
+        menu.setResizable(false);
+    }//GEN-LAST:event_jCancelActionPerformed
+
+    private void jCustIDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCustIDItemStateChanged
+        int tmpID = jCustID.getSelectedIndex();
+        for (int i = 0; i < custList.getNumberOfEntries(); i++) {
+            if (tmpID == i) {
+                customer = custList.getEntry(i);
+                jCustName.setText(customer.getCustName());
+                jCustType.setText(customer.getType());
+                jCreditLimit.setText(Double.toString(customer.getCurrentCredit()));
+            }
+        }
+    }//GEN-LAST:event_jCustIDItemStateChanged
+
+    private void jAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddActionPerformed
+
+        DefaultTableModel model = (DefaultTableModel) jProductList.getModel();
+        displayTable(model, jProductID.getSelectedIndex());
+        ProdList tmpList = new ProdList();
+        Product flower = new Product();
+
+        String orderID = jOrderId.getText();
+        String productID = jProductID.getSelectedItem().toString();
+        String newProductID = productID.substring(0, 5);
+        int quantity = Integer.parseInt(jQuantity.getText());
+        for (int i = 0; i < flowerList.size(); i++) {
+            flower = flowerList.getEntry(i);
+
+            if (flower.getProd_id().equals(newProductID)) {
+
+                tmpList.setProduct(flower);
+
+            }
+
+        }
+
+        tmpList.setOrder_id(orderID);
+        tmpList.setQuantity(quantity);
+        tmpList.setProdListID(prodList.size() + 1);
+
+        prodList.add(tmpList);
+
+    }//GEN-LAST:event_jAddActionPerformed
+
+    private void jCollectionMethodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCollectionMethodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCollectionMethodActionPerformed
+
+    private void displayTable(DefaultTableModel model, int item) {
+        try {
+            for (int i = 0; i < flowerList.size(); i++) {
+                if (item == i) {
+                    product = flowerList.getEntry(i);
+                    Date day = new Date();
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    if (product.getPromotion().getDiscount_price() != 0.0) {
+                        String orderDate = dateFormat.format(day);
+                        String endDate = dateFormat.format(product.getPromotion().getEnd_date());
+                        String startDate = dateFormat.format(product.getPromotion().getStart_date());
+                        if (orderDate.compareTo(startDate) >= 0 && orderDate.compareTo(endDate) <= 0) {
+                            total = total + (Double.parseDouble(jQuantity.getText()) * product.getPromotion().getDiscount_price());
+                            jTotal.setText(Double.toString(total));
+                            Object[] row = {product.getProd_id(), product.getProd_name(), jQuantity.getText(), product.getPromotion().getDiscount_price()};
+                            model.addRow(row);
+                        } else {
+                            total = total + (Double.parseDouble(jQuantity.getText()) * product.getPrice());
+                            jTotal.setText(Double.toString(total));
+                            Object[] row = {product.getProd_id(), product.getProd_name(), jQuantity.getText(), product.getPrice()};
+                            model.addRow(row);
+                        }
+                    } else {
+                        total = total + (Double.parseDouble(jQuantity.getText()) * product.getPrice());
+                        jTotal.setText(Double.toString(total));
+                        Object[] row = {product.getProd_id(), product.getProd_name(), jQuantity.getText(), product.getPrice()};
+                        model.addRow(row);
+                    }
+                }
+            }
+            jProductList.setModel(model);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void initializeList() {
         try {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
-            ArrayList tmp = new ArrayList();
-            tmp = (ArrayList)oiStream.readObject();
-            for(int i=0; i<tmp.size();i++){
-                product = (Product)tmp.get(i);
-                orderlist.add(product);
+            ObjectInputStream oiStream2 = new ObjectInputStream(new FileInputStream("customer.dat"));
+            ObjectInputStream oiStream3 = new ObjectInputStream(new FileInputStream("orders.dat"));
+            ObjectInputStream oiStream4 = new ObjectInputStream(new FileInputStream("prodlist.dat"));
+            ObjectInputStream oiStream5 = new ObjectInputStream(new FileInputStream("invoice.dat"));
+            ArrayList tmpflower = new ArrayList();
+            ArrayList tmporder = new ArrayList();
+            ArrayList tmpcust = new ArrayList();
+            ArrayList tmpprod = new ArrayList();
+            ArrayList tmpInv = new ArrayList();
+            tmpflower = (ArrayList) oiStream.readObject();
+            tmpcust = (ArrayList) oiStream2.readObject();
+            tmporder = (ArrayList) oiStream3.readObject();
+            tmpprod = (ArrayList) oiStream4.readObject();
+            tmpInv = (ArrayList) oiStream5.readObject();
+
+            for (int i = 0; i < tmpflower.size(); i++) {
+                product = (Product) tmpflower.get(i);
+                flowerList.add(product);
+            }
+
+            for (int j = 0; j < tmporder.size(); j++) {
+                order = (Order) tmporder.get(j);
+                orderList.add(order);
+            }
+            for (int l = 0; l < tmpprod.size(); l++) {
+                prod = (ProdList) tmpprod.get(l);
+                prodList.add(prod);
+            }
+            for (int m = 0; m < tmpInv.size(); m++) {
+                inv = (Invoice) tmpInv.get(m);
+                invList.add(inv);
+            }
+            for (int k = 0; k < tmpcust.size(); k++) {
+                customer = (Customer) tmpcust.get(k);
+                custList.add(customer);
             }
             oiStream.close();
+            oiStream2.close();
+            oiStream3.close();
+            oiStream4.close();
+            oiStream5.close();
         } catch (FileNotFoundException ex) {
-            if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE)==0){
-                saveList();
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (JOptionPane.showConfirmDialog(null, "File not found, would you like to create a new file ?", "ERROR", JOptionPane.ERROR_MESSAGE) == 0) {
+                createList();
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to read file", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-      }
+    }
 
-     private void saveList(){
+    private void createList() {
         try {
-            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("order.dat"));
-            ArrayList tmp = new ArrayList();
-            for(int i=0; i<orderlist.getLength();i++){
-                product = orderlist.get(i);
-                tmp.add(i,product);
+            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("orders.dat"));
+            ObjectOutputStream ooStream2 = new ObjectOutputStream(new FileOutputStream("prodlist.dat"));
+
+            ArrayList tmporder = new ArrayList();
+            ArrayList tmpprod = new ArrayList();
+            for (int i = 0; i < orderList.getNumberOfEntries(); i++) {
+                order = orderList.getEntry(i);
+                tmporder.add(i, order);
             }
-            ooStream.writeObject(tmp);
+            for (int j = 0; j < prodList.size(); j++) {
+                prod = prodList.getEntry(j);
+                tmpprod.add(j, prod);
+            }
+            ooStream.writeObject(tmporder);
+            ooStream2.writeObject(tmpprod);
             ooStream.close();
-            
+            ooStream2.close();
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to save", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-    */
-    
+
+    private void saveList() {
+
+        try {
+            ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("orders.dat"));
+            ObjectOutputStream ooStream2 = new ObjectOutputStream(new FileOutputStream("flower.dat"));
+            ObjectOutputStream ooStream3 = new ObjectOutputStream(new FileOutputStream("prodlist.dat"));
+            ObjectOutputStream ooStream4 = new ObjectOutputStream(new FileOutputStream("invoice.dat"));
+            ObjectOutputStream ooStream5 = new ObjectOutputStream(new FileOutputStream("customer.dat"));
+            ArrayList tmporder = new ArrayList();
+            ArrayList tmpprod = new ArrayList();
+            ArrayList tmpflower = new ArrayList();
+            ArrayList tmpInv = new ArrayList();
+            ArrayList tmpCust = new ArrayList();
+            for (int i = 0; i < orderList.getNumberOfEntries(); i++) {
+                order = orderList.getEntry(i);
+                tmporder.add(order);
+            }
+            for (int j = 0; j < flowerList.size(); j++) {
+                product = flowerList.getEntry(j);
+                tmpflower.add(product);
+            }
+            for (int k = 0; k < prodList.size(); k++) {
+                prod = prodList.getEntry(k);
+                tmpprod.add(prod);
+
+            }
+            for (int l = 0; l < invList.getNumberOfEntries(); l++) {
+                inv = invList.getEntry(l);
+                tmpInv.add(inv);
+            }
+            for (int m = 0; m < custList.getNumberOfEntries(); m++) {
+                customer = custList.getEntry(m);
+                tmpCust.add(customer);
+
+            }
+            ooStream.writeObject(tmporder);
+            ooStream2.writeObject(tmpflower);
+            ooStream3.writeObject(tmpprod);
+            ooStream4.writeObject(tmpInv);
+            ooStream5.writeObject(tmpCust);
+            ooStream.close();
+            ooStream2.close();
+            ooStream3.close();
+            ooStream4.close();
+            ooStream5.close();
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.toString(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void displayData() {
+        try {
+            if (flowerList.size() == 0) {
+                ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream("flower.dat"));
+                ArrayList tmpflower = new ArrayList();
+                tmpflower = (ArrayList) oiStream.readObject();
+                oiStream.close();
+                for (int i = 0; i < tmpflower.size(); i++) {
+                    product = (Product) tmpflower.get(i);
+                    flowerList.add(product);
+                }
+            }
+            if (custList.getNumberOfEntries() == 0) {
+                ObjectInputStream oiStream2 = new ObjectInputStream(new FileInputStream("customer.dat"));
+
+                ArrayList tmpcust = new ArrayList();
+
+                tmpcust = (ArrayList) oiStream2.readObject();
+
+                oiStream2.close();
+
+                for (int k = 0; k < tmpcust.size(); k++) {
+                    customer = (Customer) tmpcust.get(k);
+                    custList.add(customer);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Failed to read file", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot read from file", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Class not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
+        for (int i = 0; i < flowerList.size(); i++) {
+            product = flowerList.getEntry(i);
+            jProductID.addItem(product.getProd_id() + " | " + product.getProd_name());
+        }
+        for (int j = 0; j < custList.getNumberOfEntries(); j++) {
+            customer = custList.getEntry(j);
+            jCustID.addItem(customer.getCustId() + " | " + customer.getCustName());
+        }
+
+        customer = custList.getEntry(0);
+        jCustName.setText(customer.getCustName());
+        jCustType.setText(customer.getType());
+        jCreditLimit.setText(Double.toString(customer.getCurrentCredit()));
+
+    }
+
+    private void clearData() {
+        jCustID.setSelectedIndex(0);
+        jPaymentMethod.setSelectedIndex(0);
+        jCollectionMethod.setSelectedIndex(0);
+        jTimeStamp.setDate(null);
+        jProductID.setSelectedIndex(0);
+        jQuantity.setText("");
+        DefaultTableModel model = (DefaultTableModel) jProductList.getModel();
+        model.setRowCount(0);
+        jProductList.setModel(model);
+        jTotal.setText("");
+    }
+
+    private String generateId() {
+        String id = null;
+        id = Integer.toString(orderList.getNumberOfEntries() + 1);
+
+        if (orderList.getNumberOfEntries() > 0) {
+            if (id.length() < 5 && id.length() > 0) {
+                if (id.length() > 1) {
+                    if (id.length() > 2) {
+                        id = "OL" + id;
+                    } else {
+                        id = "OL0" + id;
+                    }
+                } else {
+                    id = "OL00" + id;
+                }
+            } else {
+                id = "OL001" + id;
+            }
+        } else {
+            id = "OL001";
+        }
+        return id;
+    }
+
+    private String generateInvoiceID() {
+        String id = null;
+        id = Integer.toString(invList.getNumberOfEntries() + 1);
+
+        if (invList.getNumberOfEntries() > 0) {
+            if (id.length() < 5 && id.length() > 0) {
+                if (id.length() > 1) {
+                    if (id.length() > 2) {
+                        id = "IV" + id;
+                    } else {
+                        id = "IV0" + id;
+                    }
+                } else {
+                    id = "IV00" + id;
+                }
+            } else {
+                id = "IV001" + id;
+            }
+        } else {
+            id = "IV001";
+        }
+        return id;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -246,22 +757,49 @@ public class AddNewOrder extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddNewOrder().setVisible(true);
+                AddNewOrder ui = new AddNewOrder();
+                ui.setVisible(true);
+                ui.setTitle("Add New Catalog Order");
+
             }
         });
     }
 
+    private class negativeException extends Exception {
+
+        public negativeException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jAdd;
+    private javax.swing.JButton jCancel;
+    private javax.swing.JComboBox<String> jCollectionMethod;
+    private javax.swing.JTextField jCreditLimit;
+    private javax.swing.JComboBox<String> jCustID;
+    private javax.swing.JTextField jCustName;
+    private javax.swing.JTextField jCustType;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JComboBox<String> jcbProdSelection;
-    private javax.swing.JComboBox<String> jcbSelection;
-    private javax.swing.JTextField jtfCustAdd;
-    private javax.swing.JTextField jtfCustName;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jOrderId;
+    private javax.swing.JComboBox<String> jPaymentMethod;
+    private javax.swing.JComboBox<String> jProductID;
+    private javax.swing.JTable jProductList;
+    private javax.swing.JTextField jQuantity;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jSubmit;
+    private com.toedter.calendar.JDateChooser jTimeStamp;
+    private javax.swing.JTextField jTotal;
     // End of variables declaration//GEN-END:variables
 }

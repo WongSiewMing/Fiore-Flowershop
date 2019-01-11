@@ -16,25 +16,44 @@ public class Customer implements Serializable{
 
     private String custId;
     private String custName;
-    private String custAddress;
+    private String custAddressLine1;
+    private String custAddressLine2;
+    private String custPostCode;
+    private String custState;
+    private String custCountry;
     private String type;
     private String contact;
+    private String creditStatus;
+    private double currentCredit;
     private double limit;
+     
 
-    Customer(String custId, String  custName, String custAddress, String type, String contact, double limit) {
+  
+
+    public Customer(String custId, String  custName, String custAddressLine1,String custAddressLine2,String custPostCode,String custState,String custCountry, String type, String contact,String creditStatus,double currentCredit, double limit) {
        this.custId=custId;
        this.custName=custName;
-       this.custAddress=custAddress;
+       this.custAddressLine1=custAddressLine1;
+       this.custAddressLine2=custAddressLine2;
+       this.custPostCode=custPostCode;
+       this.custState=custState;
+       this.custCountry=custCountry;
        this.type=type;
        this.contact=contact;
+       this.creditStatus=creditStatus;
+       this.currentCredit=currentCredit;
        this.limit=limit;
        
+       
     }
-    Customer(){
+    public Customer(){
         
     }
 
-    
+    @Override
+    public String toString() {
+        return custId;
+    }
 
     public String getCustId() {
         return custId;
@@ -52,8 +71,44 @@ public class Customer implements Serializable{
         this.custName = custName;
     }
 
-    public String getCustAddress() {
-        return custAddress;
+    public String getCustAddressLine1() {
+        return custAddressLine1;
+    }
+
+    public void setCustAddressLine1(String custAddressLine1) {
+        this.custAddressLine1 = custAddressLine1;
+    }
+
+    public String getCustAddressLine2() {
+        return custAddressLine2;
+    }
+
+    public void setCustAddressLine2(String custAddressLine2) {
+        this.custAddressLine2 = custAddressLine2;
+    }
+
+    public String getCustPostCode() {
+        return custPostCode;
+    }
+
+    public void setCustPostCode(String custPostCode) {
+        this.custPostCode = custPostCode;
+    }
+
+    public String getCustState() {
+        return custState;
+    }
+
+    public void setCustState(String custState) {
+        this.custState = custState;
+    }
+
+    public String getCustCountry() {
+        return custCountry;
+    }
+
+    public void setCustCountry(String custCountry) {
+        this.custCountry = custCountry;
     }
 
     public String getType() {
@@ -64,16 +119,28 @@ public class Customer implements Serializable{
         this.type = type;
     }
 
-    public void setCustAddress(String custAddress) {
-        this.custAddress = custAddress;
-    }
-
     public String getContact() {
         return contact;
     }
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public String getCreditStatus() {
+        return creditStatus;
+    }
+
+    public void setCreditStatus(String creditStatus) {
+        this.creditStatus = creditStatus;
+    }
+
+    public double getCurrentCredit() {
+        return currentCredit;
+    }
+
+    public void setCurrentCredit(double currentCredit) {
+        this.currentCredit = currentCredit;
     }
 
     public double getLimit() {
@@ -83,14 +150,5 @@ public class Customer implements Serializable{
     public void setLimit(double limit) {
         this.limit = limit;
     }
-
- 
-    public String toString() {
-        return String.format("%s %s %s %s %s %.2f", custId, custName,custAddress,type,contact,limit);
-    }
-
-    ListIterator<Object> ListIterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
 }

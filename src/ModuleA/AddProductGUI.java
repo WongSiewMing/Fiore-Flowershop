@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 
 public class AddProductGUI extends javax.swing.JFrame {
-    private LinkedList<Product> flowerList = new LinkedList<>();
+    private CircularLinkedList<Product> flowerList = new CircularLinkedList<Product>();
     private Product product = new Product();
 
     /**
@@ -315,9 +315,10 @@ public class AddProductGUI extends javax.swing.JFrame {
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
             ArrayList tmp = new ArrayList();
-            for(int i=0; i<flowerList.getNumberOfEntries();i++){
+            for(int i=0; i<flowerList.size();i++){
                 product = flowerList.getEntry(i);
                 tmp.add(product);
+                
             }
             ooStream.writeObject(tmp);
             ooStream.close();
@@ -331,9 +332,9 @@ public class AddProductGUI extends javax.swing.JFrame {
     
     private String generateId(){
         String id = null;
-        id = Integer.toString(flowerList.getNumberOfEntries() + 1);
+        id = Integer.toString(flowerList.size() + 1);
         
-        if (flowerList.getNumberOfEntries()>0){
+        if (flowerList.size()>0){
             if (id.length() < 5 && id.length() > 0){
                 if (id.length() > 1){
                     if (id.length() > 2){

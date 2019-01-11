@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author jun_y
  */
-public class EmployeeUI extends javax.swing.JFrame {
+public class CustomerMaintenance extends javax.swing.JFrame {
 
     private LinkedList<Customer> custList = new LinkedList<>();
     private Customer cust = new Customer();
@@ -31,9 +31,10 @@ public class EmployeeUI extends javax.swing.JFrame {
     /**
      * Creates new form ViewCustomerUI
      */
-    public EmployeeUI() {
+    public CustomerMaintenance() {
         initComponents();
-        
+        displayTable();
+     
 
     }
 
@@ -344,7 +345,7 @@ public class EmployeeUI extends javax.swing.JFrame {
         jLabel12.setVerifyInputWhenFocusTarget(false);
         jLabel12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Billing Address");
 
         jLabelAddress1.setText("[address 1]");
@@ -575,6 +576,9 @@ public class EmployeeUI extends javax.swing.JFrame {
         }catch(ArrayIndexOutOfBoundsException ex){
              JOptionPane.showMessageDialog(null, "Please select a record!", "ERROR!", JOptionPane.ERROR_MESSAGE);
             
+        }catch(NumberFormatException ex){
+             JOptionPane.showMessageDialog(null, "Please select a record!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+            
         }
 
        
@@ -591,6 +595,10 @@ public class EmployeeUI extends javax.swing.JFrame {
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         dispose();
+        MainMenu.MainMenu menu = new MainMenu.MainMenu();
+        menu.setVisible(true);
+        menu.setTitle("Main Menu");
+        menu.setResizable(false);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
@@ -610,7 +618,7 @@ public class EmployeeUI extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
         int selectedRowIndex = jTableList.getSelectedRow();
         String id = model.getValueAt(selectedRowIndex, 0).toString();
-        initializeList();
+       
         for (int i=0; i<custList.getNumberOfEntries();i++){
                 Customer tmp = new Customer();
                
@@ -629,7 +637,10 @@ public class EmployeeUI extends javax.swing.JFrame {
                     else if(tmp.getCreditStatus().equals("N/A")){
                          jtfCreditStatus.setBackground(Color.white);
                     }
-                    else{
+                    else if(tmp.getCreditStatus().equals("New")){
+                        jtfCreditStatus.setBackground(Color.yellow);
+                    }
+                    else {
                         jtfCreditStatus.setBackground(Color.red);
                     }
                     jtfCreditStatus.setText(tmp.getCreditStatus());
@@ -648,10 +659,11 @@ public class EmployeeUI extends javax.swing.JFrame {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
       try{
+  
        DefaultTableModel model = (DefaultTableModel) jTableList.getModel();
        int selectedRowIndex = jTableList.getSelectedRow();
        String id = model.getValueAt(selectedRowIndex, 0).toString();
-       System.out.println(id);
+
         for (int i = 0; i < custList.getNumberOfEntries(); i++) {
             Customer tmp = custList.getEntry(i);
             if (id.equals(tmp.getCustId())) {
@@ -685,7 +697,8 @@ public class EmployeeUI extends javax.swing.JFrame {
     private void jButtonViewInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewInvoiceActionPerformed
         InvoiceList newframe4 = new InvoiceList();
         newframe4.setVisible(true);
-        newframe4.setTitle("View Invoice");
+        newframe4.setTitle("Invoice List");
+         newframe4.setResizable(false);
     }//GEN-LAST:event_jButtonViewInvoiceActionPerformed
 
     /**
@@ -705,14 +718,18 @@ public class EmployeeUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmployeeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmployeeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmployeeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmployeeUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -721,12 +738,12 @@ public class EmployeeUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EmployeeUI ui = new EmployeeUI();
+                CustomerMaintenance ui = new CustomerMaintenance();
                 ui.setVisible(true);
                 ui.setTitle("Customer Maintenance");
                 ui.setResizable(false);
                 ui.setSize(800,650);
-                ui.displayTable();
+              
             }
         });
     }
@@ -791,7 +808,7 @@ public class EmployeeUI extends javax.swing.JFrame {
         }
 
         jTableList.setModel(model);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
     }
 
 

@@ -2,33 +2,8 @@ package ModuleE;
 
 public interface BillInterface {
     
-    public void setID(String ID);
-    public String getID();
-    public void setName(String name);
-    public String getName();
-    public void setAddress1(String address1);
-    public String getAddress1();
-    public void setAddress2(String address2);
-    public String getAddress2();
-    public void setState(String state);
-    public String getState();
-    public void setPostCode(String postCode);
-    public String getPostCode();
-    public void setCountry(String country);
-    public String getCountry();
-    public void setPickUp(String pickup);
-    public String getPickUp();
-    public void setStyle(String style);
-    public String getStyle();
-    public void setSize(String size);
-    public String getSize();
-    public void setFlower(String flower);
-    public String getFlower();
-    public void setAccessories(String accessories);
-    public String getAccessories();
-    public void setPriority(String priority);
-    public String getPriority();
-    
+    public String getOrder_id();
+    public void setOrder_id(String order_id);
     public void setPickUpPrice(int pickupPrice);
     public int getPickUpPrice();
     public void setStatePrice(int statePrice);

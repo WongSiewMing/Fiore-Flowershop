@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author kokho
  */
 public class UpdateProductGUI extends javax.swing.JFrame {
-    private LinkedList<Product> flowerList = new LinkedList<>();
+    private CircularLinkedList<Product> flowerList = new CircularLinkedList<>();
     private Product product = new Product();
 
     /**
@@ -259,7 +259,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
                 tmp.setPromotion(promotion);
             }
             
-            for (int i=0; i<flowerList.getNumberOfEntries();i++){
+            for (int i=0; i<flowerList.size();i++){
                 product = flowerList.getEntry(i);
                 if (product.getProd_id().equals(tmp.getProd_id())){
                     flowerList.replace(i, tmp);
@@ -277,7 +277,8 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Please fill all the blank space!", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-
+        
+        dispose();
     }//GEN-LAST:event_jbtUpdateActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
@@ -297,6 +298,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
 
     private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
         dispose();
+        
     }//GEN-LAST:event_jbtBackActionPerformed
 
     private void jCheckPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckPromotionActionPerformed
@@ -340,7 +342,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream("flower.dat"));
             ArrayList<Product> tmp = new ArrayList<Product>();
-            for(int i=0; i<flowerList.getNumberOfEntries();i++){
+            for(int i=0; i<flowerList.size();i++){
                 product = flowerList.getEntry(i);
                 tmp.add(product);
             }
@@ -355,7 +357,7 @@ public class UpdateProductGUI extends javax.swing.JFrame {
     }
     
     private void displayData(String id){
-        for(int i = 0; i<flowerList.getNumberOfEntries();i++){
+        for(int i = 0; i<flowerList.size();i++){
             product = flowerList.getEntry(i);
             if (product.getProd_id().equals(id)){
                 jtfProd_id.setText(product.getProd_id());
